@@ -18,6 +18,10 @@ export default function Modal({ focused, data, setGridData }) {
     const copy = { ...data }
     copy.grids[gridIndex][taskIndex].text = content
 
+    const json = JSON.stringify(copy)
+
+    localStorage.setItem('harada_grid', json)
+
     setGridData(copy)
   }
 

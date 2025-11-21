@@ -10,17 +10,9 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col justify-between h-screen mt-5">
+      <main className="flex flex-col justify-between mt-5">
         <h1 className="text-3xl font-bold mb-3">My Grid</h1>
-        <div className="w-full flex gap-3 justify-end mb-3">
-          <button className="btn btn-neutral">
-            <Icon icon="ix:clear" className="text-lg" /> Clear
-          </button>
-          <button className="btn btn-primary">
-            <Icon icon="teenyicons:pdf-outline" className="text-lg" /> Save to
-            PDF
-          </button>
-        </div>
+
         <Grid data={data} />
         <Footer />
       </main>

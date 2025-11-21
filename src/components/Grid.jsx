@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import Modal from './Modal'
+import ClearModal from './ClearModal'
 
 export default function Grid({ data }) {
   const [gridData, setGridData] = useState(data)
@@ -13,12 +14,12 @@ export default function Grid({ data }) {
       const dataFromLS = localStorage.getItem('harada_grid')
 
       if (!dataFromLS) {
-        return
+        setGridData(data)
       } else {
         setGridData(JSON.parse(dataFromLS))
       }
     })()
-  }, [gridData])
+  }, [])
 
   const handleClickEdit = (taskId) => {
     setEditing(true)
@@ -26,9 +27,21 @@ export default function Grid({ data }) {
     document.getElementById('task_modal').showModal()
   }
 
+  const handleClickClear = () => {
+    document.getElementById('clear_modal').showModal()
+  }
+
   return (
-    <>
-      <div className="grid grid-cols-3 border-2 h-full mb-3 text-xs md:text-sm lg:text-md">
+    <div className="h-[1000px] mb-16 w-[1000px] mx-auto">
+      <div className="w-full flex gap-3 justify-end mb-3">
+        <button className="btn btn-neutral" onClick={handleClickClear}>
+          <Icon icon="ix:clear" className="text-lg" /> Clear
+        </button>
+        <button className="btn btn-primary">
+          <Icon icon="teenyicons:pdf-outline" className="text-lg" /> Save to PDF
+        </button>
+      </div>
+      <div className="grid grid-cols-3 border-2 w-full h-full mx-auto">
         {gridData.grids.map((grid, ind) => (
           <div className="grid grid-cols-3 border-2" key={`grid-${ind + 1}`}>
             {grid.map((task, ind) => (
@@ -54,7 +67,8 @@ export default function Grid({ data }) {
           </div>
         ))}
       </div>
-      <Modal focused={focused} data={data} setGridData={setGridData} />
-    </>
+      <Modal focused={focused} data={gridData} setGridData={setGridData} />
+      <ClearModal setGridData={setGridData} template={data} />
+    </div>
   )
 }
