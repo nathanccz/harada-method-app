@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import Modal from './Modal'
 import ClearModal from './ClearModal'
+import data from '../../data.json'
+import Dropdown from './Dropdown'
 
-export default function Grid({ data }) {
+export default function Grid() {
   const [gridData, setGridData] = useState(data)
   const [editing, setEditing] = useState(false)
   const [hovered, setHovered] = useState(null)
@@ -19,7 +21,7 @@ export default function Grid({ data }) {
         setGridData(JSON.parse(dataFromLS))
       }
     })()
-  }, [])
+  }, [focused])
 
   const handleClickEdit = (taskId) => {
     setEditing(true)
@@ -33,13 +35,11 @@ export default function Grid({ data }) {
 
   return (
     <div className="h-[1000px] mb-16 w-[1000px] mx-auto">
-      <div className="w-full flex gap-3 justify-end mb-3">
+      <div className="w-full flex gap-3 justify-end mb-3 items-center">
         <button className="btn btn-neutral" onClick={handleClickClear}>
           <Icon icon="ix:clear" className="text-lg" /> Clear
         </button>
-        <button className="btn btn-primary">
-          <Icon icon="teenyicons:pdf-outline" className="text-lg" /> Save to PDF
-        </button>
+        <Dropdown />
       </div>
       <div className="grid grid-cols-3 border-2 w-full h-full mx-auto">
         {gridData.grids.map((grid, ind) => (
@@ -47,7 +47,7 @@ export default function Grid({ data }) {
             {grid.map((task, ind) => (
               <div
                 key={task.id}
-                className={`hover:bg-gray-200 ease-in-out duration-100 border flex justify-center items-center p-1 relative ${
+                className={`hover:bg-gray-200 ease-in-out duration-100 border flex justify-center items-center p-1 relative h-[109px] w-[110px] ${
                   task.id.startsWith('main') || task.slot === 'middle-center'
                     ? 'bg-gray-300 font-bold'
                     : ''
@@ -61,14 +61,18 @@ export default function Grid({ data }) {
                     onClick={() => handleClickEdit(task.id)}
                   />
                 )}
-                <span className="text-lg">{task.text}</span>
+                <span className="text-md">{task.text}</span>
               </div>
             ))}
           </div>
         ))}
       </div>
       <Modal focused={focused} data={gridData} setGridData={setGridData} />
-      <ClearModal setGridData={setGridData} template={data} />
+      <ClearModal
+        setGridData={setGridData}
+        template={data}
+        setFocused={setFocused}
+      />
     </div>
   )
 }

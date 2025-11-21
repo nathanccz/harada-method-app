@@ -1,7 +1,8 @@
-export default function ClearModal({ setGridData, template }) {
+export default function ClearModal({ setGridData, template, setFocused }) {
   const handleClickClear = () => {
     localStorage.removeItem('harada_grid')
     setGridData(template)
+    setFocused([])
   }
   return (
     <dialog id="clear_modal" className="modal">
@@ -14,13 +15,12 @@ export default function ClearModal({ setGridData, template }) {
         </form>
         <h3 className="font-bold text-lg">Are You Sure?</h3>
         <p className="py-4">
-          Clicking "clear" will reset your grid and permanently delete it from
-          your local storage.
+          Your grid will be permanently deleted and removed from local storage.
         </p>
         <div className="modal-action">
           <form method="dialog">
             {/* if there is a button, it will close the modal */}
-            <button className="btn" onClick={handleClickClear}>
+            <button className="btn btn-warning" onClick={handleClickClear}>
               Clear
             </button>
           </form>
