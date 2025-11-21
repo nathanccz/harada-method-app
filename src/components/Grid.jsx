@@ -4,6 +4,7 @@ import Modal from './Modal'
 import ClearModal from './ClearModal'
 import data from '../../data.json'
 import Dropdown from './Dropdown'
+import FileUploader from './FileUploader'
 
 export default function Grid() {
   const [gridData, setGridData] = useState(data)
@@ -35,11 +36,14 @@ export default function Grid() {
 
   return (
     <div className="h-[1000px] mb-16 w-[1000px] mx-auto">
-      <div className="w-full flex gap-3 justify-end mb-3 items-center">
-        <button className="btn btn-neutral" onClick={handleClickClear}>
-          <Icon icon="ix:clear" className="text-lg" /> Clear
-        </button>
-        <Dropdown />
+      <div className="w-full flex gap-3 justify-between mb-3 items-center">
+        <FileUploader setGridData={setGridData} />
+        <div>
+          <button className="btn btn-neutral" onClick={handleClickClear}>
+            <Icon icon="ix:clear" className="text-lg" /> Clear
+          </button>
+          <Dropdown />
+        </div>
       </div>
       <div className="grid grid-cols-3 border-2 w-full h-full mx-auto">
         {gridData.grids.map((grid, ind) => (
@@ -53,6 +57,7 @@ export default function Grid() {
                     : ''
                 }`}
                 onMouseEnter={() => setHovered(task.id)}
+                onMouseLeave={() => setHovered(null)}
               >
                 {hovered === task.id && (
                   <Icon
@@ -67,6 +72,7 @@ export default function Grid() {
           </div>
         ))}
       </div>
+
       <Modal focused={focused} data={gridData} setGridData={setGridData} />
       <ClearModal
         setGridData={setGridData}

@@ -1,7 +1,8 @@
 import { Icon } from '@iconify/react'
 import JsonDownloader from './JsonDownloader'
+import PdfDownloader from './PdfDownloader'
 
-export default function Dropdown() {
+export default function Dropdown({}) {
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn m-1">
@@ -18,18 +19,10 @@ export default function Dropdown() {
           </a>
         </li>
         <li>
-          <a>
-            <Icon icon="teenyicons:pdf-outline" className="text-lg" />
-            Save as PDF
-          </a>
+          <PdfDownloader />
         </li>
         <li>
-          <a>
-            <JsonDownloader
-              storageKey="harada_grid"
-              filename="user_data.json"
-            />
-          </a>
+          <JsonDownloader storageKey="harada_grid" filename="user_data.json" />
         </li>
       </ul>
     </div>
