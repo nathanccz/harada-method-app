@@ -10,8 +10,6 @@ function App() {
     <div className="relative">
       <Navbar />
       <main className="flex flex-col justify-between mt-5">
-        <h1 className="text-2xl font-bold mb-3">Software Engineer Job Goals</h1>
-
         <Grid />
         <Footer />
       </main>

@@ -2,7 +2,7 @@ import Drawer from './Drawer'
 
 export default function Navbar() {
   return (
-    <div className="navbar bg-base-100 shadow-sm absolute top-0 sticky z-999">
+    <div className="navbar bg-base-100 shadow-sm top-0 sticky z-999">
       <div className="navbar-start text-left">
         <Drawer />
       </div>

@@ -1,4 +1,5 @@
 {
+  "title": "",
   "grids": [
     [
       { "id": "outer-0-1", "slot": "top-left", "text": "" },
@@ -99,5 +100,7 @@
       { "id": "outer-7-8", "slot": "bottom-center", "text": "" },
       { "id": "outer-7-9", "slot": "bottom-right", "text": "" }
     ]
-  ]
+  ],
+  "createdAt": "",
+  "lastModified": ""
 }
