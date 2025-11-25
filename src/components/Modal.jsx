@@ -1,7 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function Modal({ focused, data, setGridData }) {
+export default function Modal({ focused, data, setGridData, text }) {
   const [content, setContent] = useState('')
+
+  useEffect(() => {
+    setContent(text)
+  }, [text]) //Need to fix this so that the default form text ALWAYS shows current task text
 
   const handleFormChange = (e) => {
     setContent(e.target.value)
@@ -17,6 +21,11 @@ export default function Modal({ focused, data, setGridData }) {
 
     const copy = { ...data }
     copy.grids[gridIndex][taskIndex].text = content
+    copy.lastModified = new Date().toISOString()
+
+    if (!copy.createdAt) {
+      copy.createdAt = new Date().toISOString()
+    }
 
     const json = JSON.stringify(copy)
 

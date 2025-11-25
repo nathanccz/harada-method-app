@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 
-export default function FileUploader({ setGridData }) {
-  const handleFileUpload = () => {
+export default function FileUploader({ setGridData, loading, setLoading }) {
+  const handleFileUpload = async () => {
     const fileToUpload = document.getElementById('json-uploader').files[0]
 
     if (!fileToUpload) {
@@ -14,13 +14,17 @@ export default function FileUploader({ setGridData }) {
       return
     }
 
+    setLoading(true)
+
     const reader = new FileReader()
 
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       try {
         const json = JSON.parse(event.target.result)
         localStorage.setItem('harada_grid', event.target.result)
+        await new Promise((res) => setTimeout(res, 2000))
         setGridData(json)
+        setLoading(false)
       } catch (error) {
         alert('Invalid JSON file.')
         console.error(err)
@@ -34,7 +38,7 @@ export default function FileUploader({ setGridData }) {
       <input type="file" className="file-input" id="json-uploader" />
       <button onClick={handleFileUpload}>
         <Icon
-          icon="material-symbols:upload"
+          icon={loading ? 'line-md:loading-loop' : 'material-symbols:upload'}
           className="text-2xl cursor-pointer"
         />
       </button>

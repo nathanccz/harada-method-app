@@ -10,6 +10,11 @@ export default function TitleModal({ data, setGridData }) {
   const handleClickSave = () => {
     const copy = { ...data }
     copy.title = title
+    copy.lastModified = new Date().toISOString()
+
+    if (!copy.createdAt) {
+      copy.createdAt = new Date().toISOString()
+    }
 
     const json = JSON.stringify(copy)
 
