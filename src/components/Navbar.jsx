@@ -7,7 +7,7 @@ export default function Navbar() {
         <Drawer />
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-lg">MyHarada App</a>
+        <a className="btn btn-ghost text-lg">myHarada.app</a>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">

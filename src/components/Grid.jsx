@@ -73,7 +73,7 @@ export default function Grid() {
       )}
 
       {/* MAIN GRID WRAPPER */}
-      <div className="h-[1050px] mb-24 w-[1050px] mx-auto">
+      <div className="h-[1050px] mb-24 w-[1050px] mx-auto text-center">
         {/* TOP CONTROLS */}
         <div className="w-full flex gap-3 justify-between mb-3 items-center">
           <FileUploader
