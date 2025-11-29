@@ -2,32 +2,20 @@ import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import Modal from './Modal'
 import ClearModal from './ClearModal'
-import data from '../../data.json'
-import Dropdown from './Dropdown'
-import FileUploader from './FileUploader'
 import TitleModal from './TitleModal'
-import { formatDate } from '../../utils/helpers'
+import data from '../../data.json'
 
-export default function Grid() {
-  const [gridData, setGridData] = useState(data)
+export default function Grid({
+  gridData,
+  setGridData,
+  loading,
+  focused,
+  setFocused,
+}) {
   const [editing, setEditing] = useState(false)
   const [hovered, setHovered] = useState(null)
-  const [focused, setFocused] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [titleHovered, setTitleHovered] = useState(false)
+
   const [text, setText] = useState('')
-
-  useEffect(() => {
-    ;(() => {
-      const dataFromLS = localStorage.getItem('harada_grid')
-
-      if (!dataFromLS) {
-        setGridData(data)
-      } else {
-        setGridData(JSON.parse(dataFromLS))
-      }
-    })()
-  }, [focused])
 
   const handleClickEdit = (taskId, text) => {
     setEditing(true)
@@ -36,60 +24,10 @@ export default function Grid() {
     document.getElementById('task_modal').showModal()
   }
 
-  const handleClickClear = () => {
-    document.getElementById('clear_modal').showModal()
-  }
-
-  const handleClickEditTitle = () => {
-    document.getElementById('title_modal').showModal()
-  }
-
   return (
     <>
-      {/* TITLE AREA */}
-      <div
-        className="relative w-fit mx-auto rounded hover:bg-gray-300 duration-100 p-2"
-        onMouseEnter={() => setTitleHovered(true)}
-        onMouseLeave={() => setTitleHovered(false)}
-      >
-        {titleHovered && (
-          <Icon
-            icon="material-symbols:edit-outline"
-            className="text-2xl cursor-pointer absolute top-0 right-0"
-            onClick={handleClickEditTitle}
-          />
-        )}
-
-        <h1 className="text-2xl font-bold p-3">
-          {gridData.title || 'Untitled'}
-        </h1>
-      </div>
-
-      {/* LAST MODIFIED */}
-      {gridData.lastModified && (
-        <span className="text-sm italic">
-          Last modified: {formatDate(gridData.lastModified)}
-        </span>
-      )}
-
       {/* MAIN GRID WRAPPER */}
       <div className="h-[1050px] mb-24 w-[1050px] mx-auto text-center">
-        {/* TOP CONTROLS */}
-        <div className="w-full flex gap-3 justify-between mb-3 items-center">
-          <FileUploader
-            setGridData={setGridData}
-            loading={loading}
-            setLoading={setLoading}
-          />
-
-          <div>
-            <button className="btn btn-neutral" onClick={handleClickClear}>
-              <Icon icon="ix:clear" className="text-lg" /> Clear
-            </button>
-            <Dropdown />
-          </div>
-        </div>
-
         {/* GRID OR SKELETON */}
         {!loading ? (
           <div className="grid grid-cols-3 w-full h-full mx-auto gap-3">
