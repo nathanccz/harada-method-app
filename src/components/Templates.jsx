@@ -1,6 +1,6 @@
 export default function Templates() {
   return (
-    <main className="flex flex-col gap-5 mt-5 p-10">
+    <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
       <h1 className="text-2xl font-bold">Templates</h1>
       <div className="card bg-base-100 w-84 shadow-sm border border-transparent hover:bg-base-200 hover:border-accent ease-in-out duration-100">
         <figure className="px-10 pt-10">

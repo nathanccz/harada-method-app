@@ -1,5 +1,6 @@
 {
   "title": "",
+  "description": "",
   "grids": [
     [
       { "id": "outer-0-1", "slot": "top-left", "text": "" },
@@ -102,5 +103,6 @@
     ]
   ],
   "createdAt": "",
-  "lastModified": ""
+  "lastModified": "",
+  "completedAt": ""
 }

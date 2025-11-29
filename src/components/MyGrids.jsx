@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 
 export default function MyGrids() {
   return (
-    <main className="flex flex-col gap-5 mt-5 p-10">
+    <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
       <h1 className="text-2xl font-bold">My Grids</h1>
       <div className="card w-96 bg-base-100 card-md shadow-sm border border-transparent hover:bg-base-200 hover:border-accent ease-in-out duration-100">
         <div className="card-body">

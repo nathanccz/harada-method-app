@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 export default function Dashboard() {
   return (
     <>
-      <div className="flex relative max-w-[1400px] mx-auto gap-3">
+      <div className="flex relative gap-3 px-28">
         <Sidebar />
         <Outlet />
       </div>

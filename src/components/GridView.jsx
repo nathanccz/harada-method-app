@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import Dropdown from './Dropdown'
 
 export default function GridView() {
-  const [gridView, setGridView] = useState(true)
+  const [gridView, setGridView] = useState(false)
   const [titleHovered, setTitleHovered] = useState(false)
   const [gridData, setGridData] = useState(data)
   const [focused, setFocused] = useState([])
@@ -35,7 +35,7 @@ export default function GridView() {
   }
 
   return (
-    <main className="flex flex-col gap-5 mt-5 p-10">
+    <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
       {/* TITLE AREA */}
       <div
         className="relative w-fit mx-auto rounded hover:bg-gray-300 duration-100 p-2"
