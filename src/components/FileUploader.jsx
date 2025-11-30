@@ -1,6 +1,12 @@
 import { Icon } from '@iconify/react'
 
-export default function FileUploader({ setGridData, loading, setLoading }) {
+export default function FileUploader({
+  setGridData,
+  loading,
+  setLoading,
+  setToastActive,
+  setToastMessage,
+}) {
   const handleFileUpload = async () => {
     const fileToUpload = document.getElementById('json-uploader').files[0]
 
@@ -25,6 +31,11 @@ export default function FileUploader({ setGridData, loading, setLoading }) {
         await new Promise((res) => setTimeout(res, 2000))
         setGridData(json)
         setLoading(false)
+        setToastMessage('Successfully uploaded file!')
+        setToastActive(true)
+        await new Promise((res) => setTimeout(res, 2000))
+        setToastActive(false)
+        setToastMessage('')
       } catch (error) {
         alert('Invalid JSON file.')
         console.error(err)

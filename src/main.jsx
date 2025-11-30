@@ -12,6 +12,7 @@ import MyGrids from './components/MyGrids.jsx'
 import GridView from './components/GridView.jsx'
 import Templates from './components/Templates.jsx'
 import Support from './components/Support.jsx'
+import ModalProvider from './providers/ModalProvider.jsx'
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ModalProvider>
+      <RouterProvider router={router} />
+    </ModalProvider>
   </StrictMode>
 )

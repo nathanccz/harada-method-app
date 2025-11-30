@@ -1,3 +1,7 @@
-export default function NewGridButton({ text }) {
-  return <button className="btn btn-primary">{text}</button>
+export default function NewGridButton({ text, openCreateModal }) {
+  return (
+    <button className="btn btn-primary" onClick={openCreateModal}>
+      {text}
+    </button>
+  )
 }

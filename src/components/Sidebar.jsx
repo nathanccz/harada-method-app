@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import SkeletonSidebar from './SkeletonSidebar'
 import NewGridButton from './NewGridButton'
+import { useModalContext } from '../providers/ModalProvider'
 
 export default function Sidebar() {
   const [loading, setLoading] = useState(false)
+  const { openCreateModal } = useModalContext()
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-gray-300 block' : 'block'
 
@@ -23,7 +25,10 @@ export default function Sidebar() {
           <span></span>
         </div>
       </div>
-      <NewGridButton text={'Create New Grid'} />
+      <NewGridButton
+        text={'Create New Grid'}
+        openCreateModal={openCreateModal}
+      />
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold mt-3">
         <li>
           <NavLink to={'/dashboard'} className={getNavLinkClass} end>
