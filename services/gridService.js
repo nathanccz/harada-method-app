@@ -77,3 +77,21 @@ export const editGridCell = async (gridId, gridArray) => {
     console.log(error)
   }
 }
+
+export const deleteGrid = async (gridId) => {
+  console.log(gridId)
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/grids/delete/${gridId}`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+      }
+    )
+    const message = response.message
+    console.log(message)
+  } catch (error) {
+    console.log('Error deleting modal:', error)
+  }
+}
