@@ -27,6 +27,7 @@ export default function GridView() {
       try {
         setLoading(true)
         const response = await getSingleGrid(id)
+        console.log('LOOOL', response)
         if (isMounted) {
           setGridData(response[0])
         }
@@ -82,13 +83,6 @@ export default function GridView() {
 
         {/* TOP CONTROLS */}
         <div className="w-full flex gap-3 justify-between mb-3 items-center">
-          <FileUploader
-            setGridData={setGridData}
-            loading={loading}
-            setLoading={setLoading}
-            setToastActive={setToastActive}
-            setToastMessage={setToastMessage}
-          />
           <div role="tablist" className="tabs tabs-border">
             <a
               role="tab"

@@ -55,3 +55,25 @@ export const getSingleGrid = async (gridId) => {
     console.log(error)
   }
 }
+
+export const editGridCell = async (gridId, gridArray) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/grids/edit/${gridId}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ grid: gridArray }),
+        credentials: 'include',
+      }
+    )
+
+    if (!response.ok) {
+      console.log('Something went wrong')
+    } else {
+      console.log('Grid successfully updated')
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}

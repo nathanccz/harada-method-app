@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { editGridCell } from '../../services/gridService'
 
 export default function Modal({ focused, data, setGridData, text }) {
   const [content, setContent] = useState('')
@@ -11,7 +12,7 @@ export default function Modal({ focused, data, setGridData, text }) {
     setContent(e.target.value)
   }
 
-  const handleClickSave = () => {
+  const handleClickSave = async () => {
     const gridIndex = data.grids.findIndex((grid) =>
       grid.some((task) => task.id === focused)
     )
@@ -27,11 +28,12 @@ export default function Modal({ focused, data, setGridData, text }) {
       copy.createdAt = new Date().toISOString()
     }
 
-    const json = JSON.stringify(copy)
+    const json = JSON.stringify(copy.grids)
+    console.log(data)
 
-    localStorage.setItem('harada_grid', json)
+    const response = await editGridCell(data._id, json)
 
-    setGridData(copy)
+    // setGridData(copy)
   }
 
   const handleClickExit = () => {

@@ -14,6 +14,7 @@ import Templates from './components/Templates.jsx'
 import Support from './components/Support.jsx'
 import ModalProvider from './providers/ModalProvider.jsx'
 import AuthContextProvider from './providers/AuthContextProvider.jsx'
+import ToastProvider from './providers/ToastProvider.jsx'
 
 const router = createBrowserRouter([
   {
@@ -61,9 +62,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthContextProvider>
-      <ModalProvider>
-        <RouterProvider router={router} />
-      </ModalProvider>
+      <ToastProvider>
+        <ModalProvider>
+          <RouterProvider router={router} />
+        </ModalProvider>
+      </ToastProvider>
     </AuthContextProvider>
   </StrictMode>
 )

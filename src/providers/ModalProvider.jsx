@@ -3,10 +3,14 @@ import Modal from '../components/Modal'
 import CreateModal from '../components/CreateModal'
 import data from '../../data.json'
 import { addGrid } from '../../services/gridService'
+import { useToastContext } from './ToastProvider'
 
 export const ModalProviderContext = createContext(null)
 
 export default function ModalProvider({ children }) {
+  const [loading, setLoading] = useState(false)
+  const { showToast } = useToastContext()
+
   const openCreateModal = () => {
     document.getElementById('create_modal').showModal()
   }
@@ -15,7 +19,6 @@ export default function ModalProvider({ children }) {
       alert('Please enter a title.')
       return
     }
-
     const newGrid = { ...data }
     newGrid.title = title
     newGrid.description = description
@@ -23,11 +26,7 @@ export default function ModalProvider({ children }) {
 
     try {
       const response = await addGrid(newGrid)
-      const data = await response.json()
-
-      if (data) {
-        alert('added!')
-      }
+      showToast(response.message)
     } catch (error) {
       console.log(error)
     }
@@ -36,7 +35,11 @@ export default function ModalProvider({ children }) {
   return (
     <ModalProviderContext.Provider value={{ openCreateModal }}>
       {children}
-      <CreateModal createProject={createProject} />
+      <CreateModal
+        createProject={createProject}
+        loading={loading}
+        setLoading={setLoading}
+      />
     </ModalProviderContext.Provider>
   )
 }
