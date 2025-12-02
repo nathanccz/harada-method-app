@@ -13,6 +13,7 @@ import GridView from './components/GridView.jsx'
 import Templates from './components/Templates.jsx'
 import Support from './components/Support.jsx'
 import ModalProvider from './providers/ModalProvider.jsx'
+import AuthContextProvider from './providers/AuthContextProvider.jsx'
 
 const router = createBrowserRouter([
   {
@@ -59,8 +60,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ModalProvider>
-      <RouterProvider router={router} />
-    </ModalProvider>
+    <AuthContextProvider>
+      <ModalProvider>
+        <RouterProvider router={router} />
+      </ModalProvider>
+    </AuthContextProvider>
   </StrictMode>
 )

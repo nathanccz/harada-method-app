@@ -23,6 +23,11 @@ export default function LoginField() {
     // handleEmailLogin(formData.email, formData.password)
   }
 
+  const handleGoogleLogin = (e) => {
+    e.preventDefault()
+    window.location.href = 'http://localhost:3000/auth/google'
+  }
+
   return (
     <fieldset className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
       <h1 className="font-bold text-lg">Welcome!</h1>
@@ -50,7 +55,10 @@ export default function LoginField() {
       </button>
       <p>OR</p>
 
-      <button className="btn btn-outline flex justify-center gap-5">
+      <button
+        className="btn btn-outline flex justify-center gap-5"
+        onClick={handleGoogleLogin}
+      >
         <Icon icon="devicon:google" className="text-2xl" />
         Log in with Google
       </button>

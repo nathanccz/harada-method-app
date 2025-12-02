@@ -3,12 +3,19 @@ import { NavLink } from 'react-router-dom'
 import SkeletonSidebar from './SkeletonSidebar'
 import NewGridButton from './NewGridButton'
 import { useModalContext } from '../providers/ModalProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function Sidebar() {
   const [loading, setLoading] = useState(false)
   const { openCreateModal } = useModalContext()
+  const { userData } = useAuthContext()
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-gray-300 block' : 'block'
+
+  const handleLogOut = (e) => {
+    e.preventDefault()
+    window.location.href = 'http://localhost:3000/api/logout' // Redirect to backend Google OAuth route
+  }
 
   return loading ? (
     <SkeletonSidebar />
@@ -17,7 +24,9 @@ export default function Sidebar() {
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
           <div className="bg-neutral text-neutral-content w-16 rounded-full flex justify-center items-center">
-            <div className="text-3xl text-center pt-3">G</div>
+            <div className="text-3xl text-center pt-3">
+              {userData?.firstName[0]}
+            </div>
           </div>
         </div>
         <div className="mt-2 ml-3">
@@ -72,7 +81,12 @@ export default function Sidebar() {
         </li>
       </ul>
 
-      <button className="btn btn-outline mt-8 mx-7 w-4/5">Log Out</button>
+      <button
+        className="btn btn-outline mt-8 mx-7 w-4/5"
+        onClick={handleLogOut}
+      >
+        Log Out
+      </button>
     </aside>
   )
 }
