@@ -33,7 +33,7 @@ export default function MyGrids() {
                   Created at: {formatDate(grid.createdAt)}
                 </span>
                 <div className="justify-end card-actions">
-                  <NavLink to={'/dashboard/grids/1'}>
+                  <NavLink to={`/dashboard/grid/${grid._id}`}>
                     <button className="btn btn-primary">View Grid</button>
                   </NavLink>
                 </div>

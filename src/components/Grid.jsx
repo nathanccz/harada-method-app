@@ -31,7 +31,7 @@ export default function Grid({
         {/* GRID OR SKELETON */}
         {!loading ? (
           <div className="grid grid-cols-3 w-full h-full mx-auto gap-3">
-            {gridData.grids.map((grid, ind) => (
+            {gridData?.grids.map((grid, ind) => (
               <div className="grid grid-cols-3 gap-3" key={`grid-${ind + 1}`}>
                 {grid.map((task) => {
                   const isMainCenter =

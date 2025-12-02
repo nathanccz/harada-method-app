@@ -6,7 +6,7 @@ export default function Overview({ gridData }) {
 
   return (
     <div className="h-[1050px] mb-24 w-[1050px] grid grid-cols-3 gap-3 basis-4/5">
-      {gridData.grids.map((grid, ind) => (
+      {gridData?.grids.map((grid, ind) => (
         <ul
           className={`list ${
             grid[0].id.startsWith('main') ? 'bg-yellow-100' : 'bg-base-100'

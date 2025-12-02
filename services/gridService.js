@@ -34,3 +34,24 @@ export const getGrids = async () => {
     console.log(error)
   }
 }
+
+export const getSingleGrid = async (gridId) => {
+  console.log(gridId)
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/grids/grid/${gridId}`,
+      {
+        credentials: 'include',
+      }
+    )
+    if (!response.ok) {
+      console.log('something went wrong')
+    }
+
+    const data = await response.json()
+    console.log(data)
+    return data.grid
+  } catch (error) {
+    console.log(error)
+  }
+}

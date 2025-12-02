@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         element: <MyGrids />,
       },
       {
-        path: '/dashboard/grids/1',
+        path: '/dashboard/grid/:id',
         element: <GridView />,
       },
       {

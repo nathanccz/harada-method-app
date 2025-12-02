@@ -2,32 +2,45 @@ import { useState, useEffect } from 'react'
 import Grid from './Grid'
 import Overview from './Overview'
 import { formatDate } from '../../utils/helpers'
-import data from '../../data.json'
 import FileUploader from './FileUploader'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import Dropdown from './Dropdown'
 import Toast from './Toast'
 
+import { useParams } from 'react-router-dom'
+import { getSingleGrid } from '../../services/gridService'
+
 export default function GridView() {
   const [gridView, setGridView] = useState(false)
   const [titleHovered, setTitleHovered] = useState(false)
-  const [gridData, setGridData] = useState(data)
+  const [gridData, setGridData] = useState(null)
   const [focused, setFocused] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [toastActive, setToastActive] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
+  const { id } = useParams()
 
   useEffect(() => {
-    ;(() => {
-      const dataFromLS = localStorage.getItem('harada_grid')
+    let isMounted = true
 
-      if (!dataFromLS) {
-        setGridData(data)
-      } else {
-        setGridData(JSON.parse(dataFromLS))
+    ;(async () => {
+      try {
+        setLoading(true)
+        const response = await getSingleGrid(id)
+        if (isMounted) {
+          setGridData(response[0])
+        }
+      } catch (err) {
+        console.error(err)
+      } finally {
+        if (isMounted) setLoading(false)
       }
     })()
-  }, [focused])
+
+    return () => {
+      isMounted = false
+    }
+  }, [id])
 
   const handleClickEditTitle = () => {
     document.getElementById('title_modal').showModal()
@@ -54,13 +67,14 @@ export default function GridView() {
             />
           )}
 
-          <h1 className="text-2xl font-bold p-3">
-            {gridData.title || 'Untitled'}
+          <h1 className="text-2xl font-bold p-3 text-center">
+            {gridData?.title || 'Untitled'}
           </h1>
+          <p> {gridData?.description || ''}</p>
         </div>
 
         {/* LAST MODIFIED */}
-        {gridData.lastModified && (
+        {gridData?.lastModified && (
           <span className="text-sm italic">
             Last modified: {formatDate(gridData.lastModified)}
           </span>
