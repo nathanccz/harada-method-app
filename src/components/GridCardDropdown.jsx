@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { useModalContext } from '../providers/ModalProvider'
 
 export default function GridCardDropdown({ gridId }) {
-  const { openDeleteModal } = useModalContext()
+  const { openDeleteModal, openEditDetailsModal } = useModalContext()
   return (
     <div className="dropdown dropdown-end absolute top-0 right-0">
       <div tabIndex={0} role="button" className="btn m-1">
@@ -16,12 +16,12 @@ export default function GridCardDropdown({ gridId }) {
         className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
       >
         <li>
-          <a>
+          <a onClick={() => openEditDetailsModal(gridId)}>
             <Icon
               icon="material-symbols:edit"
               className="sm:text-sm mg:text-md lg:text-lg"
             />
-            Edit Grid
+            Edit Details
           </a>
         </li>
         <li>

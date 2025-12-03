@@ -27,7 +27,6 @@ export default function GridView() {
       try {
         setLoading(true)
         const response = await getSingleGrid(id)
-        console.log('LOOOL', response)
         if (isMounted) {
           setGridData(response[0])
         }

@@ -1,7 +1,9 @@
 import { Icon } from '@iconify/react'
 import { NavLink } from 'react-router-dom'
+import { useDataContext } from '../providers/DataProvider'
 
 export default function Stats() {
+  const { grids } = useDataContext()
   return (
     <div className="stats shadow text-center">
       <NavLink to={'/dashboard/grids'}>
@@ -10,7 +12,7 @@ export default function Stats() {
             <Icon icon="vaadin:grid-small-o" className="text-2xl" />
           </div>
           <div className="stat-title">Active Grids</div>
-          <div className="stat-value">3</div>
+          <div className="stat-value">{grids.length}</div>
           <div className="stat-desc">Jan 1st - Feb 1st</div>
         </div>
       </NavLink>

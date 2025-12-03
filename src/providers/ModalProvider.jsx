@@ -2,9 +2,14 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import Modal from '../components/Modal'
 import CreateModal from '../components/CreateModal'
 import data from '../../data.json'
-import { addGrid, deleteGrid } from '../../services/gridService'
+import {
+  addGrid,
+  deleteGrid,
+  editGridDetails,
+} from '../../services/gridService'
 import { useToastContext } from './ToastProvider'
 import DeleteModal from '../components/DeleteModal'
+import EditDetailsModal from '../components/EditDetailsModal'
 
 export const ModalProviderContext = createContext(null)
 
@@ -12,6 +17,7 @@ export default function ModalProvider({ children }) {
   const [loading, setLoading] = useState(false)
   const { showToast } = useToastContext()
   const [gridToDelete, setGridToDelete] = useState(null)
+  const [gridToEdit, setGridToEdit] = useState(null)
 
   const openCreateModal = () => {
     document.getElementById('create_modal').showModal()
@@ -20,6 +26,11 @@ export default function ModalProvider({ children }) {
   const openDeleteModal = (gridId) => {
     setGridToDelete(gridId)
     document.getElementById('delete_modal').showModal()
+  }
+
+  const openEditDetailsModal = (gridId) => {
+    setGridToEdit(gridId)
+    document.getElementById('edit_details_modal').showModal()
   }
 
   const createProject = async (title, description) => {
@@ -51,8 +62,21 @@ export default function ModalProvider({ children }) {
     }
   }
 
+  const editDetails = async (title, description) => {
+    try {
+      const response = await editGridDetails(gridToEdit, title, description)
+      console.log(response)
+      setGridToEdit(null)
+      showToast('Grid details updated!')
+    } catch (error) {
+      onsole.log('Error editing grid details:', error)
+    }
+  }
+
   return (
-    <ModalProviderContext.Provider value={{ openCreateModal, openDeleteModal }}>
+    <ModalProviderContext.Provider
+      value={{ openCreateModal, openDeleteModal, openEditDetailsModal }}
+    >
       {children}
       <CreateModal
         createProject={createProject}
@@ -60,6 +84,7 @@ export default function ModalProvider({ children }) {
         setLoading={setLoading}
       />
       <DeleteModal gridToDelete={gridToDelete} removeGrid={removeGrid} />
+      <EditDetailsModal gridToEdit={gridToEdit} editDetails={editDetails} />
     </ModalProviderContext.Provider>
   )
 }

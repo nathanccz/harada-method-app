@@ -4,11 +4,13 @@ import SkeletonSidebar from './SkeletonSidebar'
 import NewGridButton from './NewGridButton'
 import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
+import { useDataContext } from '../providers/DataProvider'
 
 export default function Sidebar() {
   const [loading, setLoading] = useState(false)
   const { openCreateModal } = useModalContext()
   const { userData } = useAuthContext()
+  const { grids } = useDataContext()
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-gray-300 block' : 'block'
 
@@ -48,7 +50,9 @@ export default function Sidebar() {
           <NavLink to={'/dashboard/grids'} className={getNavLinkClass}>
             <div className="flex justify-between">
               <div>My Grids</div>
-              <div className="bg-gray-200 px-2 rounded-full">3</div>
+              <div className="bg-gray-200 px-2 rounded-full">
+                {grids.length}
+              </div>
             </div>
           </NavLink>
         </li>

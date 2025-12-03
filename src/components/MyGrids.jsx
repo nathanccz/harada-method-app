@@ -3,19 +3,10 @@ import { NavLink } from 'react-router-dom'
 import { getGrids } from '../../services/gridService'
 import { formatDate } from '../../utils/helpers'
 import GridCardDropdown from './GridCardDropdown'
+import { useDataContext } from '../providers/DataProvider'
 
 export default function MyGrids() {
-  const [grids, setGrids] = useState([])
-
-  useEffect(() => {
-    async function fetchGrids() {
-      const data = await getGrids()
-      console.log(data)
-      setGrids(data)
-    }
-
-    fetchGrids()
-  }, [])
+  const { grids } = useDataContext()
 
   return (
     <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">

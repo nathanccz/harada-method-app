@@ -90,8 +90,29 @@ export const deleteGrid = async (gridId) => {
       }
     )
     const message = response.message
-    console.log(message)
+    return { message: 'Grid deleted!' }
   } catch (error) {
-    console.log('Error deleting modal:', error)
+    console.log('Error deleting grid:', error)
+  }
+}
+
+export const editGridDetails = async (gridId, title, description) => {
+  console.log('LOLOOL', gridId, title, description)
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/grids/editDetails/${gridId}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: title, description: description }),
+        credentials: 'include',
+      }
+    )
+
+    const message = response.message
+
+    return { message: 'Grid details updated!' }
+  } catch (error) {
+    console.log('Error editing grid:', error)
   }
 }

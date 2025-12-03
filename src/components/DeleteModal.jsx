@@ -1,4 +1,12 @@
+import { deleteGrid } from '../../services/gridService'
+import { useDataContext } from '../providers/DataProvider'
+
 export default function DeleteModal({ removeGrid }) {
+  const { fetchGrids } = useDataContext()
+  const handleDeleteGrid = async () => {
+    const response = await removeGrid()
+    fetchGrids()
+  }
   return (
     <dialog id="delete_modal" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box text-center">
@@ -13,7 +21,7 @@ export default function DeleteModal({ removeGrid }) {
         <div className="modal-action">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn" onClick={removeGrid}>
+            <button className="btn" onClick={handleDeleteGrid}>
               Delete
             </button>
           </form>
