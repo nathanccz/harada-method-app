@@ -1,9 +1,10 @@
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
+import { useModalContext } from '../providers/ModalProvider'
 
 export default function Overview({ gridData }) {
   const [hovered, setHovered] = useState(null)
-
+  const { openEditListModal } = useModalContext()
   return (
     <div className="h-[1050px] mb-24 w-[1050px] grid grid-cols-3 gap-3 basis-4/5">
       {gridData?.grids.map((grid, ind) => (
@@ -37,7 +38,7 @@ export default function Overview({ gridData }) {
             <Icon
               icon="material-symbols:edit-outline"
               className="text-2xl cursor-pointer absolute top-0 right-0"
-              onClick={() => handleClickEdit(task.id, task.text)}
+              onClick={openEditListModal}
             />
           )}
         </ul>

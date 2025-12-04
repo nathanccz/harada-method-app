@@ -10,6 +10,7 @@ import {
 import { useToastContext } from './ToastProvider'
 import DeleteModal from '../components/DeleteModal'
 import EditDetailsModal from '../components/EditDetailsModal'
+import EditListModal from '../components/EditListModal'
 
 export const ModalProviderContext = createContext(null)
 
@@ -18,6 +19,7 @@ export default function ModalProvider({ children }) {
   const { showToast } = useToastContext()
   const [gridToDelete, setGridToDelete] = useState(null)
   const [gridToEdit, setGridToEdit] = useState(null)
+  const [indexOfGrid, setIndexOfGrid] = useState(null)
 
   const openCreateModal = () => {
     document.getElementById('create_modal').showModal()
@@ -31,6 +33,9 @@ export default function ModalProvider({ children }) {
   const openEditDetailsModal = (gridId) => {
     setGridToEdit(gridId)
     document.getElementById('edit_details_modal').showModal()
+  }
+  const openEditListModal = () => {
+    document.getElementById('edit_list_modal').showModal()
   }
 
   const createProject = async (title, description) => {
@@ -75,7 +80,12 @@ export default function ModalProvider({ children }) {
 
   return (
     <ModalProviderContext.Provider
-      value={{ openCreateModal, openDeleteModal, openEditDetailsModal }}
+      value={{
+        openCreateModal,
+        openDeleteModal,
+        openEditDetailsModal,
+        openEditListModal,
+      }}
     >
       {children}
       <CreateModal
@@ -85,6 +95,7 @@ export default function ModalProvider({ children }) {
       />
       <DeleteModal gridToDelete={gridToDelete} removeGrid={removeGrid} />
       <EditDetailsModal gridToEdit={gridToEdit} editDetails={editDetails} />
+      <EditListModal />
     </ModalProviderContext.Provider>
   )
 }

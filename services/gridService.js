@@ -97,7 +97,6 @@ export const deleteGrid = async (gridId) => {
 }
 
 export const editGridDetails = async (gridId, title, description) => {
-  console.log('LOLOOL', gridId, title, description)
   try {
     const response = await fetch(
       `http://localhost:3000/api/grids/editDetails/${gridId}`,
@@ -114,5 +113,25 @@ export const editGridDetails = async (gridId, title, description) => {
     return { message: 'Grid details updated!' }
   } catch (error) {
     console.log('Error editing grid:', error)
+  }
+}
+
+export const editGridCells = async (obj) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/grids/editCells/${gridId}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj),
+        credentials: 'include',
+      }
+    )
+
+    const message = response.message
+
+    return { message: 'Grid updated!' }
+  } catch (error) {
+    console.log('Error editing grid cells:', error)
   }
 }

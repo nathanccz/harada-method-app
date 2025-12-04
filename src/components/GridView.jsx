@@ -6,9 +6,9 @@ import FileUploader from './FileUploader'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import Dropdown from './Dropdown'
 import Toast from './Toast'
-
 import { useParams } from 'react-router-dom'
 import { getSingleGrid } from '../../services/gridService'
+import { useModalContext } from '../providers/ModalProvider'
 
 export default function GridView() {
   const [gridView, setGridView] = useState(false)
@@ -16,8 +16,7 @@ export default function GridView() {
   const [gridData, setGridData] = useState(null)
   const [focused, setFocused] = useState([])
   const [loading, setLoading] = useState(true)
-  const [toastActive, setToastActive] = useState(false)
-  const [toastMessage, setToastMessage] = useState('')
+  const { openEditDetailsModal } = useModalContext()
   const { id } = useParams()
 
   useEffect(() => {
@@ -55,7 +54,7 @@ export default function GridView() {
       <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
         {/* TITLE AREA */}
         <div
-          className="relative w-fit mx-auto rounded hover:bg-gray-300 duration-100 p-2"
+          className="relative w-fit mx-auto rounded hover:bg-gray-300 duration-100 p-2 text-center"
           onMouseEnter={() => setTitleHovered(true)}
           onMouseLeave={() => setTitleHovered(false)}
         >
@@ -63,7 +62,7 @@ export default function GridView() {
             <Icon
               icon="material-symbols:edit-outline"
               className="text-2xl cursor-pointer absolute top-0 right-0"
-              onClick={handleClickEditTitle}
+              onClick={() => openEditDetailsModal(id)}
             />
           )}
 
@@ -126,7 +125,6 @@ export default function GridView() {
           />
         )}
       </main>
-      {toastActive && <Toast text={toastMessage} />}
     </>
   )
 }
