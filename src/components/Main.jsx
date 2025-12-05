@@ -23,9 +23,7 @@ export default function Main() {
           <NewGridButton
             text={'Create your first Harada Grid'}
             openCreateModal={openCreateModal}
-          />{' '}
-          <span>OR</span>
-          <FileUploader />
+          />
         </div>
       </div>
     </main>

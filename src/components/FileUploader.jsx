@@ -1,7 +1,12 @@
 import { Icon } from '@iconify/react'
 import { addGrid } from '../../services/gridService'
+import { useToastContext } from '../providers/ToastProvider'
+import { useDataContext } from '../providers/DataProvider'
 
-export default function FileUploader({ setGridData, loading, setLoading }) {
+export default function FileUploader({ loading, setLoading }) {
+  const { showToast } = useToastContext()
+  const { fetchGrids } = useDataContext()
+
   const handleFileUpload = async () => {
     const fileToUpload = document.getElementById('json-uploader').files[0]
 
@@ -25,14 +30,10 @@ export default function FileUploader({ setGridData, loading, setLoading }) {
         const response = await addGrid(json)
         if (response.message) {
           setLoading(false)
-          setToastMessage('Successfully uploaded file!')
-          setToastActive(true)
-          await new Promise((res) => setTimeout(res, 2000))
-          setToastActive(false)
-          setToastMessage('')
+          document.getElementById('create_modal').close()
+          showToast('Grid successfully uploaded!')
+          fetchGrids()
         }
-        // localStorage.setItem('harada_grid', event.target.result)
-        await new Promise((res) => setTimeout(res, 2000))
       } catch (error) {
         alert('Invalid JSON file.')
         console.error(error)

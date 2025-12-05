@@ -9,49 +9,22 @@ import Toast from './Toast'
 import { useParams } from 'react-router-dom'
 import { getSingleGrid } from '../../services/gridService'
 import { useModalContext } from '../providers/ModalProvider'
+import { useDataContext } from '../providers/DataProvider'
 
 export default function GridView() {
   const [gridView, setGridView] = useState(false)
   const [titleHovered, setTitleHovered] = useState(false)
-  const [gridData, setGridData] = useState(null)
   const [focused, setFocused] = useState([])
-  const [loading, setLoading] = useState(true)
-  const { openEditDetailsModal } = useModalContext()
+  const [loading, setLoading] = useState(false)
+  const { openEditDetailsModal, openClearModal } = useModalContext()
   const { id } = useParams()
+  const { grids } = useDataContext()
 
-  useEffect(() => {
-    let isMounted = true
-
-    ;(async () => {
-      try {
-        setLoading(true)
-        const response = await getSingleGrid(id)
-        if (isMounted) {
-          setGridData(response[0])
-        }
-      } catch (err) {
-        console.error(err)
-      } finally {
-        if (isMounted) setLoading(false)
-      }
-    })()
-
-    return () => {
-      isMounted = false
-    }
-  }, [id])
-
-  const handleClickEditTitle = () => {
-    document.getElementById('title_modal').showModal()
-  }
-
-  const handleClickClear = () => {
-    document.getElementById('clear_modal').showModal()
-  }
+  const gridData = grids.filter((grid) => grid._id === id)[0]
 
   return (
     <>
-      <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
+      <main className="flex flex-col gap-5 p-6 basis-4/5">
         {/* TITLE AREA */}
         <div
           className="relative w-fit mx-auto rounded hover:bg-gray-300 duration-100 p-2 text-center"
@@ -87,7 +60,7 @@ export default function GridView() {
               className={`tab ${gridView ? '' : 'tab-active'}`}
               onClick={() => setGridView(false)}
             >
-              Outline
+              List View
             </a>
             <a
               role="tab"
@@ -98,7 +71,10 @@ export default function GridView() {
             </a>
           </div>
           <div>
-            <button className="btn btn-neutral" onClick={handleClickClear}>
+            <button
+              className="btn btn-neutral"
+              onClick={() => openClearModal(gridData._id)}
+            >
               <Icon icon="ix:clear" className="text-lg" /> Clear
             </button>
             <Dropdown />
@@ -109,7 +85,6 @@ export default function GridView() {
           <Grid
             setGridView={setGridView}
             gridData={gridData}
-            setGridData={setGridData}
             loading={loading}
             focused={focused}
             setFocused={setFocused}
@@ -118,7 +93,6 @@ export default function GridView() {
           <Overview
             setGridView={setGridView}
             gridData={gridData}
-            setGridData={setGridData}
             loading={loading}
             focused={focused}
             setFocused={setFocused}

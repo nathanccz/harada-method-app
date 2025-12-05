@@ -1,8 +1,14 @@
-export default function ClearModal({ setGridData, template, setFocused }) {
-  const handleClickClear = () => {
-    localStorage.removeItem('harada_grid')
-    setGridData(template)
-    setFocused([])
+import { useDataContext } from '../providers/DataProvider'
+
+export default function ClearModal({ clearGrid }) {
+  const { fetchGrids } = useDataContext()
+  const handleClickClear = async () => {
+    try {
+      const response = await clearGrid()
+      fetchGrids()
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <dialog id="clear_modal" className="modal">

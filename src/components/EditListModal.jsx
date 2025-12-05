@@ -1,4 +1,27 @@
-export default function EditListModal() {
+import { useEffect, useState } from 'react'
+import { useDataContext } from '../providers/DataProvider'
+import { useParams } from 'react-router-dom'
+import { useModalContext } from '../providers/ModalProvider'
+
+export default function EditListModal({ indexOfGrid, currentParams }) {
+  const [fields, setFields] = useState({})
+  const [array, setArray] = useState([])
+  const { grids } = useDataContext()
+  console.log(indexOfGrid, currentParams)
+
+  useEffect(() => {
+    if (indexOfGrid) {
+      console.log('dfesfewasf')
+      setArray(
+        grids?.filter((grid) => grid._id === currentParams)[0][indexOfGrid]
+      )
+
+      console.log(
+        grids?.filter((grid) => grid._id === currentParams)[0][indexOfGrid]
+      )
+    }
+  }, [grids]) //Needed this useEffect so that component can render without index and params props
+
   return (
     <dialog id="edit_list_modal" className="modal">
       <div className="modal-box">

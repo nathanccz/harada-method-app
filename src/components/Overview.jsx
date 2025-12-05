@@ -1,12 +1,19 @@
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
 import { useModalContext } from '../providers/ModalProvider'
+import { useParams } from 'react-router-dom'
 
 export default function Overview({ gridData }) {
   const [hovered, setHovered] = useState(null)
-  const { openEditListModal } = useModalContext()
+  const { id } = useParams()
+  const { openEditListModal, setCurrentParams } = useModalContext()
+
+  const handleClickOpenEditListModal = (index) => {
+    openEditListModal(index)
+    setCurrentParams(id)
+  }
   return (
-    <div className="h-[1050px] mb-24 w-[1050px] grid grid-cols-3 gap-3 basis-4/5">
+    <div className="h-[900px] w-[900px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5">
       {gridData?.grids.map((grid, ind) => (
         <ul
           className={`list ${
@@ -38,7 +45,7 @@ export default function Overview({ gridData }) {
             <Icon
               icon="material-symbols:edit-outline"
               className="text-2xl cursor-pointer absolute top-0 right-0"
-              onClick={openEditListModal}
+              onClick={() => handleClickOpenEditListModal(ind)}
             />
           )}
         </ul>

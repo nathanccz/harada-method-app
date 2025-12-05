@@ -135,3 +135,17 @@ export const editGridCells = async (obj) => {
     console.log('Error editing grid cells:', error)
   }
 }
+
+export const clearGridCells = async (gridId) => {
+  try {
+    const response = fetch(
+      `http://localhost:3000/api/grids/clearCells/${gridId}`,
+      {
+        method: 'PUT',
+        credentials: 'include',
+      }
+    )
+    console.log(response)
+    return { message: 'Grid cleared!' }
+  } catch (error) {}
+}

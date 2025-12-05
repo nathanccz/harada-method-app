@@ -7,7 +7,7 @@ import data from '../../data.json'
 
 export default function Grid({
   gridData,
-  setGridData,
+
   loading,
   focused,
   setFocused,
@@ -27,10 +27,10 @@ export default function Grid({
   return (
     <>
       {/* MAIN GRID WRAPPER */}
-      <div className="h-[1050px] mb-24 w-[1050px] mx-auto text-center">
+      <div className="h-[900px] w-[900px] mx-auto text-center">
         {/* GRID OR SKELETON */}
         {!loading ? (
-          <div className="grid grid-cols-3 w-full h-full mx-auto gap-3">
+          <div className="grid grid-cols-3 mx-auto gap-3">
             {gridData?.grids.map((grid, ind) => (
               <div className="grid grid-cols-3 gap-3" key={`grid-${ind + 1}`}>
                 {grid.map((task) => {
@@ -42,7 +42,7 @@ export default function Grid({
                   return (
                     <div
                       key={task.id}
-                      className={`hover:bg-gray-200 ease-in-out duration-100 flex justify-center items-center p-1 relative h-[109px] w-[110px] bg-slate-300 rounded
+                      className={`hover:bg-gray-200 ease-in-out duration-100 flex justify-center items-center p-1 relative h-[90px] w-[90px] bg-slate-300 rounded
                       ${
                         isMainCenter
                           ? 'bg-yellow-200 font-bold hover:bg-yellow-100'
@@ -60,7 +60,7 @@ export default function Grid({
                           onClick={() => handleClickEdit(task.id, task.text)}
                         />
                       )}
-                      <span className="text-md">{task.text}</span>
+                      <span className="text-sm">{task.text}</span>
                     </div>
                   )
                 })}
@@ -83,20 +83,6 @@ export default function Grid({
           </div>
         )}
       </div>
-
-      {/* MODALS */}
-      <Modal
-        focused={focused}
-        data={gridData}
-        setGridData={setGridData}
-        text={text}
-      />
-      <TitleModal data={gridData} setGridData={setGridData} />
-      <ClearModal
-        setGridData={setGridData}
-        template={data}
-        setFocused={setFocused}
-      />
     </>
   )
 }

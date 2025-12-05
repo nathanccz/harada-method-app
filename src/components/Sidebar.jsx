@@ -22,7 +22,7 @@ export default function Sidebar() {
   return loading ? (
     <SkeletonSidebar />
   ) : (
-    <aside className="flex flex-col w-[300px]">
+    <aside className="flex flex-col min-w-[275px]">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
           <div className="bg-neutral text-neutral-content w-16 rounded-full flex justify-center items-center">
