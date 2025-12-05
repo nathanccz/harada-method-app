@@ -57,6 +57,7 @@ export const getSingleGrid = async (gridId) => {
 }
 
 export const editGridCell = async (gridId, gridArray) => {
+  console.log(gridArray)
   try {
     const response = await fetch(
       `http://localhost:3000/api/grids/edit/${gridId}`,
@@ -68,10 +69,10 @@ export const editGridCell = async (gridId, gridArray) => {
       }
     )
 
-    if (!response.ok) {
+    if (!response) {
       console.log('Something went wrong')
     } else {
-      console.log('Grid successfully updated')
+      return { message: 'Grid successfully updated' }
     }
   } catch (error) {
     console.log(error)

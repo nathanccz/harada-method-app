@@ -1,26 +1,47 @@
-import { useEffect, useState } from 'react'
+import { editGridCell } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
-import { useParams } from 'react-router-dom'
-import { useModalContext } from '../providers/ModalProvider'
+import { useToastContext } from '../providers/ToastProvider'
 
 export default function EditListModal({ indexOfGrid, currentParams }) {
-  const [fields, setFields] = useState({})
-  const [array, setArray] = useState([])
-  const { grids } = useDataContext()
-  console.log(indexOfGrid, currentParams)
+  const { grids, fetchGrids } = useDataContext()
+  const { showToast } = useToastContext()
 
-  useEffect(() => {
-    if (indexOfGrid) {
-      console.log('dfesfewasf')
-      setArray(
-        grids?.filter((grid) => grid._id === currentParams)[0][indexOfGrid]
-      )
+  let currentGrid
 
-      console.log(
-        grids?.filter((grid) => grid._id === currentParams)[0][indexOfGrid]
-      )
+  if (currentParams) {
+    currentGrid = grids?.filter((grid) => grid._id === currentParams)[0].grids[
+      indexOfGrid
+    ]
+  }
+
+  const handleTaskInputChange = (event) => {
+    const index = [...currentGrid].findIndex(
+      (cell) => cell.id === event.target.name
+    )
+
+    currentGrid[index] = { ...currentGrid[index], text: event.target.value }
+  }
+
+  const handleTitleInputChange = (event) => {
+    currentGrid[4].text = event.target.value
+  }
+
+  const handleClickSave = async () => {
+    const newGrid = grids.filter((grid) => grid._id === currentParams)[0].grids
+    newGrid[indexOfGrid] = currentGrid
+
+    try {
+      const response = await editGridCell(currentParams, newGrid)
+      if (!response.message) {
+        console.log('Something went wrong')
+      } else {
+        showToast(response.message)
+        fetchGrids()
+      }
+    } catch (error) {
+      console.log('Error updating grid:', error)
     }
-  }, [grids]) //Needed this useEffect so that component can render without index and params props
+  }
 
   return (
     <dialog id="edit_list_modal" className="modal">
@@ -40,19 +61,37 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
             type="text"
             className="input w-full"
             placeholder="New grid title"
+            defaultValue={currentGrid && currentGrid[4].text}
+            name={currentGrid && currentGrid[4].id}
+            onChange={handleTitleInputChange}
           />
 
           <label className="label">Tasks</label>
-          <input
-            type="text"
-            className="input w-full"
-            placeholder="Short description"
-          />
+          {currentGrid &&
+            [...currentGrid.slice(0, 4), ...currentGrid.slice(5)].map(
+              (cell, ind) => (
+                <div className="flex gap-3" key={cell.id}>
+                  <div className="flex items-center text-lg">
+                    {(ind + 1).toString()}.
+                  </div>
+                  <input
+                    type="text"
+                    className="input w-full"
+                    placeholder="New task"
+                    defaultValue={cell.text}
+                    name={cell.id}
+                    onChange={handleTaskInputChange}
+                  />
+                </div>
+              )
+            )}
         </fieldset>
         <div className="modal-action">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn">Save Details</button>
+            <button className="btn" onClick={handleClickSave}>
+              Save Details
+            </button>
           </form>
         </div>
       </div>
