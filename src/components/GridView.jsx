@@ -77,7 +77,7 @@ export default function GridView() {
             >
               <Icon icon="ix:clear" className="text-lg" /> Clear
             </button>
-            <Dropdown />
+            <Dropdown gridData={gridData} />
           </div>
         </div>
 

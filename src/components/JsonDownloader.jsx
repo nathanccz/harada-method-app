@@ -1,11 +1,9 @@
 import { Icon } from '@iconify/react'
 
-export default function JsonDownloader() {
-  const handleDownload = ({
-    storageKey = 'harada_grid',
-    filename = 'downloaded_data.json',
-  }) => {
-    const jsonData = localStorage.getItem(storageKey)
+export default function JsonDownloader({ gridData }) {
+  const handleDownload = ({ filename = 'downloaded_data.json' }) => {
+    delete gridData._id
+    const jsonData = JSON.stringify(gridData)
 
     if (!jsonData) {
       alert('No JSON data found in local storage.')

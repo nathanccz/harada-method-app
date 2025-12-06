@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react'
 import JsonDownloader from './JsonDownloader'
 import PdfDownloader from './PdfDownloader'
 
-export default function Dropdown({}) {
+export default function Dropdown({ gridData }) {
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn m-1">
@@ -22,7 +22,7 @@ export default function Dropdown({}) {
           <PdfDownloader />
         </li>
         <li>
-          <JsonDownloader storageKey="harada_grid" filename="user_data.json" />
+          <JsonDownloader gridData={gridData} filename="user_data.json" />
         </li>
       </ul>
     </div>
