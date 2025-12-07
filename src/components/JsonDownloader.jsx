@@ -1,9 +1,23 @@
 import { Icon } from '@iconify/react'
+import { formatFileName } from '../../utils/helpers'
+import { useDataContext } from '../providers/DataProvider'
+import { useModalContext } from '../providers/ModalProvider'
 
 export default function JsonDownloader({ gridData }) {
-  const handleDownload = ({ filename = 'downloaded_data.json' }) => {
-    delete gridData._id
-    const jsonData = JSON.stringify(gridData)
+  const { grids } = useDataContext()
+  const { gridToDelete } = useModalContext()
+
+  const handleDownload = () => {
+    let shallowCopy
+    if (gridData) {
+      shallowCopy = { ...gridData }
+    } else {
+      shallowCopy = [...grids].filter((grid) => grid._id === gridToDelete)[0]
+    }
+    console.log(shallowCopy)
+    delete shallowCopy._id
+    const jsonData = JSON.stringify(shallowCopy)
+    const filename = formatFileName(shallowCopy.title)
 
     if (!jsonData) {
       alert('No JSON data found in local storage.')
@@ -23,8 +37,8 @@ export default function JsonDownloader({ gridData }) {
   }
 
   return (
-    <button onClick={handleDownload}>
+    <div onClick={handleDownload} className="flex gap-2 items-center">
       <Icon icon="si:json-duotone" className="text-lg" /> Download JSON
-    </button>
+    </div>
   )
 }

@@ -1,4 +1,4 @@
-import { deleteGrid } from '../../services/gridService'
+import JsonDownloader from './JsonDownloader'
 import { useDataContext } from '../providers/DataProvider'
 
 export default function DeleteModal({ removeGrid }) {
@@ -17,11 +17,18 @@ export default function DeleteModal({ removeGrid }) {
           </button>
         </form>
         <h3 className="font-bold text-lg">Are you sure?</h3>
-        <p className="py-4">This grid will be permanently deleted.</p>
+        <p className="py-4">
+          This grid will be permanently deleted. You can save a JSON file to
+          re-upload later in case you change your mind!
+        </p>
+
         <div className="modal-action">
+          <button className="btn btn-primary">
+            <JsonDownloader />
+          </button>
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn" onClick={handleDeleteGrid}>
+            <button className="btn btn-error" onClick={handleDeleteGrid}>
               Delete
             </button>
           </form>

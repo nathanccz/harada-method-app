@@ -1,43 +1,51 @@
 import { useEffect, useState } from 'react'
 import { editGridCell } from '../../services/gridService'
+import { useDataContext } from '../providers/DataProvider'
+import { useToastContext } from '../providers/ToastProvider'
 
-export default function Modal({ focused, data, setGridData, text }) {
+export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
   const [content, setContent] = useState('')
+  const { grids, fetchGrids } = useDataContext()
+  const { showToast } = useToastContext()
 
   useEffect(() => {
-    setContent(text)
-  }, [text]) //Need to fix this so that the default form text ALWAYS shows current task text
+    setContent(cellText)
+  }, [gridToEdit, cellToEdit, cellText])
 
   const handleFormChange = (e) => {
     setContent(e.target.value)
   }
 
+  const handleClickExit = () => {
+    setContent('')
+  }
+
   const handleClickSave = async () => {
+    const data = grids.filter((grid) => grid._id === gridToEdit)[0]
+
     const gridIndex = data.grids.findIndex((grid) =>
-      grid.some((task) => task.id === focused)
+      grid.some((cell) => cell.id === cellToEdit)
     )
+
     const taskIndex = data.grids[gridIndex].findIndex(
-      (task) => task.id === focused
+      (cell) => cell.id === cellToEdit
     )
 
     const copy = { ...data }
     copy.grids[gridIndex][taskIndex].text = content
-    copy.lastModified = new Date().toISOString()
 
-    if (!copy.createdAt) {
-      copy.createdAt = new Date().toISOString()
+    const response = await editGridCell(data._id, copy.grids)
+
+    if (!response) {
+      console.log('Something went wrong')
+      return
+    } else {
+      console.log(response)
+      fetchGrids()
+      showToast(response.message)
+      setContent('')
+      document.getElementById('task_modal').close()
     }
-
-    const json = JSON.stringify(copy.grids)
-    console.log(data)
-
-    const response = await editGridCell(data._id, json)
-
-    // setGridData(copy)
-  }
-
-  const handleClickExit = () => {
-    setContent('')
   }
 
   return (
@@ -52,13 +60,13 @@ export default function Modal({ focused, data, setGridData, text }) {
             ✕
           </button>
         </form>
-        <h3 className="font-bold text-lg mb-3">Add Task</h3>
+        <h3 className="font-bold text-lg mb-3">Edit cell</h3>
         <input
           type="text"
           placeholder="Type here"
           className="input"
           onChange={handleFormChange}
-          value={content}
+          value={content ?? ''}
         />
         <button className="btn btn-success ml-3" onClick={handleClickSave}>
           Save

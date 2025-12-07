@@ -27,3 +27,11 @@ export function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email.trim())
 }
+
+export function formatFileName(gridTitle) {
+  console.log(gridTitle)
+  return gridTitle
+    .split(' ')
+    .map((word) => word.toLowerCase())
+    .join('-')
+}

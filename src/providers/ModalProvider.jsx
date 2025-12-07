@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import Modal from '../components/Modal'
 import CreateModal from '../components/CreateModal'
 import data from '../../data.json'
 import {
@@ -13,6 +12,7 @@ import DeleteModal from '../components/DeleteModal'
 import EditDetailsModal from '../components/EditDetailsModal'
 import EditListModal from '../components/EditListModal'
 import ClearModal from '../components/ClearModal'
+import EditCellModal from '../components/EditCellModal'
 
 export const ModalProviderContext = createContext(null)
 
@@ -24,6 +24,8 @@ export default function ModalProvider({ children }) {
   const [indexOfGrid, setIndexOfGrid] = useState(null)
   const [gridToClear, setGridToClear] = useState(null)
   const [currentParams, setCurrentParams] = useState(null)
+  const [cellText, setCellText] = useState(null)
+  const [cellToEdit, setCellToEdit] = useState(null)
 
   const openCreateModal = () => {
     document.getElementById('create_modal').showModal()
@@ -37,6 +39,13 @@ export default function ModalProvider({ children }) {
   const openEditDetailsModal = (gridId) => {
     setGridToEdit(gridId)
     document.getElementById('edit_details_modal').showModal()
+  }
+  const openEditCellModal = (gridId, cellId, text) => {
+    console.log('LOOOOOOOOOK', gridId, cellId, text)
+    setGridToEdit(gridId)
+    setCellToEdit(cellId)
+    setCellText(text)
+    document.getElementById('task_modal').showModal()
   }
   const openEditListModal = (index) => {
     setIndexOfGrid(index)
@@ -98,21 +107,17 @@ export default function ModalProvider({ children }) {
     }
   }
 
-  const editList = async () => {
-    try {
-    } catch (error) {
-      console.log('Error editing list:', error)
-    }
-  }
   return (
     <ModalProviderContext.Provider
       value={{
         openCreateModal,
+        openEditCellModal,
         openDeleteModal,
         openEditDetailsModal,
         openEditListModal,
         openClearModal,
         setCurrentParams,
+        gridToDelete,
       }}
     >
       {children}
@@ -120,6 +125,11 @@ export default function ModalProvider({ children }) {
         createProject={createProject}
         loading={loading}
         setLoading={setLoading}
+      />
+      <EditCellModal
+        cellText={cellText}
+        cellToEdit={cellToEdit}
+        gridToEdit={gridToEdit}
       />
       <DeleteModal gridToDelete={gridToDelete} removeGrid={removeGrid} />
       <EditDetailsModal gridToEdit={gridToEdit} editDetails={editDetails} />

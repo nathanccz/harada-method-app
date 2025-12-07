@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import { Outlet } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getDashboardData } from '../../services/authService'
+import SpeedDial from '../components/SpeedDial'
 
 export default function Dashboard() {
   return (
@@ -12,6 +13,7 @@ export default function Dashboard() {
         <Outlet />
       </div>
       <Footer />
+      <SpeedDial />
     </div>
   )
 }

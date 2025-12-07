@@ -12,6 +12,7 @@ export default function CreateModal({ createProject, loading, setLoading }) {
   const handleClickCreateGrid = async () => {
     const response = await createProject(title, description)
     fetchGrids()
+    document.getElementById('create_modal').close()
   }
 
   const handleTitleInputChange = (event) => {
@@ -32,14 +33,14 @@ export default function CreateModal({ createProject, loading, setLoading }) {
         </form>
         <h1 className="font-bold text-lg">Let's Get Started!</h1>
         <h2 className="text-left font-bold">Create New Grid</h2>
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4 mx-auto mb-5">
+        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4 mx-auto mb-e">
           <legend className="fieldset-legend">New grid details</legend>
 
-          <label className="label">Title</label>
+          <label className="label">Main Goal</label>
           <input
             type="text"
             className="input w-full"
-            placeholder="New grid title"
+            placeholder="Main goal (required)"
             onChange={handleTitleInputChange}
           />
 
@@ -50,6 +51,32 @@ export default function CreateModal({ createProject, loading, setLoading }) {
             placeholder="Short description"
             onChange={handleDescriptionInputChange}
           />
+        </fieldset>
+        <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-full border p-4 mb-3">
+          <legend className="fieldset-legend">Grid type</legend>
+          <div className="flex gap-3 justify-center">
+            <label className="label">
+              <input
+                type="radio"
+                name="radio-1"
+                className="radio"
+                defaultChecked
+              />
+              Ongoing
+            </label>
+            <label className="label">
+              <input type="radio" name="radio-1" className="radio" />
+              Project-based
+            </label>
+            <div
+              className="tooltip"
+              data-tip="Project-based grids let you mark completed tasks and track progress."
+            >
+              <button className="btn">
+                <Icon icon="ri:question-line" className="text-xl" />
+              </button>
+            </div>
+          </div>
         </fieldset>
         <div className="flex justify-end">
           <button

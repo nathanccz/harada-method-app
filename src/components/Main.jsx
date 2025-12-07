@@ -4,6 +4,7 @@ import NewGridButton from './NewGridButton'
 import Stats from './Stats'
 import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
+import Banner from './Banner'
 
 export default function Main() {
   const { openCreateModal } = useModalContext()
@@ -13,6 +14,7 @@ export default function Main() {
     <main className="flex flex-col gap-5 mt-5 p-10 w-[80%]">
       <h1 className="text-2xl font-bold">Welcome, {userData?.firstName}</h1>
       <Stats />
+
       <div className="border rounded border-gray-300 bg-accent p-36 text-center flex flex-col gap-3">
         <h2 className="text-lg font-bold">You don't have any grids, yet!</h2>
         <p>

@@ -22,7 +22,7 @@ export default function Dropdown({ gridData }) {
           <PdfDownloader />
         </li>
         <li>
-          <JsonDownloader gridData={gridData} filename="user_data.json" />
+          <JsonDownloader gridData={gridData} />
         </li>
       </ul>
     </div>

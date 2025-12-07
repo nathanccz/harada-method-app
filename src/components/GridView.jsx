@@ -14,7 +14,6 @@ import { useDataContext } from '../providers/DataProvider'
 export default function GridView() {
   const [gridView, setGridView] = useState(false)
   const [titleHovered, setTitleHovered] = useState(false)
-  const [focused, setFocused] = useState([])
   const [loading, setLoading] = useState(false)
   const { openEditDetailsModal, openClearModal } = useModalContext()
   const { id } = useParams()
@@ -86,16 +85,12 @@ export default function GridView() {
             setGridView={setGridView}
             gridData={gridData}
             loading={loading}
-            focused={focused}
-            setFocused={setFocused}
           />
         ) : (
           <Overview
             setGridView={setGridView}
             gridData={gridData}
             loading={loading}
-            focused={focused}
-            setFocused={setFocused}
           />
         )}
       </main>

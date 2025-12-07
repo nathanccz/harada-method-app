@@ -4,9 +4,8 @@ import VideoBackground from './VideoBackground'
 export default function Hero({ isLogin }) {
   return (
     <>
-      <VideoBackground />
+      <VideoBackground isLogin={isLogin} />
       <div className="hero-overlay bg-opacity-50"></div>
-      <LoginField />
     </>
   )
 }

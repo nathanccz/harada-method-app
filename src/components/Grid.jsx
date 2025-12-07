@@ -1,28 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import Modal from './Modal'
-import ClearModal from './ClearModal'
-import TitleModal from './TitleModal'
 import data from '../../data.json'
+import { useModalContext } from '../providers/ModalProvider'
 
-export default function Grid({
-  gridData,
-
-  loading,
-  focused,
-  setFocused,
-}) {
-  const [editing, setEditing] = useState(false)
+export default function Grid({ gridData, loading }) {
   const [hovered, setHovered] = useState(null)
-
   const [text, setText] = useState('')
-
-  const handleClickEdit = (taskId, text) => {
-    setEditing(true)
-    setFocused(taskId)
-    setText(text)
-    document.getElementById('task_modal').showModal()
-  }
+  const { openEditCellModal } = useModalContext()
 
   return (
     <>
@@ -57,7 +41,9 @@ export default function Grid({
                         <Icon
                           icon="material-symbols:edit-outline"
                           className="text-2xl cursor-pointer absolute top-0 right-0"
-                          onClick={() => handleClickEdit(task.id, task.text)}
+                          onClick={() =>
+                            openEditCellModal(gridData._id, task.id, task.text)
+                          }
                         />
                       )}
                       <span className="text-sm">{task.text}</span>
