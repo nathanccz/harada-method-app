@@ -20,9 +20,7 @@ export default function ClearModal({ clearGrid }) {
           </button>
         </form>
         <h3 className="font-bold text-lg">Are You Sure?</h3>
-        <p className="py-4">
-          Your grid will be permanently deleted and removed from local storage.
-        </p>
+        <p className="py-4">Your grid will be permanently erased.</p>
         <div className="modal-action">
           <form method="dialog">
             {/* if there is a button, it will close the modal */}

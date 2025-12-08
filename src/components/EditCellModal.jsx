@@ -68,6 +68,7 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
           onChange={handleFormChange}
           value={content ?? ''}
         />
+
         <button className="btn btn-success ml-3" onClick={handleClickSave}>
           Save
         </button>

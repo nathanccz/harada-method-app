@@ -39,6 +39,11 @@ export default function Overview({ gridData }) {
               <div className="list-col-grow flex items-center">
                 <div>{cell.text}</div>
               </div>
+              <input
+                type="checkbox"
+                defaultChecked={false}
+                className="checkbox checkbox-success"
+              />
             </li>
           ))}
           {grid[0].id.startsWith(hovered) && (

@@ -21,12 +21,15 @@ export default function VideoBackground({ isLogin }) {
       {/* Placeholder for your main content, positioned above the video */}
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center p-4 text-center text-white">
         {!isLogin ? (
-          <div className="hero-content text-center text-white">
-            <div className="max-w-lg">
-              <h1 className="mb-5 text-[2.5rem] font-bold">myHarada App</h1>
-              <p className="mb-5">
+          <div className="hero-content text-center text-white bg-gray-500/35 rounded">
+            <div className="max-w-lg p-3">
+              <h1 className="mb-5 text-[2.5rem] font-bold">myHarada</h1>
+              <p className="mb-5 text-left text-xl">
                 Achieve any goal you've dreamed of with the simplicity of the
-                Harada Method.
+                Harada Method. Create unlimited grids, manage tasks, and track
+                your progress with the myHarada app. <br />
+                <br />
+                <span className="font-bold">It's completely free!</span>
               </p>
               <label className="input input-bordered flex items-center gap-2 mb-3 mx-auto">
                 <svg

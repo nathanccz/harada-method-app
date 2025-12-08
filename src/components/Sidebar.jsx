@@ -51,7 +51,7 @@ export default function Sidebar() {
             <div className="flex justify-between">
               <div>My Grids</div>
               <div className="bg-gray-200 px-2 rounded-full">
-                {grids.length}
+                {grids.length > 0 && grids.length}
               </div>
             </div>
           </NavLink>

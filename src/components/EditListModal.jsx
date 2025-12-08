@@ -89,7 +89,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
         <div className="modal-action">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn" onClick={handleClickSave}>
+            <button className="btn btn-success" onClick={handleClickSave}>
               Save Details
             </button>
           </form>
