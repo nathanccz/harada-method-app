@@ -12,14 +12,25 @@ import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
 
 export default function GridView() {
-  const [gridView, setGridView] = useState(false)
+  const [view, setView] = useState('list')
   const [titleHovered, setTitleHovered] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
   const { openEditDetailsModal, openClearModal } = useModalContext()
   const { id } = useParams()
   const { grids } = useDataContext()
 
   const gridData = grids.filter((grid) => grid._id === id)[0]
+
+  const switchView = (newView) => {
+    if (newView === view) return
+
+    setIsAnimating(true)
+    setTimeout(() => {
+      setView(newView)
+      setIsAnimating(false)
+    }, 150)
+  }
 
   return (
     <>
@@ -56,15 +67,15 @@ export default function GridView() {
           <div role="tablist" className="tabs tabs-border">
             <a
               role="tab"
-              className={`tab ${gridView ? '' : 'tab-active'}`}
-              onClick={() => setGridView(false)}
+              className={`tab ${view === 'grid' ? '' : 'tab-active'}`}
+              onClick={() => switchView('list')}
             >
               List View
             </a>
             <a
               role="tab"
-              className={`tab ${gridView ? 'tab-active' : ''}`}
-              onClick={() => setGridView(true)}
+              className={`tab ${view === 'grid' ? 'tab-active' : ''}`}
+              onClick={() => switchView('grid')}
             >
               Grid View
             </a>
@@ -79,20 +90,25 @@ export default function GridView() {
             <Dropdown gridData={gridData} />
           </div>
         </div>
-
-        {gridView ? (
-          <Grid
-            setGridView={setGridView}
-            gridData={gridData}
-            loading={loading}
-          />
-        ) : (
-          <Overview
-            setGridView={setGridView}
-            gridData={gridData}
-            loading={loading}
-          />
-        )}
+        <div
+          className={`transition-opacity duration-300 ${
+            isAnimating ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          {view === 'grid' ? (
+            <Grid
+              switchView={switchView}
+              gridData={gridData}
+              loading={loading}
+            />
+          ) : (
+            <Overview
+              switchView={switchView}
+              gridData={gridData}
+              loading={loading}
+            />
+          )}
+        </div>
       </main>
     </>
   )

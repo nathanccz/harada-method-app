@@ -18,7 +18,7 @@ export default function Overview({ gridData }) {
   }
 
   return (
-    <div className="h-[900px] w-[900px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5">
+    <div className="h-[950px] w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5">
       {gridData?.grids.map((grid, ind) => (
         <ul
           className={`list ${

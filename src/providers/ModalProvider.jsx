@@ -41,7 +41,6 @@ export default function ModalProvider({ children }) {
     document.getElementById('edit_details_modal').showModal()
   }
   const openEditCellModal = (gridId, cellId, text) => {
-    console.log('LOOOOOOOOOK', gridId, cellId, text)
     setGridToEdit(gridId)
     setCellToEdit(cellId)
     setCellText(text)
@@ -71,6 +70,7 @@ export default function ModalProvider({ children }) {
     try {
       const response = await addGrid(newGrid)
       showToast(response.message)
+      return response.message
     } catch (error) {
       console.log(error)
     }

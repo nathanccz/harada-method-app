@@ -11,12 +11,12 @@ export default function Grid({ gridData, loading }) {
   return (
     <>
       {/* MAIN GRID WRAPPER */}
-      <div className="h-[900px] w-[900px] mx-auto text-center">
+      <div className="h-[950px] w-[950px] mx-auto text-center">
         {/* GRID OR SKELETON */}
         {!loading ? (
-          <div className="grid grid-cols-3 mx-auto gap-3">
+          <div className="grid grid-cols-3 mx-auto gap-4">
             {gridData?.grids.map((grid, ind) => (
-              <div className="grid grid-cols-3 gap-3" key={`grid-${ind + 1}`}>
+              <div className="grid grid-cols-3 gap-4" key={`grid-${ind + 1}`}>
                 {grid.map((task) => {
                   const isMainCenter =
                     task.id.startsWith('main') && task.slot === 'middle-center'
@@ -26,7 +26,7 @@ export default function Grid({ gridData, loading }) {
                   return (
                     <div
                       key={task.id}
-                      className={`hover:bg-gray-200 ease-in-out duration-100 flex justify-center items-center p-1 relative h-[90px] w-[90px] bg-slate-300 rounded
+                      className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[90px] w-[90px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200
                       ${
                         isMainCenter
                           ? 'bg-yellow-200 font-bold hover:bg-yellow-100'

@@ -13,7 +13,7 @@ export default function Completed() {
         <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">History</li>
 
         {completedGrids.map((grid) => (
-          <li className="list-row">
+          <li className="list-row" key={grid._id}>
             <div>
               <img
                 className="size-10 rounded-box"

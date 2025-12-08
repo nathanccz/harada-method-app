@@ -7,13 +7,15 @@ import { useDataContext } from '../providers/DataProvider'
 export default function CreateModal({ createProject, loading, setLoading }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [gridType, setGridType] = useState('')
+  const [gridType, setGridType] = useState('ongoing')
   const { fetchGrids } = useDataContext()
 
   const handleClickCreateGrid = async () => {
     const response = await createProject(title, description, gridType)
-    fetchGrids()
-    document.getElementById('create_modal').close()
+    if (response) {
+      fetchGrids()
+      document.getElementById('create_modal').close()
+    }
   }
 
   const handleTitleInputChange = (event) => {
@@ -24,13 +26,11 @@ export default function CreateModal({ createProject, loading, setLoading }) {
   }
 
   const handleClickInput = (event) => {
-    const labelName = event.target.labels[0].innerText
+    setGridType(event.target.value)
+  }
 
-    if (labelName === 'ongoing') {
-      setGridType('ongoing')
-    } else {
-      setGridType('project')
-    }
+  const handleClickExit = () => {
+    setGridType('ongoing')
   }
 
   return (
@@ -38,7 +38,10 @@ export default function CreateModal({ createProject, loading, setLoading }) {
       <div className="modal-box text-center">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <button
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            onClick={handleClickExit}
+          >
             ✕
           </button>
         </form>
@@ -71,7 +74,8 @@ export default function CreateModal({ createProject, loading, setLoading }) {
                 type="radio"
                 name="radio-1"
                 className="radio"
-                defaultChecked
+                value="ongoing"
+                checked={gridType === 'ongoing'}
                 onChange={handleClickInput}
               />
               Ongoing
@@ -81,6 +85,8 @@ export default function CreateModal({ createProject, loading, setLoading }) {
                 type="radio"
                 name="radio-1"
                 className="radio"
+                value="project"
+                checked={gridType === 'project'}
                 onChange={handleClickInput}
               />
               Project-based
