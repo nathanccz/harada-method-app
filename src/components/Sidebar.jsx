@@ -19,6 +19,9 @@ export default function Sidebar() {
     window.location.href = 'http://localhost:3000/api/logout' // Redirect to backend Google OAuth route
   }
 
+  const activeGrids = [...grids].filter((grid) => !grid.completedAt)
+  const completedGrids = [...grids].filter((grid) => grid.completedAt)
+
   return loading ? (
     <SkeletonSidebar />
   ) : (
@@ -51,7 +54,7 @@ export default function Sidebar() {
             <div className="flex justify-between">
               <div>My Grids</div>
               <div className="bg-gray-200 px-2 rounded-full">
-                {grids.length > 0 && grids.length}
+                {activeGrids.length > 0 && activeGrids.length}
               </div>
             </div>
           </NavLink>
@@ -69,7 +72,9 @@ export default function Sidebar() {
             <div className="flex justify-between">
               <div>Completed</div>
 
-              <div className="bg-gray-200 px-2 rounded-full">10</div>
+              <div className="bg-gray-200 px-2 rounded-full">
+                {completedGrids.length > 0 && completedGrids.length}
+              </div>
             </div>
           </NavLink>
         </li>

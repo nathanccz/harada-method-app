@@ -8,12 +8,14 @@ import { useDataContext } from '../providers/DataProvider'
 export default function MyGrids() {
   const { grids } = useDataContext()
 
+  const activeGrids = grids.filter((grid) => !grid.completedAt)
+
   return (
     <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
       <h1 className="text-2xl font-bold">My Grids</h1>
       <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {grids.length > 0 ? (
-          grids.map((grid) => (
+        {activeGrids.length > 0 ? (
+          activeGrids.map((grid) => (
             <div
               key={grid._id}
               className="card bg-base-100 card-md shadow-sm border border-transparent hover:bg-base-200 hover:border-accent ease-in-out duration-100 relative pt-5"

@@ -12,6 +12,11 @@ export default function Overview({ gridData }) {
     openEditListModal(index)
     setCurrentParams(id)
   }
+
+  const handleClickCheck = async (event) => {
+    console.log(event.target.checked)
+  }
+
   return (
     <div className="h-[900px] w-[900px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5">
       {gridData?.grids.map((grid, ind) => (
@@ -39,11 +44,14 @@ export default function Overview({ gridData }) {
               <div className="list-col-grow flex items-center">
                 <div>{cell.text}</div>
               </div>
-              <input
-                type="checkbox"
-                defaultChecked={false}
-                className="checkbox checkbox-success"
-              />
+              {cell.text && (
+                <input
+                  type="checkbox"
+                  checked={cell.completedAt ?? false}
+                  className="checkbox checkbox-success"
+                  onChange={handleClickCheck}
+                />
+              )}
             </li>
           ))}
           {grid[0].id.startsWith(hovered) && (

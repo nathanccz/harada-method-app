@@ -16,6 +16,7 @@ import ModalProvider from './providers/ModalProvider.jsx'
 import AuthContextProvider from './providers/AuthContextProvider.jsx'
 import ToastProvider from './providers/ToastProvider.jsx'
 import DataProvider from './providers/DataProvider.jsx'
+import Completed from './components/Completed.jsx'
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/grid/:id',
         element: <GridView />,
+      },
+      {
+        path: '/dashboard/completed',
+        element: <Completed />,
       },
       {
         path: '/dashboard/templates',

@@ -57,7 +57,7 @@ export default function ModalProvider({ children }) {
     document.getElementById('clear_modal').showModal()
   }
 
-  const createProject = async (title, description) => {
+  const createProject = async (title, description, gridType) => {
     if (!title) {
       alert('Please enter a title.')
       return
@@ -65,6 +65,7 @@ export default function ModalProvider({ children }) {
     const newGrid = { ...data }
     newGrid.title = title
     newGrid.description = description
+    newGrid.gridType = gridType
     console.log(newGrid)
 
     try {

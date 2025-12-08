@@ -8,7 +8,7 @@ import SpeedDial from '../components/SpeedDial'
 export default function Dashboard() {
   return (
     <div className="flex flex-col justify-between h-screen">
-      <div className="flex relative gap-3 px-28 max-w-[1500px] mx-auto flex-grow-2">
+      <div className="flex relative gap-3 px-28 w-[1500px] mx-auto flex-grow-2">
         <Sidebar />
         <Outlet />
       </div>

@@ -7,10 +7,11 @@ import { useDataContext } from '../providers/DataProvider'
 export default function CreateModal({ createProject, loading, setLoading }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [gridType, setGridType] = useState('')
   const { fetchGrids } = useDataContext()
 
   const handleClickCreateGrid = async () => {
-    const response = await createProject(title, description)
+    const response = await createProject(title, description, gridType)
     fetchGrids()
     document.getElementById('create_modal').close()
   }
@@ -20,6 +21,16 @@ export default function CreateModal({ createProject, loading, setLoading }) {
   }
   const handleDescriptionInputChange = (event) => {
     setDescription(event.target.value)
+  }
+
+  const handleClickInput = (event) => {
+    const labelName = event.target.labels[0].innerText
+
+    if (labelName === 'ongoing') {
+      setGridType('ongoing')
+    } else {
+      setGridType('project')
+    }
   }
 
   return (
@@ -61,11 +72,17 @@ export default function CreateModal({ createProject, loading, setLoading }) {
                 name="radio-1"
                 className="radio"
                 defaultChecked
+                onChange={handleClickInput}
               />
               Ongoing
             </label>
             <label className="label">
-              <input type="radio" name="radio-1" className="radio" />
+              <input
+                type="radio"
+                name="radio-1"
+                className="radio"
+                onChange={handleClickInput}
+              />
               Project-based
             </label>
             <div
