@@ -5,12 +5,13 @@ import Stats from './Stats'
 import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import Banner from './Banner'
+import MainSkeleton from './MainSkeleton'
 
 export default function Main() {
   const { openCreateModal } = useModalContext()
-  const { userData } = useAuthContext()
+  const { userData, loading } = useAuthContext()
 
-  return (
+  return !loading ? (
     <main className="flex flex-col gap-5 mt-5 p-10 w-[80%]">
       <h1 className="text-2xl font-bold">Welcome, {userData?.firstName}</h1>
       <Stats />
@@ -29,5 +30,7 @@ export default function Main() {
         </div>
       </div>
     </main>
+  ) : (
+    <MainSkeleton />
   )
 }

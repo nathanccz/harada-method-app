@@ -12,7 +12,7 @@ import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
 
 export default function GridView() {
-  const [view, setView] = useState('list')
+  const [view, setView] = useState('')
   const [titleHovered, setTitleHovered] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -25,12 +25,19 @@ export default function GridView() {
   const switchView = (newView) => {
     if (newView === view) return
 
+    localStorage.setItem('view_preference', newView)
     setIsAnimating(true)
     setTimeout(() => {
       setView(newView)
       setIsAnimating(false)
     }, 150)
   }
+
+  useEffect(() => {
+    const viewPreference = localStorage.getItem('view_preference')
+
+    setView(viewPreference)
+  }, [])
 
   return (
     <>

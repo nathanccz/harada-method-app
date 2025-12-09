@@ -7,9 +7,8 @@ import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
 
 export default function Sidebar() {
-  const [loading, setLoading] = useState(false)
   const { openCreateModal } = useModalContext()
-  const { userData } = useAuthContext()
+  const { userData, loading } = useAuthContext()
   const { grids } = useDataContext()
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-gray-300 block' : 'block'
@@ -53,7 +52,7 @@ export default function Sidebar() {
           <NavLink to={'/dashboard/grids'} className={getNavLinkClass}>
             <div className="flex justify-between">
               <div>My Grids</div>
-              <div className="bg-gray-200 px-2 rounded-full">
+              <div className="bg-white px-2 rounded-full">
                 {activeGrids.length > 0 && activeGrids.length}
               </div>
             </div>
@@ -63,7 +62,6 @@ export default function Sidebar() {
           <NavLink to={'/dashboard/templates'} className={getNavLinkClass}>
             <div className="flex justify-between">
               <div>Templates</div>
-              <div className="bg-gray-200 px-2 rounded-full">10</div>
             </div>
           </NavLink>
         </li>
@@ -72,7 +70,7 @@ export default function Sidebar() {
             <div className="flex justify-between">
               <div>Completed</div>
 
-              <div className="bg-gray-200 px-2 rounded-full">
+              <div className="bg-white px-2 rounded-full">
                 {completedGrids.length > 0 && completedGrids.length}
               </div>
             </div>

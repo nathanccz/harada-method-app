@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import data from '../../data.json'
 import { useModalContext } from '../providers/ModalProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
-export default function Grid({ gridData, loading }) {
+export default function Grid({ gridData }) {
   const [hovered, setHovered] = useState(null)
-  const [text, setText] = useState('')
+  const { loading } = useAuthContext()
   const { openEditCellModal } = useModalContext()
 
   return (
@@ -55,14 +56,11 @@ export default function Grid({ gridData, loading }) {
           </div>
         ) : (
           // Skeleton shaped like the entire grid area
-          <div className="grid grid-cols-3 w-full h-full mx-auto gap-3">
+          <div className="grid grid-cols-3 mx-auto gap-4">
             {Array.from({ length: 9 }).map((_, i) => (
-              <div key={i} className="grid grid-cols-3 gap-3">
+              <div key={i} className="grid grid-cols-3 gap-4">
                 {Array.from({ length: 9 }).map((__, j) => (
-                  <div
-                    key={j}
-                    className="skeleton h-[109px] w-[110px] rounded"
-                  />
+                  <div key={j} className="skeleton h-[90px] w-[90px] rounded" />
                 ))}
               </div>
             ))}
