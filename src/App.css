@@ -3,6 +3,10 @@ dialog .file-input {
   z-index: 10000;
 }
 
+.custom-radial-size {
+  --size: 2rem;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;

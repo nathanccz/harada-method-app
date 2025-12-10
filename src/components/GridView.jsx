@@ -62,15 +62,8 @@ export default function GridView() {
           <p> {gridData?.description || ''}</p>
         </div>
 
-        {/* LAST MODIFIED */}
-        {gridData?.lastModified && (
-          <span className="text-sm italic">
-            Last modified: {formatDate(gridData.lastModified)}
-          </span>
-        )}
-
         {/* TOP CONTROLS */}
-        <div className="w-full flex gap-3 justify-between mb-3 items-center">
+        <div className="w-full flex gap-3 justify-between items-center">
           <div role="tablist" className="tabs tabs-border">
             <a
               role="tab"
@@ -97,6 +90,12 @@ export default function GridView() {
             <Dropdown gridData={gridData} />
           </div>
         </div>
+        {/* LAST MODIFIED */}
+        {gridData?.lastModified && (
+          <span className="text-xs italic">
+            Last modified: {formatDate(gridData.lastModified)}
+          </span>
+        )}
         <div
           className={`transition-opacity duration-300 ${
             isAnimating ? 'opacity-0' : 'opacity-100'

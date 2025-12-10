@@ -1,10 +1,12 @@
 export const addGrid = async (obj) => {
   try {
-    console.log(obj)
+    const object = { ...obj }
+    object.grids[4][4].text = obj.title
+
     const response = await fetch(`http://localhost:3000/api/grids/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(obj),
+      body: JSON.stringify(object),
       credentials: 'include',
     })
     const data = await response.json()

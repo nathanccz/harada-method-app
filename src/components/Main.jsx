@@ -16,7 +16,7 @@ export default function Main() {
       <h1 className="text-2xl font-bold">Welcome, {userData?.firstName}</h1>
       <Stats />
 
-      <div className="border rounded border-gray-300 bg-accent p-36 text-center flex flex-col gap-3">
+      <div className="border rounded border-gray-300 bg-secondary text-white p-36 text-center flex flex-col gap-3">
         <h2 className="text-lg font-bold">You don't have any grids, yet!</h2>
         <p>
           Create your first grid to start achieving your goals using the Harada

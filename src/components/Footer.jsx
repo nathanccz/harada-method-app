@@ -8,7 +8,7 @@ export default function Footer() {
         <NavLink to={'/'}>Home</NavLink>
         <a className="link link-hover">About</a>
         <NavLink to={'/contact'}>Contact</NavLink>
-        <a className="link link-hover">API</a>
+
         <a className="link link-hover">Privacy</a>
       </nav>
       <nav>

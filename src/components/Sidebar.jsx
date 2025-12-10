@@ -5,6 +5,7 @@ import NewGridButton from './NewGridButton'
 import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
+import SearchBar from './SearchBar'
 
 export default function Sidebar() {
   const { openCreateModal } = useModalContext()
@@ -28,9 +29,7 @@ export default function Sidebar() {
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
           <div className="bg-neutral text-neutral-content w-16 rounded-full flex justify-center items-center">
-            <div className="text-3xl text-center pt-3">
-              {userData?.firstName[0]}
-            </div>
+            <div className="text-3xl text-center">{userData?.firstName[0]}</div>
           </div>
         </div>
         <div className="mt-2 ml-3">
@@ -42,6 +41,7 @@ export default function Sidebar() {
         text={'Create New Grid'}
         openCreateModal={openCreateModal}
       />
+      <SearchBar />
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold mt-3">
         <li>
           <NavLink to={'/dashboard'} className={getNavLinkClass} end>
@@ -51,7 +51,7 @@ export default function Sidebar() {
         <li>
           <NavLink to={'/dashboard/grids'} className={getNavLinkClass}>
             <div className="flex justify-between">
-              <div>My Grids</div>
+              <div>Active Grids</div>
               <div className="bg-white px-2 rounded-full">
                 {activeGrids.length > 0 && activeGrids.length}
               </div>
@@ -69,10 +69,6 @@ export default function Sidebar() {
           <NavLink to={'/dashboard/completed'} className={getNavLinkClass}>
             <div className="flex justify-between">
               <div>Completed</div>
-
-              <div className="bg-white px-2 rounded-full">
-                {completedGrids.length > 0 && completedGrids.length}
-              </div>
             </div>
           </NavLink>
         </li>

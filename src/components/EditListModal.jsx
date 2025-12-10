@@ -30,6 +30,17 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
     const newGrid = grids.filter((grid) => grid._id === currentParams)[0].grids
     newGrid[indexOfGrid] = currentGrid
 
+    //Set createdAt to empty string if the text field is also empty
+    //This helps prevent the list view from retaining the completed check mark
+    //when the text field is empty
+    for (let i = 0; i < 8; i++) {
+      const cell = newGrid[indexOfGrid][i]
+
+      if (!cell.text) {
+        newGrid[indexOfGrid][i].completedAt = ''
+      }
+    }
+
     try {
       const response = await editGridCell(currentParams, newGrid)
       if (!response.message) {

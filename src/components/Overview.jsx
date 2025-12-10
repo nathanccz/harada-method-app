@@ -2,8 +2,8 @@ import { Icon } from '@iconify/react'
 import { useState } from 'react'
 import { useModalContext } from '../providers/ModalProvider'
 import { useParams } from 'react-router-dom'
-import { useDataContext } from '../providers/DataProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
+import { editGridCell } from '../../services/gridService'
 
 export default function Overview({ gridData }) {
   const [hovered, setHovered] = useState(null)
@@ -16,8 +16,49 @@ export default function Overview({ gridData }) {
     setCurrentParams(id)
   }
 
-  const handleClickCheck = async (event) => {
-    console.log(event.target.checked)
+  const handleClickCheck = async (cellId) => {
+    const updatedGrid = { ...gridData }
+
+    const gridIndex = updatedGrid.grids.findIndex((grid) =>
+      grid.some((cell) => cell.id === cellId)
+    )
+
+    const taskIndex = updatedGrid.grids[gridIndex].findIndex(
+      (cell) => cell.id === cellId
+    )
+
+    const isCompleted = updatedGrid.grids[gridIndex][taskIndex].completedAt
+
+    if (!isCompleted) {
+      updatedGrid.grids[gridIndex][taskIndex].completedAt =
+        new Date().toISOString()
+    } else {
+      updatedGrid.grids[gridIndex][taskIndex].completedAt = ''
+    }
+
+    try {
+      const response = await editGridCell(updatedGrid._id, updatedGrid.grids)
+      if (!response) {
+        console.log('Something went wrong.')
+        return
+      } else {
+        console.log(response.message)
+      }
+    } catch (error) {
+      console.log('Error updating grid:', error)
+    }
+  }
+
+  const calculateFraction = (subGrid) => {
+    const completed = subGrid.filter((cell) => cell.completedAt).length
+
+    return `${completed}/8`
+  }
+
+  const calculatePercentage = (subGrid) => {
+    const completed = subGrid.filter((cell) => cell.completedAt).length
+
+    return Math.floor((completed / 8) * 100)
   }
 
   return (
@@ -34,8 +75,22 @@ export default function Overview({ gridData }) {
             }
             onMouseLeave={() => setHovered(null)}
           >
-            <li className="p-4 pb-2 text-md uppercase opacity-80 font-bold tracking-wide">
-              {grid[4].text}
+            <li className="p-2 pb-2 text-md uppercase opacity-80 font-bold tracking-wide flex gap-3 items-center">
+              {gridData.gridType === 'project' && (
+                <div
+                  className="radial-progress text-primary custom-radial-size text-[10px]"
+                  style={
+                    {
+                      '--value': calculatePercentage(grid),
+                    } /* as React.CSSProperties */
+                  }
+                  aria-valuenow={calculatePercentage(grid)}
+                  role="progressbar"
+                >
+                  {calculateFraction(grid)}
+                </div>
+              )}
+              <span>{grid[4].text}</span>
             </li>
 
             {/* Skip the middle cell since it's in the list title */}
@@ -46,14 +101,18 @@ export default function Overview({ gridData }) {
                 </div>
 
                 <div className="list-col-grow flex items-center">
-                  <div>{cell.text}</div>
+                  <div
+                    className={cell.completedAt && 'text-gray-500 line-through'}
+                  >
+                    {cell.text}
+                  </div>
                 </div>
-                {cell.text && (
+                {gridData.gridType === 'project' && cell.text && (
                   <input
                     type="checkbox"
                     checked={cell.completedAt ?? false}
                     className="checkbox checkbox-success"
-                    onChange={handleClickCheck}
+                    onChange={() => handleClickCheck(cell.id)}
                   />
                 )}
               </li>

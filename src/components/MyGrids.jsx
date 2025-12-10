@@ -43,6 +43,7 @@ export default function MyGrids() {
           {ongoingGrids.map(renderGrid)}
         </div>
       </section>
+      <div className="divider"></div>
       <section>
         <h2 className="font-bold mb-3">Project-based Grids</h2>
         <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">

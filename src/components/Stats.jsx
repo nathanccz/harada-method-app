@@ -5,6 +5,7 @@ import { useDataContext } from '../providers/DataProvider'
 export default function Stats() {
   const { grids } = useDataContext()
   const activeGrids = [...grids].filter((grid) => !grid.completedAt)
+  const completedGrids = [...grids].filter((grid) => grid.completedAt)
 
   return (
     <div className="stats shadow text-center">
@@ -26,7 +27,7 @@ export default function Stats() {
           <Icon icon="mdi:graph-line-shimmer" className="text-2xl" />
         </div>
         <div className="stat-title">Average Progress</div>
-        <div className="stat-value">4,200</div>
+        <div className="stat-value">22%</div>
         <div className="stat-desc">↗︎ 400 (22%)</div>
       </div>
 
@@ -36,7 +37,9 @@ export default function Stats() {
             <Icon icon="lucide:grid-2x2-check" className="text-2xl" />
           </div>
           <div className="stat-title">Completed Grids</div>
-          <div className="stat-value">1,200</div>
+          <div className="stat-value">
+            {completedGrids.length > 0 && completedGrids.length}
+          </div>
           <div className="stat-desc">↘︎ 90 (14%)</div>
         </div>
       </NavLink>
