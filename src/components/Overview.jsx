@@ -4,12 +4,14 @@ import { useModalContext } from '../providers/ModalProvider'
 import { useParams } from 'react-router-dom'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { editGridCell } from '../../services/gridService'
+import { useDataContext } from '../providers/DataProvider'
 
 export default function Overview({ gridData }) {
   const [hovered, setHovered] = useState(null)
   const { id } = useParams()
   const { openEditListModal, setCurrentParams } = useModalContext()
   const { loading } = useAuthContext()
+  const { fetchGrids } = useDataContext()
 
   const handleClickOpenEditListModal = (index) => {
     openEditListModal(index)
@@ -42,6 +44,7 @@ export default function Overview({ gridData }) {
         console.log('Something went wrong.')
         return
       } else {
+        fetchGrids()
         console.log(response.message)
       }
     } catch (error) {
@@ -78,7 +81,7 @@ export default function Overview({ gridData }) {
             <li className="p-2 pb-2 text-md uppercase opacity-80 font-bold tracking-wide flex gap-3 items-center">
               {gridData.gridType === 'project' && (
                 <div
-                  className="radial-progress text-primary custom-radial-size text-[10px]"
+                  className="radial-progress text-secondary custom-radial-size text-[10px]"
                   style={
                     {
                       '--value': calculatePercentage(grid),
@@ -112,7 +115,7 @@ export default function Overview({ gridData }) {
                     type="checkbox"
                     checked={cell.completedAt ?? false}
                     className="checkbox checkbox-success"
-                    onChange={() => handleClickCheck(cell.id)}
+                    onClick={() => handleClickCheck(cell.id)}
                   />
                 )}
               </li>
@@ -120,7 +123,7 @@ export default function Overview({ gridData }) {
             {grid[0].id.startsWith(hovered) && (
               <Icon
                 icon="material-symbols:edit-outline"
-                className="text-2xl cursor-pointer absolute top-0 right-0"
+                className="text-2xl cursor-pointer absolute top-1 right-1"
                 onClick={() => handleClickOpenEditListModal(ind)}
               />
             )}
@@ -129,7 +132,7 @@ export default function Overview({ gridData }) {
       ) : (
         <>
           {Array.from({ length: 9 }).map((_, i) => (
-            <div className="skeleton h-96 w-72"></div>
+            <div className="skeleton h-96 w-72" key={`skeleton-${i + 1}`}></div>
           ))}
         </>
       )}

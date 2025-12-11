@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { editGridDetails } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
 
@@ -6,6 +6,8 @@ export default function EditDetailsModal({ gridToEdit, editDetails }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const { fetchGrids } = useDataContext()
+  const { grids } = useDataContext()
+  const currentGrid = grids.filter((grid) => grid._id === gridToEdit)[0]
 
   const handleTitleInputChange = (event) => {
     setTitle(event.target.value)
@@ -17,8 +19,16 @@ export default function EditDetailsModal({ gridToEdit, editDetails }) {
   const handleClickSaveDetails = async () => {
     console.log(gridToEdit, title, description)
     const response = await editDetails(title, description)
+    setDescription('')
+    setTitle('')
     fetchGrids()
   }
+
+  useEffect(() => {
+    setTitle(currentGrid?.title)
+    setDescription(currentGrid?.description)
+  }, [gridToEdit])
+
   return (
     <dialog id="edit_details_modal" className="modal">
       <div className="modal-box">
@@ -38,6 +48,7 @@ export default function EditDetailsModal({ gridToEdit, editDetails }) {
             className="input w-full"
             placeholder="New grid title"
             onChange={handleTitleInputChange}
+            value={title ?? ''}
           />
 
           <label className="label">Description</label>
@@ -46,6 +57,7 @@ export default function EditDetailsModal({ gridToEdit, editDetails }) {
             className="input w-full"
             placeholder="Short description"
             onChange={handleDescriptionInputChange}
+            value={description ?? ''}
           />
         </fieldset>
         <div className="modal-action">

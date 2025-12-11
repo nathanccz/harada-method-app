@@ -1,11 +1,26 @@
 import { Icon } from '@iconify/react'
 import { NavLink } from 'react-router-dom'
 import { useDataContext } from '../providers/DataProvider'
+import { calculateOverallProgress } from '../../utils/helpers'
 
 export default function Stats() {
   const { grids } = useDataContext()
   const activeGrids = [...grids].filter((grid) => !grid.completedAt)
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
+  const projectGrids = [...activeGrids].filter(
+    (grid) => grid.gridType === 'project'
+  )
+
+  const calculateAverageGridProgress = (active) => {
+    const gridPercents = active.map((grid) =>
+      calculateOverallProgress(grid.grids)
+    )
+    console.log(gridPercents)
+    const average =
+      gridPercents.reduce((sum, curr) => sum + curr, 0) / gridPercents.length
+
+    return Math.ceil(average)
+  }
 
   return (
     <div className="stats shadow text-center">
@@ -16,7 +31,7 @@ export default function Stats() {
           </div>
           <div className="stat-title">Active Grids</div>
           <div className="stat-value">
-            {activeGrids.length > 0 && activeGrids.length}
+            {activeGrids.length > 0 ? activeGrids.length : '0'}
           </div>
           <div className="stat-desc">Jan 1st - Feb 1st</div>
         </div>
@@ -27,7 +42,9 @@ export default function Stats() {
           <Icon icon="mdi:graph-line-shimmer" className="text-2xl" />
         </div>
         <div className="stat-title">Average Progress</div>
-        <div className="stat-value">22%</div>
+        <div className="stat-value">
+          {calculateAverageGridProgress(projectGrids) || '0'}%
+        </div>
         <div className="stat-desc">↗︎ 400 (22%)</div>
       </div>
 
@@ -38,7 +55,7 @@ export default function Stats() {
           </div>
           <div className="stat-title">Completed Grids</div>
           <div className="stat-value">
-            {completedGrids.length > 0 && completedGrids.length}
+            {completedGrids.length > 0 ? completedGrids.length : '0'}
           </div>
           <div className="stat-desc">↘︎ 90 (14%)</div>
         </div>

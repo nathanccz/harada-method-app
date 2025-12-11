@@ -11,6 +11,12 @@ function Contact() {
     message: '',
   })
 
+  const contactOptions = [
+    { option: 'Report a bug', icon: 'streamline-stickies-color:bug' },
+    { option: 'Suggest a feature', icon: 'flat-color-icons:idea' },
+    { option: 'Leave a review', icon: 'fluent-color:person-feedback-48' },
+  ]
+
   // Handler for input field changes
   const handleInputChange = (event) => {
     const { name, value } = event.target
@@ -57,12 +63,24 @@ function Contact() {
   }
   return (
     <>
-      <div className="text-left my-10 p-5 grow-3">
-        <h1 className="font-bold text-2xl mb-3">Contact</h1>
-        <p className="mb-8">
-          Have questions, or need a cool site like this one? Feel free to reach
-          out at any time. I'm currently accepting freelance work!
+      <div className="text-left grow-3">
+        <h1 className="font-bold text-2xl mb-3">Support</h1>
+        <p className="mb-5">
+          Have questions or comments about this app? Feel free to reach out at
+          any time, and I'll get back to you as soon as possible. You can use
+          the form below to:
         </p>
+        <div className="flex justify-center gap-8 p-2 font-bold mb-5 text-black">
+          {contactOptions.map((option, ind) => (
+            <div
+              className="flex flex-col justify-center items-center border border-gray-300/80 bg-accent/60 p-10 shadow-md rounded"
+              key={`${option}-${ind + 1}`}
+            >
+              <Icon icon={option.icon} className="text-4xl" />
+              {option.option}
+            </div>
+          ))}
+        </div>
         <div>
           <form action="" onSubmit={onFormSubmit}>
             <input

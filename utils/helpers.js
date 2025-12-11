@@ -35,3 +35,11 @@ export function formatFileName(gridTitle) {
     .map((word) => word.toLowerCase())
     .join('-')
 }
+
+export function calculateOverallProgress(grids) {
+  const totalCells = grids?.flat().length
+  const totalCompleted = grids
+    ?.flat()
+    ?.filter((cell) => cell.completedAt).length
+  return Math.floor((totalCompleted / totalCells) * 100)
+}

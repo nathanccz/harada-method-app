@@ -25,7 +25,7 @@ export default function Sidebar() {
   return loading ? (
     <SkeletonSidebar />
   ) : (
-    <aside className="flex flex-col min-w-[275px]">
+    <aside className="flex flex-col min-w-[275px] mb-8">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
           <div className="bg-neutral text-neutral-content w-16 rounded-full flex justify-center items-center">
@@ -52,9 +52,11 @@ export default function Sidebar() {
           <NavLink to={'/dashboard/grids'} className={getNavLinkClass}>
             <div className="flex justify-between">
               <div>Active Grids</div>
-              <div className="bg-white px-2 rounded-full">
-                {activeGrids.length > 0 && activeGrids.length}
-              </div>
+              {activeGrids.length > 0 && (
+                <div className="bg-white px-2 rounded-full">
+                  {activeGrids.length}
+                </div>
+              )}
             </div>
           </NavLink>
         </li>
@@ -78,7 +80,7 @@ export default function Sidebar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/contact'} className={getNavLinkClass}>
+          <NavLink to={'/dashboard/support'} className={getNavLinkClass}>
             Support
           </NavLink>
         </li>

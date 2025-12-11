@@ -14,6 +14,8 @@ export default function CreateModal({ createProject, loading, setLoading }) {
     const response = await createProject(title, description, gridType)
     if (response) {
       fetchGrids()
+      setTitle('')
+      setDescription('')
       document.getElementById('create_modal').close()
     }
   }
@@ -31,6 +33,8 @@ export default function CreateModal({ createProject, loading, setLoading }) {
 
   const handleClickExit = () => {
     setGridType('ongoing')
+    setTitle('')
+    setDescription('')
   }
 
   return (
@@ -56,6 +60,7 @@ export default function CreateModal({ createProject, loading, setLoading }) {
             className="input w-full"
             placeholder="Main goal (required)"
             onChange={handleTitleInputChange}
+            value={title}
           />
 
           <label className="label">Description</label>
@@ -64,6 +69,7 @@ export default function CreateModal({ createProject, loading, setLoading }) {
             className="input w-full"
             placeholder="Short description"
             onChange={handleDescriptionInputChange}
+            value={description}
           />
         </fieldset>
         <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-full border p-4 mb-3">

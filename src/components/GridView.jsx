@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom'
 import { getSingleGrid } from '../../services/gridService'
 import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
+import OverallProgressCircle from './OverallProgressCircle'
 
 export default function GridView() {
   const [view, setView] = useState('')
@@ -43,8 +44,9 @@ export default function GridView() {
     <>
       <main className="flex flex-col gap-5 p-6 basis-4/5">
         {/* TITLE AREA */}
+
         <div
-          className="relative w-fit mx-auto rounded hover:bg-gray-300 duration-100 p-2 text-center"
+          className="relative w-fit rounded hover:bg-gray-300 duration-100 p-2 text-center flex gap-5"
           onMouseEnter={() => setTitleHovered(true)}
           onMouseLeave={() => setTitleHovered(false)}
         >
@@ -56,10 +58,13 @@ export default function GridView() {
             />
           )}
 
-          <h1 className="text-2xl font-bold p-3 text-center">
-            {gridData?.title || 'Untitled'}
-          </h1>
-          <p> {gridData?.description || ''}</p>
+          <OverallProgressCircle gridsArray={gridData?.grids} size="4rem" />
+          <div>
+            <h1 className="text-2xl font-bold text-left mb-2">
+              {gridData?.title || 'Untitled'}
+            </h1>
+            <p> {gridData?.description || ''}</p>
+          </div>
         </div>
 
         {/* TOP CONTROLS */}

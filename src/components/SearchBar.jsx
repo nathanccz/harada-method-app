@@ -18,7 +18,7 @@ export default function SearchBar() {
     }
 
     const filtered = grids.filter((grid) =>
-      grid.title.toLowerCase().startsWith(newValue)
+      grid.title.toLowerCase().includes(newValue)
     )
     console.log(filtered)
     setResults(filtered)

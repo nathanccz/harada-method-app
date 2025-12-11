@@ -24,26 +24,30 @@ export default function SpeedDial() {
       </div>
 
       {/* buttons that show up when FAB is open */}
-      <div className="font-bold">
-        Add Grid
-        <button className="btn btn-lg btn-circle" onClick={openCreateModal}>
-          <Icon icon="qlementine-icons:new-24" className="text-xl" />
-        </button>
-      </div>
-      <div className="font-bold">
-        My Grids{' '}
-        <NavLink to={'/dashboard/grids'}>
-          <button className="btn btn-lg btn-circle">
-            {' '}
-            <Icon icon="vaadin:grid-small-o" className="text-xl" />
+      <div className="bg-base-200/80 flex flex-col-reverse p-5 rounded">
+        <div className="font-bold flex gap-2 items-center">
+          Add Grid
+          <button className="btn btn-lg btn-circle" onClick={openCreateModal}>
+            <Icon icon="qlementine-icons:new-24" className="text-xl" />
           </button>
-        </NavLink>
-      </div>
-      <div className="font-bold">
-        Settings{' '}
-        <button className="btn btn-lg btn-circle">
-          <Icon icon="uil:setting" className="text-xl" />
-        </button>
+        </div>
+        <div className="font-bold flex gap-2 items-center">
+          My Grids{' '}
+          <NavLink to={'/dashboard/grids'}>
+            <button className="btn btn-lg btn-circle">
+              {' '}
+              <Icon icon="vaadin:grid-small-o" className="text-xl" />
+            </button>
+          </NavLink>
+        </div>
+        <div className="font-bold flex gap-2 items-center">
+          Support{' '}
+          <NavLink to={'/dashboard/support'}>
+            <button className="btn btn-lg btn-circle">
+              <Icon icon="material-symbols:contact-mail" className="text-xl" />
+            </button>
+          </NavLink>
+        </div>
       </div>
     </div>
   )

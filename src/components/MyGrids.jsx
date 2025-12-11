@@ -4,6 +4,7 @@ import { getGrids } from '../../services/gridService'
 import { formatDate } from '../../utils/helpers'
 import GridCardDropdown from './GridCardDropdown'
 import { useDataContext } from '../providers/DataProvider'
+import OverallProgressCircle from './OverallProgressCircle'
 
 export default function MyGrids() {
   const { grids } = useDataContext()
@@ -17,8 +18,13 @@ export default function MyGrids() {
       key={grid._id}
       className="card bg-base-100 card-md shadow-sm border border-transparent hover:bg-base-200 hover:border-accent ease-in-out duration-100 relative pt-5"
     >
+      {grid.gridType === 'project' && (
+        <div className="absolute top-1 left-1">
+          <OverallProgressCircle gridsArray={grid.grids} size={'2.5rem'} />
+        </div>
+      )}
       <GridCardDropdown gridId={grid._id} />
-      <div className="card-body">
+      <div className="card-body mt-4">
         <h2 className="card-title">{grid.title}</h2>
         <p>{grid.description}</p>
         <span className="text-xs italic">
@@ -35,21 +41,33 @@ export default function MyGrids() {
 
   return (
     <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
-      <h1 className="text-2xl font-bold">My Grids</h1>
-
-      <section>
-        <h2 className="font-bold mb-3">Ongoing Grids</h2>
-        <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {ongoingGrids.map(renderGrid)}
-        </div>
-      </section>
-      <div className="divider"></div>
-      <section>
-        <h2 className="font-bold mb-3">Project-based Grids</h2>
-        <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {projectGrids.map(renderGrid)}
-        </div>
-      </section>
+      <h1 className="text-2xl font-bold">My Active Grids</h1>
+      <div>
+        {grids && grids.length === 0 && <p>There's nothing here, yet!</p>}
+      </div>
+      {grids.length > 0 && (
+        <>
+          {ongoingGrids.length > 0 && (
+            <section>
+              <h2 className="font-bold mb-3">Ongoing Grids</h2>
+              <div className="grid grids-col-1 md:grid-cols-3 gap-3">
+                {ongoingGrids.map(renderGrid)}
+              </div>
+            </section>
+          )}
+          {ongoingGrids.length > 0 && projectGrids.length > 0 && (
+            <div className="divider"></div>
+          )}
+          {projectGrids.length > 0 && (
+            <section>
+              <h2 className="font-bold mb-3">Project-based Grids</h2>
+              <div className="grid grids-col-1 md:grid-cols-3 gap-3">
+                {projectGrids.map(renderGrid)}
+              </div>
+            </section>
+          )}
+        </>
+      )}
     </main>
   )
 }

@@ -9,13 +9,15 @@ export default function JsonDownloader({ gridData }) {
 
   const handleDownload = () => {
     let shallowCopy
+
     if (gridData) {
       shallowCopy = { ...gridData }
     } else {
       shallowCopy = [...grids].filter((grid) => grid._id === gridToDelete)[0]
     }
-    console.log(shallowCopy)
+
     delete shallowCopy._id
+
     const jsonData = JSON.stringify(shallowCopy)
     const filename = formatFileName(shallowCopy.title)
 
@@ -27,6 +29,7 @@ export default function JsonDownloader({ gridData }) {
     const blob = new Blob([jsonData], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
+
     link.href = url
     link.setAttribute('download', filename)
     document.body.appendChild(link)
