@@ -79,11 +79,11 @@ export default function Sidebar() {
             </div>
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to={'/about'} className={getNavLinkClass}>
             About
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to={'/dashboard/support'} className={getNavLinkClass}>
             Support

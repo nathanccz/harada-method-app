@@ -46,7 +46,7 @@ export default function FileUploader({ loading, setLoading }) {
     <div className="flex justify-between w-full">
       <input type="file" className="file-input" id="json-uploader" />
 
-      <button className="btn btn-success ml-3" onClick={handleFileUpload}>
+      <button className="btn btn-neutral ml-3" onClick={handleFileUpload}>
         <Icon
           icon={loading ? 'line-md:loading-loop' : 'material-symbols:upload'}
           className="text-2xl cursor-pointer"

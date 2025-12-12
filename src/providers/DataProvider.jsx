@@ -7,6 +7,7 @@ export const DataProviderContext = createContext(null)
 
 export default function DataProvider({ children }) {
   const [grids, setGrids] = useState([])
+  const [shouldAnimate, setShouldAnimate] = useState(false)
   const { isAuthenticated } = useAuthContext()
 
   const fetchGrids = async () => {
@@ -22,7 +23,9 @@ export default function DataProvider({ children }) {
   }, [isAuthenticated])
 
   return (
-    <DataProviderContext.Provider value={{ grids, fetchGrids }}>
+    <DataProviderContext.Provider
+      value={{ grids, fetchGrids, setShouldAnimate }}
+    >
       {children}
     </DataProviderContext.Provider>
   )

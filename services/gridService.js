@@ -178,3 +178,24 @@ export const markGridAsCompleted = async (gridId) => {
     console.log('Error marking grid as completed:', error)
   }
 }
+
+export const getAIGeneratedGrid = async (message) => {
+  try {
+    const URL = 'http://localhost:3000/api/grids/groqai'
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: message,
+      }),
+      credentials: 'include',
+    })
+    const data = await response.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}

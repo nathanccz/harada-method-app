@@ -108,10 +108,7 @@ export default function CreateModal({ createProject, loading, setLoading }) {
           </div>
         </fieldset>
         <div className="flex justify-end">
-          <button
-            className="btn btn-success ml-3"
-            onClick={handleClickCreateGrid}
-          >
+          <button className="btn btn-info ml-3" onClick={handleClickCreateGrid}>
             <Icon icon="qlementine-icons:new-24" className="text-xl" /> Create
             New Grid
           </button>
