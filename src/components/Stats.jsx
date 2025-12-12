@@ -15,7 +15,7 @@ export default function Stats() {
     const gridPercents = active.map((grid) =>
       calculateOverallProgress(grid.grids)
     )
-    console.log(gridPercents)
+
     const average =
       gridPercents.reduce((sum, curr) => sum + curr, 0) / gridPercents.length
 

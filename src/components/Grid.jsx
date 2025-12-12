@@ -38,7 +38,7 @@ export default function Grid({ gridData }) {
                       onMouseEnter={() => setHovered(task.id)}
                       onMouseLeave={() => setHovered(null)}
                     >
-                      {hovered === task.id && (
+                      {hovered === task.id && !gridData.completedAt && (
                         <Icon
                           icon="material-symbols:edit-outline"
                           className="text-2xl cursor-pointer absolute top-0 right-0"

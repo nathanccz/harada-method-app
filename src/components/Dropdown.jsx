@@ -1,8 +1,30 @@
 import { Icon } from '@iconify/react'
 import JsonDownloader from './JsonDownloader'
 import PdfDownloader from './PdfDownloader'
+import { useState } from 'react'
+import { markGridAsCompleted } from '../../services/gridService'
+import { useToastContext } from '../providers/ToastProvider'
+import { useDataContext } from '../providers/DataProvider'
 
 export default function Dropdown({ gridData }) {
+  const [loading, setLoading] = useState(false)
+  const { showToast } = useToastContext()
+  const { fetchGrids } = useDataContext()
+
+  const handleClickSaveAsCompleted = async () => {
+    if (gridData.completedAt) return
+
+    setLoading(true)
+    try {
+      const response = await markGridAsCompleted(gridData._id)
+      setLoading(true)
+      showToast('Grid saved successfully!')
+      setLoading(false)
+      fetchGrids()
+    } catch (error) {
+      console.log('Error marking grid as completed:', error)
+    }
+  }
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn m-1">
@@ -19,10 +41,17 @@ export default function Dropdown({ gridData }) {
           </a>
         </li>
         <li>
-          <a>
-            <Icon icon="fluent-mdl2:completed" className="text-lg" />
-            Save as Completed
-          </a>
+          {!loading ? (
+            <a onClick={handleClickSaveAsCompleted}>
+              <Icon icon="fluent-mdl2:completed" className="text-lg" />
+              Save as Completed
+            </a>
+          ) : (
+            <a onClick={handleClickSaveAsCompleted}>
+              <span className="loading loading-spinner loading-md"></span>
+              Saving...
+            </a>
+          )}
         </li>
         <li>
           <PdfDownloader />

@@ -13,6 +13,7 @@ import EditDetailsModal from '../components/EditDetailsModal'
 import EditListModal from '../components/EditListModal'
 import ClearModal from '../components/ClearModal'
 import EditCellModal from '../components/EditCellModal'
+import GenerateGridModal from '../components/GenerateGridModal'
 
 export const ModalProviderContext = createContext(null)
 
@@ -54,6 +55,10 @@ export default function ModalProvider({ children }) {
   const openClearModal = (gridId) => {
     setGridToClear(gridId)
     document.getElementById('clear_modal').showModal()
+  }
+
+  const openGenerateGridModal = () => {
+    document.getElementById('generate_grid_modal').showModal()
   }
 
   const createProject = async (title, description, gridType) => {
@@ -117,6 +122,7 @@ export default function ModalProvider({ children }) {
         openEditDetailsModal,
         openEditListModal,
         openClearModal,
+        openGenerateGridModal,
         setCurrentParams,
         gridToDelete,
       }}
@@ -136,6 +142,7 @@ export default function ModalProvider({ children }) {
       <EditDetailsModal gridToEdit={gridToEdit} editDetails={editDetails} />
       <EditListModal indexOfGrid={indexOfGrid} currentParams={currentParams} />
       <ClearModal clearGrid={clearGrid} />
+      <GenerateGridModal />
     </ModalProviderContext.Provider>
   )
 }

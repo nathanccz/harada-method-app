@@ -99,14 +99,18 @@ export const deleteGrid = async (gridId) => {
   }
 }
 
-export const editGridDetails = async (gridId, title, description) => {
+export const editGridDetails = async (gridId, title, description, gridType) => {
   try {
     const response = await fetch(
       `http://localhost:3000/api/grids/editDetails/${gridId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: title, description: description }),
+        body: JSON.stringify({
+          title: title,
+          description: description,
+          gridType: gridType,
+        }),
         credentials: 'include',
       }
     )
@@ -150,5 +154,27 @@ export const clearGridCells = async (gridId) => {
     )
     console.log(response)
     return { message: 'Grid cleared!' }
-  } catch (error) {}
+  } catch (error) {
+    console.log('Error clearing grid:', error)
+  }
+}
+
+export const markGridAsCompleted = async (gridId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/grids/markComplete/${gridId}`,
+      {
+        method: 'PUT',
+        credentials: 'include',
+      }
+    )
+    console.log(response)
+    if (!response) {
+      console.log('Something went wrong!')
+    } else {
+      return response.message
+    }
+  } catch (error) {
+    console.log('Error marking grid as completed:', error)
+  }
 }

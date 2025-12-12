@@ -1,4 +1,8 @@
+import { Icon } from '@iconify/react'
+import { useModalContext } from '../providers/ModalProvider'
+
 export default function Banner() {
+  const { openGenerateGridModal } = useModalContext()
   return (
     <div className="hero bg-base-200 rounded">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -13,7 +17,10 @@ export default function Banner() {
             Harada Assistant help you break it up into customized tasks and
             automatically fill in a new grid for you – and it's completely free!
           </p>
-          <button className="btn btn-primary">Learn More</button>
+          <button className="btn btn-primary" onClick={openGenerateGridModal}>
+            <Icon icon="si:ai-fill" className="text-lg" />
+            Generate Harada Grid
+          </button>
         </div>
       </div>
     </div>

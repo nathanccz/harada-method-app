@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useModalContext } from '../providers/ModalProvider'
+import { NavLink } from 'react-router-dom'
 
 export default function GridCardDropdown({ gridId }) {
   const { openDeleteModal, openEditDetailsModal } = useModalContext()
@@ -25,13 +26,13 @@ export default function GridCardDropdown({ gridId }) {
           </a>
         </li>
         <li>
-          <a>
+          <NavLink to={`/dashboard/grid/${gridId}`}>
             <Icon
               icon="hugeicons:view"
               className="sm:text-sm mg:text-md lg:text-lg"
             />{' '}
             View Grid
-          </a>
+          </NavLink>
         </li>
         <li className="text-red-700">
           <a onClick={() => openDeleteModal(gridId)}>

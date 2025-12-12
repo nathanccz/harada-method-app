@@ -7,7 +7,6 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import Dropdown from './Dropdown'
 import Toast from './Toast'
 import { useParams } from 'react-router-dom'
-import { getSingleGrid } from '../../services/gridService'
 import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
 import OverallProgressCircle from './OverallProgressCircle'
@@ -58,12 +57,18 @@ export default function GridView() {
             />
           )}
 
-          <OverallProgressCircle gridsArray={gridData?.grids} size="4rem" />
+          {gridData?.gridType === 'project' && (
+            <OverallProgressCircle
+              gridsArray={gridData?.grids}
+              size="4rem"
+              completed={gridData?.completedAt}
+            />
+          )}
           <div>
             <h1 className="text-2xl font-bold text-left mb-2">
               {gridData?.title || 'Untitled'}
             </h1>
-            <p> {gridData?.description || ''}</p>
+            <p className="text-left">{gridData?.description || ''}</p>
           </div>
         </div>
 
@@ -96,9 +101,15 @@ export default function GridView() {
           </div>
         </div>
         {/* LAST MODIFIED */}
-        {gridData?.lastModified && (
+        {gridData?.lastModified && !gridData?.completedAt && (
           <span className="text-xs italic">
             Last modified: {formatDate(gridData.lastModified)}
+          </span>
+        )}
+        {/* COMPLETED AT */}
+        {gridData?.completedAt && (
+          <span className="text-xs italic">
+            Completed on: {formatDate(gridData.completedAt)}
           </span>
         )}
         <div

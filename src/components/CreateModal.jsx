@@ -78,7 +78,7 @@ export default function CreateModal({ createProject, loading, setLoading }) {
             <label className="label">
               <input
                 type="radio"
-                name="radio-1"
+                name="create-radio-1"
                 className="radio"
                 value="ongoing"
                 checked={gridType === 'ongoing'}
@@ -89,7 +89,7 @@ export default function CreateModal({ createProject, loading, setLoading }) {
             <label className="label">
               <input
                 type="radio"
-                name="radio-1"
+                name="create-radio-1"
                 className="radio"
                 value="project"
                 checked={gridType === 'project'}

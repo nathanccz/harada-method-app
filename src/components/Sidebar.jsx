@@ -71,6 +71,11 @@ export default function Sidebar() {
           <NavLink to={'/dashboard/completed'} className={getNavLinkClass}>
             <div className="flex justify-between">
               <div>Completed</div>
+              {completedGrids.length > 0 && (
+                <div className="bg-white px-2 rounded-full">
+                  {completedGrids.length}
+                </div>
+              )}
             </div>
           </NavLink>
         </li>

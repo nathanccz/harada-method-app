@@ -32,7 +32,7 @@ export default function MyGrids() {
         </span>
         <div className="justify-end card-actions">
           <NavLink to={`/dashboard/grid/${grid._id}`}>
-            <button className="btn btn-primary">View Grid</button>
+            <button className="btn btn-neutral">View Grid</button>
           </NavLink>
         </div>
       </div>

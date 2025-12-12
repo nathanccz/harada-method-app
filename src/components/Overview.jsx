@@ -79,12 +79,13 @@ export default function Overview({ gridData }) {
             onMouseLeave={() => setHovered(null)}
           >
             <li className="p-2 pb-2 text-md uppercase opacity-80 font-bold tracking-wide flex gap-3 items-center">
-              {gridData.gridType === 'project' && (
+              {gridData.gridType === 'project' && !gridData.completedAt && (
                 <div
                   className="radial-progress text-secondary custom-radial-size text-[10px]"
                   style={
                     {
                       '--value': calculatePercentage(grid),
+                      '--size': '2.5rem',
                     } /* as React.CSSProperties */
                   }
                   aria-valuenow={calculatePercentage(grid)}
@@ -110,17 +111,19 @@ export default function Overview({ gridData }) {
                     {cell.text}
                   </div>
                 </div>
-                {gridData.gridType === 'project' && cell.text && (
-                  <input
-                    type="checkbox"
-                    checked={cell.completedAt ?? false}
-                    className="checkbox checkbox-success"
-                    onClick={() => handleClickCheck(cell.id)}
-                  />
-                )}
+                {gridData.gridType === 'project' &&
+                  cell.text &&
+                  !gridData.completedAt && (
+                    <input
+                      type="checkbox"
+                      checked={cell.completedAt ?? false}
+                      className="checkbox checkbox-success"
+                      onChange={() => handleClickCheck(cell.id)}
+                    />
+                  )}
               </li>
             ))}
-            {grid[0].id.startsWith(hovered) && (
+            {grid[0].id.startsWith(hovered) && !gridData.completedAt && (
               <Icon
                 icon="material-symbols:edit-outline"
                 className="text-2xl cursor-pointer absolute top-1 right-1"

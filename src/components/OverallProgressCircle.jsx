@@ -1,7 +1,7 @@
 import { calculateOverallProgress } from '../../utils/helpers'
 
-export default function OverallProgressCircle({ gridsArray, size }) {
-  const progress = calculateOverallProgress(gridsArray) || ''
+export default function OverallProgressCircle({ gridsArray, size, completed }) {
+  const progress = completed ? 100 : calculateOverallProgress(gridsArray) || ''
   const textSize = size === '4rem' ? 'text-sm' : 'text-xs'
 
   return (
