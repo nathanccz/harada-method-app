@@ -6,10 +6,22 @@ import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import Banner from './Banner'
 import MainSkeleton from './MainSkeleton'
+import { useDataContext } from '../providers/DataProvider'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Main() {
   const { openCreateModal } = useModalContext()
   const { userData, loading } = useAuthContext()
+  const { shouldAnimate, newAIGeneratedGridId, fetchGrids } = useDataContext()
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!shouldAnimate) return
+    fetchGrids()
+    navigate(`/dashboard/grid/${newAIGeneratedGridId}`)
+  }, [shouldAnimate])
 
   return !loading ? (
     <main className="flex flex-col gap-5 mt-5 p-10 w-[80%]">

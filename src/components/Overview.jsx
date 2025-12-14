@@ -1,17 +1,42 @@
 import { Icon } from '@iconify/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useModalContext } from '../providers/ModalProvider'
 import { useParams } from 'react-router-dom'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { editGridCell } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
+import { useRef } from 'react'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
 
-export default function Overview({ gridData }) {
+export default function Overview({
+  gridData,
+  shouldAnimate,
+  setShouldAnimate,
+}) {
   const [hovered, setHovered] = useState(null)
   const { id } = useParams()
   const { openEditListModal, setCurrentParams } = useModalContext()
   const { loading } = useAuthContext()
   const { fetchGrids } = useDataContext()
+  const container = useRef()
+
+  useGSAP(
+    () => {
+      if (!shouldAnimate || !gridData) return
+
+      gsap.from('.subGoal > *', {
+        opacity: 0,
+        y: 20,
+        stagger: 0.2, // More delay between each item
+        duration: 1.7, // Each item takes longer to animate
+        ease: 'power2.out', // Smooth easing
+      })
+
+      setShouldAnimate(false)
+    },
+    { dependencies: [gridData] } // <- triggers animation when 'results' changes
+  )
 
   const handleClickOpenEditListModal = (index) => {
     openEditListModal(index)
@@ -65,13 +90,16 @@ export default function Overview({ gridData }) {
   }
 
   return (
-    <div className="h-[950px] w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 overflow-scroll border border-accent/25 rounded-lg p-3">
+    <div
+      ref={container}
+      className="h-[950px] w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 overflow-scroll border border-accent/25 rounded-lg p-3 "
+    >
       {!loading ? (
         gridData?.grids.map((grid, ind) => (
           <ul
             className={`list ${
               grid[0].id.startsWith('main') ? 'bg-yellow-100' : 'bg-base-100'
-            } rounded-box shadow-md hover:bg-base-200 ease-in-out duration-100 border border-transparent hover:border-primary relative`}
+            } rounded-box shadow-md hover:bg-base-200 ease-in-out duration-100 border border-transparent hover:border-primary relative subGoal`}
             key={`grid-${ind + 1}`}
             onMouseEnter={() =>
               setHovered(grid[0].id.split('-').slice(0, 3).join('-'))
@@ -114,12 +142,14 @@ export default function Overview({ gridData }) {
                 {gridData.gridType === 'project' &&
                   cell.text &&
                   !gridData.completedAt && (
-                    <input
-                      type="checkbox"
-                      checked={cell.completedAt ?? false}
-                      className="checkbox checkbox-success"
-                      onChange={() => handleClickCheck(cell.id)}
-                    />
+                    <div className="flex justify-center items-center">
+                      <input
+                        type="checkbox"
+                        checked={cell.completedAt ?? false}
+                        className="checkbox checkbox-success"
+                        onChange={() => handleClickCheck(cell.id)}
+                      />
+                    </div>
                   )}
               </li>
             ))}

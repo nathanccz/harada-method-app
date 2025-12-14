@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react'
 import Grid from './Grid'
 import Overview from './Overview'
 import { formatDate } from '../../utils/helpers'
-import FileUploader from './FileUploader'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import Dropdown from './Dropdown'
-import Toast from './Toast'
 import { useParams } from 'react-router-dom'
 import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
@@ -18,7 +16,8 @@ export default function GridView() {
   const [isAnimating, setIsAnimating] = useState(false)
   const { openEditDetailsModal, openClearModal } = useModalContext()
   const { id } = useParams()
-  const { grids } = useDataContext()
+
+  const { grids, shouldAnimate, setShouldAnimate } = useDataContext()
 
   const gridData = grids.filter((grid) => grid._id === id)[0]
 
@@ -128,6 +127,8 @@ export default function GridView() {
               switchView={switchView}
               gridData={gridData}
               loading={loading}
+              shouldAnimate={shouldAnimate}
+              setShouldAnimate={setShouldAnimate}
             />
           )}
         </div>

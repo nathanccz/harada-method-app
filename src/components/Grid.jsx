@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
-import data from '../../data.json'
 import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 

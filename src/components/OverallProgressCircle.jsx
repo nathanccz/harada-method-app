@@ -13,7 +13,7 @@ export default function OverallProgressCircle({ gridsArray, size, completed }) {
       aria-valuenow={progress}
       role="progressbar"
     >
-      {progress}%
+      {progress || 0}%
     </div>
   )
 }

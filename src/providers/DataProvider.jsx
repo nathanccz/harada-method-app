@@ -8,6 +8,7 @@ export const DataProviderContext = createContext(null)
 export default function DataProvider({ children }) {
   const [grids, setGrids] = useState([])
   const [shouldAnimate, setShouldAnimate] = useState(false)
+  const [newAIGeneratedGridId, setNewAIGeneratedGridId] = useState(null)
   const { isAuthenticated } = useAuthContext()
 
   const fetchGrids = async () => {
@@ -24,7 +25,14 @@ export default function DataProvider({ children }) {
 
   return (
     <DataProviderContext.Provider
-      value={{ grids, fetchGrids, setShouldAnimate }}
+      value={{
+        grids,
+        fetchGrids,
+        shouldAnimate,
+        setShouldAnimate,
+        newAIGeneratedGridId,
+        setNewAIGeneratedGridId,
+      }}
     >
       {children}
     </DataProviderContext.Provider>

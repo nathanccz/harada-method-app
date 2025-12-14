@@ -15,6 +15,10 @@ function Contact() {
     { option: 'Report a bug', icon: 'streamline-stickies-color:bug' },
     { option: 'Suggest a feature', icon: 'flat-color-icons:idea' },
     { option: 'Leave a review', icon: 'fluent-color:person-feedback-48' },
+    {
+      option: 'Request work',
+      icon: 'streamline-freehand-color:work-from-home-user-pet-cat',
+    },
   ]
 
   // Handler for input field changes
@@ -73,7 +77,7 @@ function Contact() {
         <div className="flex justify-center gap-8 p-2 font-bold mb-5 text-black">
           {contactOptions.map((option, ind) => (
             <div
-              className="flex flex-col justify-center items-center border border-gray-300/80 bg-accent/60 p-10 shadow-md rounded"
+              className="flex flex-col justify-center items-center border border-gray-300/80 bg-accent/50 p-8 shadow-md rounded"
               key={`${option}-${ind + 1}`}
             >
               <Icon icon={option.icon} className="text-4xl" />

@@ -8,10 +8,9 @@ import { useNavigate } from 'react-router-dom'
 export default function GenerateGridModal() {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
-  const { fetchGrids, setShouldAnimate } = useDataContext()
+  const { fetchGrids, setShouldAnimate, setNewAIGeneratedGridId } =
+    useDataContext()
   const { showToast } = useToastContext()
-
-  // const navigate = useNavigate()
 
   const handleUserInput = (event) => {
     setMessage(event.target.value)
@@ -25,16 +24,20 @@ export default function GenerateGridModal() {
     setLoading(true)
     try {
       const response = await getAIGeneratedGrid(message)
-      const id = response.id
 
-      setLoading(false)
-      fetchGrids()
-      showToast('Grid successfully created!')
+      if (response?.error) {
+        alert(response.error)
+        setLoading(false)
+        return
+      }
+
+      const id = response.grid._id
+
       document.getElementById('generate_grid_modal').close()
       setLoading(false)
       showToast('Grid successfully created!')
       setShouldAnimate(true)
-      // navigate(`/dashboard/grid/${id}`)
+      setNewAIGeneratedGridId(id)
     } catch (error) {
       console.log('Error generating grid:', error)
     }
@@ -61,7 +64,7 @@ export default function GenerateGridModal() {
               fit your needs!
             </p>
             <textarea
-              placeholder="Ex: 'I want to buy a house within five years.'"
+              placeholder="Ex: 'I want to plan a trip to Greece focusing on amazing culinary experiences.'"
               className="textarea textarea-lg w-full bg-base-200 text-black mt-4 mb-7"
               onChange={handleUserInput}
               value={message}
