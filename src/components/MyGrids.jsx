@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { getGrids } from '../../services/gridService'
 import { formatDate } from '../../utils/helpers'
 import GridCardDropdown from './GridCardDropdown'
 import { useDataContext } from '../providers/DataProvider'
 import OverallProgressCircle from './OverallProgressCircle'
+import FilterDropdown from './FilterDropdown'
 
 export default function MyGrids() {
-  const { grids } = useDataContext()
+  const [filterOption, setFilterOption] = useState('All Grids')
 
+  const { grids } = useDataContext()
   const activeGrids = grids.filter((grid) => !grid.completedAt)
   const ongoingGrids = activeGrids.filter((grid) => grid.gridType === 'ongoing')
   const projectGrids = activeGrids.filter((grid) => grid.gridType === 'project')
@@ -40,32 +41,48 @@ export default function MyGrids() {
   )
 
   return (
-    <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
+    <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5 relative">
       <h1 className="text-2xl font-bold">My Active Grids</h1>
       <div>
         {grids && grids.length === 0 && <p>There's nothing here, yet!</p>}
       </div>
       {grids.length > 0 && (
         <>
-          {ongoingGrids.length > 0 && (
-            <section>
-              <h2 className="font-bold mb-3">Ongoing Grids</h2>
-              <div className="grid grids-col-1 md:grid-cols-3 gap-3">
-                {ongoingGrids.map(renderGrid)}
-              </div>
-            </section>
-          )}
-          {ongoingGrids.length > 0 && projectGrids.length > 0 && (
-            <div className="divider"></div>
-          )}
-          {projectGrids.length > 0 && (
-            <section>
-              <h2 className="font-bold mb-3">Project-based Grids</h2>
-              <div className="grid grids-col-1 md:grid-cols-3 gap-3">
-                {projectGrids.map(renderGrid)}
-              </div>
-            </section>
-          )}
+          <div className="absolute top-10 right-20">
+            <FilterDropdown
+              filterOption={filterOption}
+              setFilterOption={setFilterOption}
+            />
+          </div>
+
+          {/* ONGOING GRIDS */}
+          {ongoingGrids.length > 0 &&
+            (filterOption === 'Ongoing Grids' ||
+              filterOption === 'All Grids') && (
+              <section>
+                <h2 className="font-bold mb-3">Ongoing Grids</h2>
+                <div className="grid grids-col-1 md:grid-cols-3 gap-3">
+                  {ongoingGrids.map(renderGrid)}
+                </div>
+              </section>
+            )}
+
+          {/* DIVIDER */}
+          {ongoingGrids.length > 0 &&
+            projectGrids.length > 0 &&
+            filterOption === 'All Grids' && <div className="divider"></div>}
+
+          {/* PROJECT GRIDS */}
+          {projectGrids.length > 0 &&
+            (filterOption === 'Project Grids' ||
+              filterOption === 'All Grids') && (
+              <section>
+                <h2 className="font-bold mb-3">Project-based Grids</h2>
+                <div className="grid grids-col-1 md:grid-cols-3 gap-3">
+                  {projectGrids.map(renderGrid)}
+                </div>
+              </section>
+            )}
         </>
       )}
     </main>
