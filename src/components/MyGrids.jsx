@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { formatDate } from '../../utils/helpers'
 import GridCardDropdown from './GridCardDropdown'
@@ -61,7 +61,7 @@ export default function MyGrids() {
               filterOption === 'All Grids') && (
               <section>
                 <h2 className="font-bold mb-3">Ongoing Grids</h2>
-                <div className="grid grids-col-1 md:grid-cols-3 gap-3">
+                <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {ongoingGrids.map(renderGrid)}
                 </div>
               </section>
@@ -78,7 +78,7 @@ export default function MyGrids() {
               filterOption === 'All Grids') && (
               <section>
                 <h2 className="font-bold mb-3">Project-based Grids</h2>
-                <div className="grid grids-col-1 md:grid-cols-3 gap-3">
+                <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                   {projectGrids.map(renderGrid)}
                 </div>
               </section>

@@ -23,7 +23,7 @@ export default function Stats() {
   }
 
   return (
-    <div className="stats shadow text-center">
+    <div className="stats shadow text-center stats-vertical md:stats-horizontal">
       <NavLink to={'/dashboard/grids'}>
         <div className="stat hover:bg-base-200 ease-in-out duration-100 cursor-pointer">
           <div className="stat-figure text-secondary">

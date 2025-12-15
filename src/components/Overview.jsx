@@ -92,7 +92,7 @@ export default function Overview({
   return (
     <div
       ref={container}
-      className="h-[950px] w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 overflow-scroll border border-accent/25 rounded-lg p-3 "
+      className="max-h-[950px] max-w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 overflow-scroll border border-accent/25 rounded-lg p-3 "
     >
       {!loading ? (
         gridData?.grids.map((grid, ind) => (

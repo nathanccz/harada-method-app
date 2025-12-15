@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import SkeletonSidebar from './SkeletonSidebar'
 import NewGridButton from './NewGridButton'
+import Navbar from './Navbar'
 import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
 import SearchBar from './SearchBar'
 
-export default function Sidebar() {
+export default function Sidebar({ isMobile }) {
   const { openCreateModal } = useModalContext()
   const { userData, loading } = useAuthContext()
   const { grids } = useDataContext()
@@ -22,8 +23,8 @@ export default function Sidebar() {
   const activeGrids = [...grids].filter((grid) => !grid.completedAt)
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
 
-  return loading ? (
-    <SkeletonSidebar />
+  return isMobile ? (
+    <Navbar />
   ) : (
     <aside className="flex flex-col min-w-[275px] mb-8">
       <div className="flex mb-8 mt-4 mx-4">

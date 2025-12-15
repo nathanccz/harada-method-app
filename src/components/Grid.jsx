@@ -11,7 +11,7 @@ export default function Grid({ gridData }) {
   return (
     <>
       {/* MAIN GRID WRAPPER */}
-      <div className="h-[950px] w-[950px] mx-auto text-center">
+      <div className="max-h-[950px] max-w-[950px] mx-auto text-center">
         {/* GRID OR SKELETON */}
         {!loading ? (
           <div className="grid grid-cols-3 mx-auto gap-4">
@@ -26,7 +26,7 @@ export default function Grid({ gridData }) {
                   return (
                     <div
                       key={task.id}
-                      className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[90px] w-[90px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200
+                      className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[90px] w-[90px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hyphens-auto 
                       ${
                         isMainCenter
                           ? 'bg-yellow-200 font-bold hover:bg-yellow-100'
@@ -46,7 +46,7 @@ export default function Grid({ gridData }) {
                           }
                         />
                       )}
-                      <span className="text-sm">{task.text}</span>
+                      <span className="text-xs">{task.text}</span>
                     </div>
                   )
                 })}
