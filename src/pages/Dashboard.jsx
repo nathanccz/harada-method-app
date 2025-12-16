@@ -21,12 +21,14 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col justify-between h-screen">
       <div
-        className={`flex relative gap-3 lg:px-28 max-w-[1700px] mx-auto flex-grow-2 ${
+        className={`flex relative gap-5 w-full max-w-[1300px] mx-auto flex-grow-2 p-6 ${
           isMobile && 'flex-col'
         }`}
       >
         <Sidebar isMobile={isMobile} />
-        <Outlet />
+        <main className="w-full lg:w-[75%]">
+          <Outlet />
+        </main>
       </div>
       <Footer />
       <SpeedDial />

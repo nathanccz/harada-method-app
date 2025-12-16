@@ -12,9 +12,9 @@ function Contact() {
   })
 
   const contactOptions = [
-    { option: 'Report a bug', icon: 'streamline-stickies-color:bug' },
-    { option: 'Suggest a feature', icon: 'flat-color-icons:idea' },
-    { option: 'Leave a review', icon: 'fluent-color:person-feedback-48' },
+    { option: 'Report bugs', icon: 'streamline-stickies-color:bug' },
+    { option: 'Suggest features', icon: 'flat-color-icons:idea' },
+    { option: 'Leave review', icon: 'fluent-color:person-feedback-48' },
     {
       option: 'Request work',
       icon: 'streamline-freehand-color:work-from-home-user-pet-cat',
@@ -74,10 +74,10 @@ function Contact() {
           any time, and I'll get back to you as soon as possible. You can use
           the form below to:
         </p>
-        <div className="flex justify-center gap-8 p-2 font-bold mb-5 text-black">
+        <div className="grid grid-cols-2 lg:grid-cols-4 justify-center gap-4 p-2 font-bold mb-5 text-black">
           {contactOptions.map((option, ind) => (
             <div
-              className="flex flex-col justify-center items-center border border-gray-300/80 bg-accent/50 p-8 shadow-md rounded"
+              className="flex flex-col justify-center items-center border border-gray-300/80 bg-accent/50 p-8 shadow-md rounded text-center"
               key={`${option}-${ind + 1}`}
             >
               <Icon icon={option.icon} className="text-4xl" />

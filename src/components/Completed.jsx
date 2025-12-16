@@ -9,7 +9,7 @@ export default function Completed() {
   const completedGrids = grids.filter((grid) => grid.completedAt)
 
   return (
-    <main className="flex flex-col gap-5 mt-5 p-10 basis-4/5">
+    <section className="flex flex-col gap-5 mt-5 basis-4/5 w-full">
       <h1 className="text-2xl font-bold">My Completed Grids</h1>
       {completedGrids.length > 0 ? (
         <ul className="list bg-base-100 rounded-box shadow-md">
@@ -38,6 +38,6 @@ export default function Completed() {
           <p>There's nothing here, yet!</p>
         </div>
       )}
-    </main>
+    </section>
   )
 }

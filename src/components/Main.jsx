@@ -22,7 +22,7 @@ export default function Main() {
   }, [shouldAnimate])
 
   return !loading ? (
-    <main className="flex flex-col gap-5 mt-5 p-10 w-full">
+    <main className="flex flex-col gap-5 mt-5 w-full">
       <h1 className="text-2xl font-bold">Welcome, {userData?.firstName} 👋</h1>
       <Stats />
       <Banner />
