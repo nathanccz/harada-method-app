@@ -26,7 +26,7 @@ export default function Sidebar({ isMobile }) {
   return isMobile ? (
     <Navbar />
   ) : (
-    <aside className="flex flex-col min-w-[275px] mb-8">
+    <aside className="flex flex-col min-w-[275px] mb-8 pl-8">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
           <div className="bg-neutral text-neutral-content w-16 rounded-full flex justify-center items-center">

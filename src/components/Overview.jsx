@@ -106,7 +106,7 @@ export default function Overview({
             }
             onMouseLeave={() => setHovered(null)}
           >
-            <li className="p-2 pb-2 text-md uppercase opacity-80 font-bold tracking-wide flex gap-3 items-center">
+            <li className="p-2 pb-2 text-md opacity-80 font-bold tracking-wide flex gap-2 items-center">
               {gridData.gridType === 'project' && !gridData.completedAt && (
                 <div
                   className="radial-progress text-secondary custom-radial-size text-[10px]"

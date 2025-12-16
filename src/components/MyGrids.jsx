@@ -44,9 +44,11 @@ export default function MyGrids() {
     <section className="flex flex-col gap-5 mt-5 basis-4/5 relative">
       <h1 className="text-2xl font-bold">My Active Grids</h1>
       <div>
-        {grids && grids.length === 0 && <p>There's nothing here, yet!</p>}
+        {activeGrids && activeGrids.length === 0 && (
+          <p>There's nothing here, yet!</p>
+        )}
       </div>
-      {grids.length > 0 && (
+      {activeGrids.length > 0 && (
         <>
           <div className="absolute top-8 right-0">
             <FilterDropdown

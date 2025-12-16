@@ -19,7 +19,7 @@ export default function AuthContextProvider({ children }) {
       setLoading(true)
       try {
         const data = await getDashboardData()
-
+        console.log(data)
         if (data.message === 'Not authenticated') {
           window.location.href = 'http://localhost:5173/login'
         } else {
@@ -30,7 +30,7 @@ export default function AuthContextProvider({ children }) {
         }
       } catch (error) {
         console.log(error)
-        // window.location.href = 'http://localhost:5173/login'
+        window.location.replace('http://localhost:5173/login')
       }
     }
     fetchUserData()
