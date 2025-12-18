@@ -31,7 +31,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="w-full my-4">
+    <div className="w-full">
       <label className="input">
         <svg
           className="h-[1em] opacity-50"
@@ -59,7 +59,7 @@ export default function SearchBar() {
       </label>
       {results && (
         <div className="bg-slate-300 rounded mt-2 p-1 border-gray-400 border absolute z-99">
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2 max-h-[40vh] overflow-scroll">
             {results.length > 0 ? (
               results.map((result) => (
                 <li

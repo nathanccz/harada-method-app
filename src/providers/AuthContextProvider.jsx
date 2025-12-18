@@ -30,7 +30,7 @@ export default function AuthContextProvider({ children }) {
         }
       } catch (error) {
         console.log(error)
-        window.location.replace('http://localhost:5173/login')
+        // window.location.replace('http://localhost:5173/login')
       }
     }
     fetchUserData()

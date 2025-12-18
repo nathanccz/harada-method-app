@@ -63,6 +63,16 @@ export default function Overview({
       updatedGrid.grids[gridIndex][taskIndex].completedAt = ''
     }
 
+    if (
+      updatedGrid.grids[gridIndex]
+        .filter((grid) => grid.slot !== 'middle-center')
+        .every((cell) => cell.completedAt)
+    ) {
+      updatedGrid.grids[gridIndex][4].completedAt = new Date().toISOString()
+    } else {
+      updatedGrid.grids[gridIndex][4].completedAt = ''
+    }
+
     try {
       const response = await editGridCell(updatedGrid._id, updatedGrid.grids)
       if (!response) {
@@ -75,10 +85,25 @@ export default function Overview({
     } catch (error) {
       console.log('Error updating grid:', error)
     }
+
+    if (
+      updatedGrid.grids
+        .flat()
+        .flat()
+        .every((grid) => grid.completedAt)
+    ) {
+      showCompletionModal()
+    }
+  }
+
+  const showCompletionModal = () => {
+    document.getElementById('completion_modal').showModal()
   }
 
   const calculateFraction = (subGrid) => {
-    const completed = subGrid.filter((cell) => cell.completedAt).length
+    const completed = subGrid.filter(
+      (cell) => cell.completedAt && cell.slot !== 'middle-center'
+    ).length
 
     return `${completed}/8`
   }

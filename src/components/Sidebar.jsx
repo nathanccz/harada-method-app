@@ -24,7 +24,7 @@ export default function Sidebar({ isMobile }) {
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
 
   return isMobile ? (
-    <Navbar />
+    <Navbar userData={userData} />
   ) : (
     <aside className="flex flex-col min-w-[275px] mb-8 pl-8">
       <div className="flex mb-8 mt-4 mx-4">
@@ -38,11 +38,15 @@ export default function Sidebar({ isMobile }) {
           <span></span>
         </div>
       </div>
-      <NewGridButton
-        text={'Create New Grid'}
-        openCreateModal={openCreateModal}
-      />
-      <SearchBar />
+      <div className="mb-3 w-full">
+        <NewGridButton
+          text={'Create New Grid'}
+          openCreateModal={openCreateModal}
+        />
+      </div>
+      <div className="mb-5">
+        <SearchBar />
+      </div>
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold mt-3">
         <li>
           <NavLink to={'/dashboard'} className={getNavLinkClass} end>

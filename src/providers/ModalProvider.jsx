@@ -14,6 +14,7 @@ import EditListModal from '../components/EditListModal'
 import ClearModal from '../components/ClearModal'
 import EditCellModal from '../components/EditCellModal'
 import GenerateGridModal from '../components/GenerateGridModal'
+import CompletionModal from '../components/CompletionModal'
 
 export const ModalProviderContext = createContext(null)
 
@@ -143,6 +144,7 @@ export default function ModalProvider({ children }) {
       <EditListModal indexOfGrid={indexOfGrid} currentParams={currentParams} />
       <ClearModal clearGrid={clearGrid} />
       <GenerateGridModal />
+      <CompletionModal />
     </ModalProviderContext.Provider>
   )
 }

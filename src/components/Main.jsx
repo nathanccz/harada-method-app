@@ -32,7 +32,7 @@ export default function Main() {
           Create your first grid to start achieving your goals using the Harada
           Method.
         </p>
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col mx-auto items-center gap-3 sm:w-50 md:w-80">
           <NewGridButton
             text={'Create your first Harada Grid'}
             openCreateModal={openCreateModal}

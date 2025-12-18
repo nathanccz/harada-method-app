@@ -3,7 +3,7 @@ export default function Templates() {
     <section className="flex flex-col gap-5 mt-5 basis-4/5">
       <h1 className="text-2xl font-bold">Templates</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        <div className="card bg-base-100 w-84 shadow-sm border border-transparent hover:bg-base-200 hover:border-accent ease-in-out duration-100">
+        <div className="card bg-slate-100 w-84 shadow-sm border border-transparent hover:bg-slate-200 hover:border-accent ease-in-out duration-100">
           <figure className="px-10 pt-10">
             <img
               src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"

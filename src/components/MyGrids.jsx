@@ -17,7 +17,7 @@ export default function MyGrids() {
   const renderGrid = (grid) => (
     <div
       key={grid._id}
-      className="card bg-base-100 card-md shadow-sm border border-transparent hover:bg-base-200 hover:border-accent ease-in-out duration-100 relative pt-5"
+      className="card bg-slate-100 card-md shadow-sm border border-transparent hover:bg-slate-200 hover:border-accent ease-in-out duration-100 relative pt-5"
     >
       {grid.gridType === 'project' && (
         <div className="absolute top-1 left-1">
