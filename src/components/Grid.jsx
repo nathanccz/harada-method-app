@@ -37,15 +37,21 @@ export default function Grid({ gridData }) {
                       onMouseEnter={() => setHovered(task.id)}
                       onMouseLeave={() => setHovered(null)}
                     >
-                      {hovered === task.id && !gridData.completedAt && (
-                        <Icon
-                          icon="material-symbols:edit-outline"
-                          className="text-2xl cursor-pointer absolute top-0 right-0"
-                          onClick={() =>
-                            openEditCellModal(gridData._id, task.id, task.text)
-                          }
-                        />
-                      )}
+                      {hovered === task.id &&
+                        !gridData.completedAt &&
+                        !gridData.templateCategory && (
+                          <Icon
+                            icon="material-symbols:edit-outline"
+                            className="text-2xl cursor-pointer absolute top-0 right-0"
+                            onClick={() =>
+                              openEditCellModal(
+                                gridData._id,
+                                task.id,
+                                task.text
+                              )
+                            }
+                          />
+                        )}
                       <span className="text-xs">{task.text}</span>
                     </div>
                   )

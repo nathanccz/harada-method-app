@@ -10,7 +10,9 @@ export default function MyGrids() {
   const [filterOption, setFilterOption] = useState('All Grids')
 
   const { grids } = useDataContext()
-  const activeGrids = grids.filter((grid) => !grid.completedAt)
+  const activeGrids = grids.filter(
+    (grid) => !grid.completedAt && !grid.templateCategory
+  )
   const ongoingGrids = activeGrids.filter((grid) => grid.gridType === 'ongoing')
   const projectGrids = activeGrids.filter((grid) => grid.gridType === 'project')
 
@@ -29,7 +31,7 @@ export default function MyGrids() {
         <h2 className="card-title">{grid.title}</h2>
         <p>{grid.description}</p>
         <span className="text-xs italic">
-          Created at: {formatDate(grid.createdAt)}
+          Created: {formatDate(grid.createdAt)}
         </span>
         <div className="justify-end card-actions">
           <NavLink to={`/dashboard/grid/${grid._id}`}>
@@ -41,7 +43,7 @@ export default function MyGrids() {
   )
 
   return (
-    <section className="flex flex-col gap-5 mt-5 basis-4/5 relative">
+    <section className="flex flex-col gap-5 mt-5 basis-4/5 relative lg:h-[85vh] lg:overflow-scroll">
       <h1 className="text-2xl font-bold">My Active Grids</h1>
       <div>
         {activeGrids && activeGrids.length === 0 && (

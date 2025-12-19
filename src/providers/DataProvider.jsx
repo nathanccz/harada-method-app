@@ -7,6 +7,7 @@ export const DataProviderContext = createContext(null)
 
 export default function DataProvider({ children }) {
   const [grids, setGrids] = useState([])
+  const [image, setImage] = useState(null)
   const [shouldAnimate, setShouldAnimate] = useState(false)
   const [newAIGeneratedGridId, setNewAIGeneratedGridId] = useState(null)
   const { isAuthenticated } = useAuthContext()
@@ -32,6 +33,8 @@ export default function DataProvider({ children }) {
         setShouldAnimate,
         newAIGeneratedGridId,
         setNewAIGeneratedGridId,
+        image,
+        setImage,
       }}
     >
       {children}

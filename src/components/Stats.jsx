@@ -5,7 +5,9 @@ import { calculateOverallProgress } from '../../utils/helpers'
 
 export default function Stats() {
   const { grids } = useDataContext()
-  const activeGrids = [...grids].filter((grid) => !grid.completedAt)
+  const activeGrids = [...grids].filter(
+    (grid) => !grid.completedAt && !grid.templateCategory
+  )
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
   const projectGrids = [...activeGrids].filter(
     (grid) => grid.gridType === 'project'
@@ -32,7 +34,7 @@ export default function Stats() {
         <div className="stat-value">
           {activeGrids.length > 0 ? activeGrids.length : '0'}
         </div>
-        <div className="stat-desc">Jan 1st - Feb 1st</div>
+        {/* <div className="stat-desc">Jan 1st - Feb 1st</div> */}
       </div>
 
       <div className="stat text-center hover:bg-slate-200 ease-in-out duration-100">
@@ -43,7 +45,7 @@ export default function Stats() {
         <div className="stat-value">
           {calculateAverageGridProgress(projectGrids) || '0'}%
         </div>
-        <div className="stat-desc">↗︎ 400 (22%)</div>
+        {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
       </div>
 
       <div className="stat text-center hover:bg-slate-200 ease-in-out duration-100">
@@ -54,7 +56,7 @@ export default function Stats() {
         <div className="stat-value">
           {completedGrids.length > 0 ? completedGrids.length : '0'}
         </div>
-        <div className="stat-desc">↘︎ 90 (14%)</div>
+        {/* <div className="stat-desc">↘︎ 90 (14%)</div> */}
       </div>
     </div>
   )

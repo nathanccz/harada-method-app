@@ -117,14 +117,14 @@ export default function Overview({
   return (
     <div
       ref={container}
-      className="max-h-[950px] max-w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 overflow-scroll border border-accent/25 rounded-lg p-3 "
+      className="lg:max-h-[950px] max-w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 lg:overflow-scroll border border-accent/25 rounded-lg p-3 "
     >
       {!loading ? (
         gridData?.grids.map((grid, ind) => (
           <ul
             className={`list ${
-              grid[0].id.startsWith('main') ? 'bg-yellow-100' : 'bg-base-100'
-            } rounded-box shadow-md hover:bg-base-200 ease-in-out duration-100 border border-transparent hover:border-primary relative subGoal`}
+              grid[0].id.startsWith('main') ? 'bg-yellow-100' : 'bg-slate-100'
+            } rounded-box shadow-md hover:bg-slate-200 ease-in-out duration-100 border border-transparent hover:border-primary relative subGoal`}
             key={`grid-${ind + 1}`}
             onMouseEnter={() =>
               setHovered(grid[0].id.split('-').slice(0, 3).join('-'))
@@ -132,21 +132,23 @@ export default function Overview({
             onMouseLeave={() => setHovered(null)}
           >
             <li className="p-2 pb-2 text-md opacity-80 font-bold tracking-wide flex gap-2 items-center">
-              {gridData.gridType === 'project' && !gridData.completedAt && (
-                <div
-                  className="radial-progress text-secondary custom-radial-size text-[10px]"
-                  style={
-                    {
-                      '--value': calculatePercentage(grid),
-                      '--size': '2.5rem',
-                    } /* as React.CSSProperties */
-                  }
-                  aria-valuenow={calculatePercentage(grid)}
-                  role="progressbar"
-                >
-                  {calculateFraction(grid)}
-                </div>
-              )}
+              {gridData.gridType === 'project' &&
+                !gridData.completedAt &&
+                !gridData.templateCategory && (
+                  <div
+                    className="radial-progress text-secondary custom-radial-size text-[10px]"
+                    style={
+                      {
+                        '--value': calculatePercentage(grid),
+                        '--size': '2.5rem',
+                      } /* as React.CSSProperties */
+                    }
+                    aria-valuenow={calculatePercentage(grid)}
+                    role="progressbar"
+                  >
+                    {calculateFraction(grid)}
+                  </div>
+                )}
               <span>{grid[4].text}</span>
             </li>
 
@@ -166,7 +168,8 @@ export default function Overview({
                 </div>
                 {gridData.gridType === 'project' &&
                   cell.text &&
-                  !gridData.completedAt && (
+                  !gridData.completedAt &&
+                  !gridData.templateCategory && (
                     <div className="flex justify-center items-center">
                       <input
                         type="checkbox"
@@ -178,13 +181,15 @@ export default function Overview({
                   )}
               </li>
             ))}
-            {grid[0].id.startsWith(hovered) && !gridData.completedAt && (
-              <Icon
-                icon="material-symbols:edit-outline"
-                className="text-2xl cursor-pointer absolute top-1 right-1"
-                onClick={() => handleClickOpenEditListModal(ind)}
-              />
-            )}
+            {grid[0].id.startsWith(hovered) &&
+              !gridData.completedAt &&
+              !gridData.templateCategory && (
+                <Icon
+                  icon="material-symbols:edit-outline"
+                  className="text-2xl cursor-pointer absolute top-1 right-1"
+                  onClick={() => handleClickOpenEditListModal(ind)}
+                />
+              )}
           </ul>
         ))
       ) : (

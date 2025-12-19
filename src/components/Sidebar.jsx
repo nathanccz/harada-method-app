@@ -20,7 +20,9 @@ export default function Sidebar({ isMobile }) {
     window.location.href = 'http://localhost:3000/api/logout' // Redirect to backend Google OAuth route
   }
 
-  const activeGrids = [...grids].filter((grid) => !grid.completedAt)
+  const activeGrids = [...grids].filter(
+    (grid) => !grid.completedAt && !grid.templateCategory
+  )
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
 
   return isMobile ? (
@@ -29,13 +31,17 @@ export default function Sidebar({ isMobile }) {
     <aside className="flex flex-col min-w-[275px] mb-8 pl-8">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
-          <div className="bg-neutral text-neutral-content w-16 rounded-full flex justify-center items-center">
-            <div className="text-3xl text-center">{userData?.firstName[0]}</div>
+          <div className="w-15 rounded-full">
+            <img
+              alt="profile-pic"
+              src={userData?.image}
+              referrerPolicy="no-referrer"
+            />
           </div>
         </div>
         <div className="mt-2 ml-3">
-          <h3 className="font-bold"></h3>
-          <span></span>
+          <h3 className="font-bold">{userData?.displayName}</h3>
+          <span>{userData?.email}</span>
         </div>
       </div>
       <div className="mb-3 w-full">

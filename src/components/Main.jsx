@@ -11,7 +11,8 @@ import { useNavigate } from 'react-router-dom'
 export default function Main() {
   const { openCreateModal } = useModalContext()
   const { userData, loading } = useAuthContext()
-  const { shouldAnimate, newAIGeneratedGridId, fetchGrids } = useDataContext()
+  const { shouldAnimate, newAIGeneratedGridId, fetchGrids, grids } =
+    useDataContext()
 
   const navigate = useNavigate()
 
@@ -22,24 +23,26 @@ export default function Main() {
   }, [shouldAnimate])
 
   return !loading ? (
-    <main className="flex flex-col gap-5 mt-5 w-full">
+    <section className="flex flex-col gap-5 mt-5 w-full lg:h-[85vh] lg:overflow-scroll">
       <h1 className="text-2xl font-bold">Welcome, {userData?.firstName} 👋</h1>
       <Stats />
       <Banner />
-      <div className="border rounded border-gray-300 bg-secondary text-white p-8 lg:p-36 text-center flex flex-col gap-3">
-        <h2 className="text-lg font-bold">You don't have any grids, yet!</h2>
-        <p>
-          Create your first grid to start achieving your goals using the Harada
-          Method.
-        </p>
-        <div className="flex flex-col mx-auto items-center gap-3 sm:w-50 md:w-80">
-          <NewGridButton
-            text={'Create your first Harada Grid'}
-            openCreateModal={openCreateModal}
-          />
+      {grids.length === 0 && (
+        <div className="border rounded border-gray-300 bg-secondary text-white p-8 lg:p-36 text-center flex flex-col gap-3">
+          <h2 className="text-lg font-bold">You don't have any grids, yet!</h2>
+          <p>
+            Create your first grid to start achieving your goals using the
+            Harada Method.
+          </p>
+          <div className="flex flex-col mx-auto items-center gap-3 sm:w-50 md:w-80">
+            <NewGridButton
+              text={'Create your first Harada Grid'}
+              openCreateModal={openCreateModal}
+            />
+          </div>
         </div>
-      </div>
-    </main>
+      )}
+    </section>
   ) : (
     <MainSkeleton />
   )

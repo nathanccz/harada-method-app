@@ -15,6 +15,7 @@ import ClearModal from '../components/ClearModal'
 import EditCellModal from '../components/EditCellModal'
 import GenerateGridModal from '../components/GenerateGridModal'
 import CompletionModal from '../components/CompletionModal'
+import TemplateModal from '../components/TemplateModal'
 
 export const ModalProviderContext = createContext(null)
 
@@ -62,7 +63,12 @@ export default function ModalProvider({ children }) {
     document.getElementById('generate_grid_modal').showModal()
   }
 
-  const createProject = async (title, description, gridType) => {
+  const createProject = async (
+    title,
+    description,
+    gridType,
+    templateCategory
+  ) => {
     if (!title) {
       alert('Please enter a title.')
       return
@@ -71,6 +77,7 @@ export default function ModalProvider({ children }) {
     newGrid.title = title
     newGrid.description = description
     newGrid.gridType = gridType
+    newGrid.templateCategory = templateCategory || ''
     console.log(newGrid)
 
     try {
@@ -145,6 +152,7 @@ export default function ModalProvider({ children }) {
       <ClearModal clearGrid={clearGrid} />
       <GenerateGridModal />
       <CompletionModal />
+      <TemplateModal />
     </ModalProviderContext.Provider>
   )
 }

@@ -76,7 +76,11 @@ export default function Navbar({ userData }) {
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img alt="Tailwind CSS Navbar component" src={userData?.image} />
+              <img
+                alt="profile-pic"
+                src={userData?.image}
+                referrerPolicy="no-referrer"
+              />
             </div>
           </div>
           <ul

@@ -60,8 +60,8 @@ export default function GenerateGridModal() {
             </div>
             <p className="py-4 text-left">
               Tell us what you'd like to achieve, and we'll help you generate a
-              custom Harada grid. Don't worry, you can tweak it at any time to
-              fit your needs!
+              custom Harada grid. The more specific you are about your goals,
+              the higher quality your grid will be!
             </p>
             <textarea
               placeholder="Ex: 'I want to plan a trip to Greece focusing on amazing culinary experiences.'"

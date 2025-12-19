@@ -48,7 +48,7 @@ export default function GridView() {
           onMouseEnter={() => setTitleHovered(true)}
           onMouseLeave={() => setTitleHovered(false)}
         >
-          {titleHovered && (
+          {titleHovered && !gridData.templateCategory && (
             <Icon
               icon="material-symbols:edit-outline"
               className="text-2xl cursor-pointer absolute top-0 right-0"
@@ -56,7 +56,7 @@ export default function GridView() {
             />
           )}
 
-          {gridData?.gridType === 'project' && (
+          {gridData?.gridType === 'project' && !gridData.templateCategory && (
             <OverallProgressCircle
               gridsArray={gridData?.grids}
               size="4rem"
@@ -89,15 +89,21 @@ export default function GridView() {
               Grid View
             </a>
           </div>
-          <div>
-            <button
-              className="btn btn-neutral"
-              onClick={() => openClearModal(gridData._id)}
-            >
-              <Icon icon="ix:clear" className="text-lg" /> Clear
-            </button>
-            <Dropdown gridData={gridData} />
-          </div>
+          {gridData.templateCategory ? (
+            <>
+              <button className="btn btn-primary">Use Template</button>
+            </>
+          ) : (
+            <div>
+              <button
+                className="btn btn-neutral"
+                onClick={() => openClearModal(gridData._id)}
+              >
+                <Icon icon="ix:clear" className="text-lg" /> Clear
+              </button>
+              <Dropdown gridData={gridData} />
+            </div>
+          )}
         </div>
         {/* LAST MODIFIED */}
         {gridData?.lastModified && !gridData?.completedAt && (

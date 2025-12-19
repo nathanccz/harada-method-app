@@ -7,6 +7,22 @@ dialog .file-input {
   --size: 2rem;
 }
 
+/* 
+  Prevent modal backdrop from shifting left on Windows due to scrollbar accommodation.
+  This issue occurs because Windows reserves space for the scrollbar, causing the viewport to shift.
+  Using scrollbar-gutter: unset; removes this reserved space when a modal is open.
+*/
+:root:has(
+    :is(
+        .modal-open,
+        .modal:target,
+        .modal-toggle:checked + .modal,
+        .modal[open]
+      )
+  ) {
+  scrollbar-gutter: unset;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;

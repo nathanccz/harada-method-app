@@ -9,7 +9,7 @@ export default function Completed() {
   const completedGrids = grids.filter((grid) => grid.completedAt)
 
   return (
-    <section className="flex flex-col gap-5 mt-5 basis-4/5 w-full">
+    <section className="flex flex-col gap-5 mt-5 basis-4/5 w-full lg:h-[85vh] lg:overflow-scroll">
       <h1 className="text-2xl font-bold">My Completed Grids</h1>
       {completedGrids.length > 0 ? (
         <ul className="list bg-slate-100 rounded-box shadow-md">
