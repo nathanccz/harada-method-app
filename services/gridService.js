@@ -3,12 +3,15 @@ export const addGrid = async (obj) => {
     const object = { ...obj }
     object.grids[4][4].text = obj.title
 
-    const response = await fetch(`http://localhost:3000/api/grids/add`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(object),
-      credentials: 'include',
-    })
+    const response = await fetch(
+      `https://myharada-app-backend.onrender.com/api/grids/add`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(object),
+        credentials: 'include',
+      }
+    )
     const data = await response.json()
     console.log(data)
     if (!response.ok) {
@@ -23,9 +26,12 @@ export const addGrid = async (obj) => {
 
 export const getGrids = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/api/grids/all`, {
-      credentials: 'include',
-    })
+    const response = await fetch(
+      `https://myharada-app-backend.onrender.com/api/grids/all`,
+      {
+        credentials: 'include',
+      }
+    )
     if (!response.ok) {
       console.log('something went wrong')
     }
@@ -41,7 +47,7 @@ export const getSingleGrid = async (gridId) => {
   console.log(gridId)
   try {
     const response = await fetch(
-      `http://localhost:3000/api/grids/grid/${gridId}`,
+      `https://myharada-app-backend.onrender.com/api/grids/grid/${gridId}`,
       {
         credentials: 'include',
       }
@@ -62,7 +68,7 @@ export const editGridCell = async (gridId, gridArray) => {
   console.log(gridArray)
   try {
     const response = await fetch(
-      `http://localhost:3000/api/grids/edit/${gridId}`,
+      `https://myharada-app-backend.onrender.com/api/grids/edit/${gridId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -86,7 +92,7 @@ export const deleteGrid = async (gridId) => {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/grids/delete/${gridId}`,
+      `https://myharada-app-backend.onrender.com/api/grids/delete/${gridId}`,
       {
         method: 'DELETE',
         credentials: 'include',
@@ -102,7 +108,7 @@ export const deleteGrid = async (gridId) => {
 export const editGridDetails = async (gridId, title, description, gridType) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/grids/editDetails/${gridId}`,
+      `https://myharada-app-backend.onrender.com/api/grids/editDetails/${gridId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -126,7 +132,7 @@ export const editGridDetails = async (gridId, title, description, gridType) => {
 export const editGridCells = async (obj) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/grids/editCells/${gridId}`,
+      `https://myharada-app-backend.onrender.com/api/grids/editCells/${gridId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -146,7 +152,7 @@ export const editGridCells = async (obj) => {
 export const clearGridCells = async (gridId) => {
   try {
     const response = fetch(
-      `http://localhost:3000/api/grids/clearCells/${gridId}`,
+      `https://myharada-app-backend.onrender.com/api/grids/clearCells/${gridId}`,
       {
         method: 'PUT',
         credentials: 'include',
@@ -162,7 +168,7 @@ export const clearGridCells = async (gridId) => {
 export const markGridAsCompleted = async (gridId) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/grids/markComplete/${gridId}`,
+      `https://myharada-app-backend.onrender.com/api/grids/markComplete/${gridId}`,
       {
         method: 'PUT',
         credentials: 'include',
@@ -181,7 +187,7 @@ export const markGridAsCompleted = async (gridId) => {
 
 export const getAIGeneratedGrid = async (message) => {
   try {
-    const URL = 'http://localhost:3000/api/grids/groqai'
+    const URL = 'https://myharada-app-backend.onrender.com/api/grids/groqai'
     const response = await fetch(URL, {
       method: 'POST',
       headers: {
