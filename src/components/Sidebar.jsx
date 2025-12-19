@@ -8,7 +8,7 @@ import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
 import SearchBar from './SearchBar'
 
-export default function Sidebar({ isMobile }) {
+export default function Sidebar({ isMobile, isPhoneView }) {
   const { openCreateModal } = useModalContext()
   const { userData, loading } = useAuthContext()
   const { grids } = useDataContext()
@@ -26,7 +26,7 @@ export default function Sidebar({ isMobile }) {
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
 
   return isMobile ? (
-    <Navbar userData={userData} />
+    <Navbar userData={userData} isPhoneView={isPhoneView} />
   ) : (
     <aside className="flex flex-col min-w-[275px] mb-8 pl-8">
       <div className="flex mb-8 mt-4 mx-4">

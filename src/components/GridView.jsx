@@ -32,6 +32,10 @@ export default function GridView() {
     }, 150)
   }
 
+  const handleClickUseTemplate = () => {
+    document.getElementById('template_confirmation_modal').showModal()
+  }
+
   useEffect(() => {
     const viewPreference = localStorage.getItem('view_preference')
 
@@ -87,7 +91,12 @@ export default function GridView() {
           )}
           {gridData?.templateCategory ? (
             <>
-              <button className="btn btn-primary">Use Template</button>
+              <button
+                className="btn btn-primary"
+                onClick={handleClickUseTemplate}
+              >
+                Use Template
+              </button>
             </>
           ) : (
             <div>

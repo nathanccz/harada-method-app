@@ -16,6 +16,7 @@ import EditCellModal from '../components/EditCellModal'
 import GenerateGridModal from '../components/GenerateGridModal'
 import CompletionModal from '../components/CompletionModal'
 import TemplateModal from '../components/TemplateModal'
+import TemplateConfirmationModal from '../components/TemplateConfirmationModal'
 
 export const ModalProviderContext = createContext(null)
 
@@ -153,6 +154,7 @@ export default function ModalProvider({ children }) {
       <GenerateGridModal />
       <CompletionModal />
       <TemplateModal />
+      <TemplateConfirmationModal />
     </ModalProviderContext.Provider>
   )
 }

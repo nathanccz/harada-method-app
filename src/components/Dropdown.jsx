@@ -38,12 +38,12 @@ export default function Dropdown({ gridData }) {
         tabIndex="-1"
         className="dropdown-content menu bg-base-200 rounded-box z-1 w-52 p-2 shadow-sm"
       >
-        <li>
+        {/* <li>
           <a onClick={handleClickSaveAsTemplate}>
             <Icon icon="material-symbols:cloud" className="text-lg" />
             Save as Template
           </a>
-        </li>
+        </li> */}
         <li>
           {!loading ? (
             <a onClick={handleClickSaveAsCompleted}>

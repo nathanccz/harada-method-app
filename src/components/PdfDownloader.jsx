@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
 
 export default function PdfDownloader({}) {
-  const handleClickPrint = () => {
-    window.print()
+  const handleClickSave = () => {
+    alert('Print to PDF feature coming soon! Please stay tuned.')
   }
   return (
-    <button onClick={handleClickPrint}>
-      <Icon icon="teenyicons:pdf-outline" className="text-lg" /> Print Page
+    <button onClick={handleClickSave}>
+      <Icon icon="teenyicons:pdf-outline" className="text-lg" /> Save as PDF
     </button>
   )
 }

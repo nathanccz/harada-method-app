@@ -5,8 +5,10 @@ import { useState } from 'react'
 
 export default function Navbar({ userData, isLoggedOut }) {
   const [searchBarFocused, setSearchBarFocused] = useState(false)
+
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-gray-300 block' : 'block'
+
   return (
     <div className="navbar bg-base-100 shadow-sm top-0 sticky z-999 justify-between">
       <div className="dropdown dropdown-start">
