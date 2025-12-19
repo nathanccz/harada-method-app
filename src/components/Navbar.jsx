@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom'
-import Drawer from './Drawer'
 import SearchBar from './SearchBar'
 import { Icon } from '@iconify/react'
+import { useState } from 'react'
 
-export default function Navbar({ userData }) {
+export default function Navbar({ userData, isLoggedOut }) {
+  const [searchBarFocused, setSearchBarFocused] = useState(false)
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-gray-300 block' : 'block'
   return (
@@ -67,41 +68,63 @@ export default function Navbar({ userData }) {
           </li>
         </ul>
       </div>
-      <div className="flex gap-2 items-center">
-        <SearchBar />
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="profile-pic"
-                src={userData?.image}
-                referrerPolicy="no-referrer"
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
+      {!searchBarFocused && (
+        <div className="w-[150px] h-10 scale-130">
+          <img
+            alt="mharada logo"
+            src="/logo.svg"
+            className="w-full h-full object-cover"
+          />
         </div>
-      </div>
+      )}
+      {isLoggedOut ? (
+        <a href="/login">
+          <button className="btn btn-neutral">Log In</button>
+        </a>
+      ) : (
+        <div
+          className={`flex gap-2 items-center ${
+            searchBarFocused ? 'w-60' : 'w-25'
+          } md:w-50`}
+        >
+          <SearchBar
+            searchBarFocused={searchBarFocused}
+            setSearchBarFocused={setSearchBarFocused}
+          />
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="profile-pic"
+                  src={userData?.image}
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex="-1"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

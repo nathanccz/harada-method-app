@@ -4,18 +4,18 @@ import Overview from './Overview'
 import { formatDate } from '../../utils/helpers'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import Dropdown from './Dropdown'
-import { useParams } from 'react-router-dom'
+import { useOutletContext, useParams } from 'react-router-dom'
 import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
 import OverallProgressCircle from './OverallProgressCircle'
 
 export default function GridView() {
   const [view, setView] = useState('')
-  const [titleHovered, setTitleHovered] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
   const { openEditDetailsModal, openClearModal } = useModalContext()
   const { id } = useParams()
+  const { isMobile } = useOutletContext()
 
   const { grids, shouldAnimate, setShouldAnimate } = useDataContext()
 
@@ -40,28 +40,18 @@ export default function GridView() {
 
   return (
     <>
-      <main className="flex flex-col gap-5 p-6 basis-4/5">
+      <section className="flex flex-col gap-5 basis-4/5">
         {/* TITLE AREA */}
 
-        <div
-          className="relative w-fit rounded hover:bg-gray-300 duration-100 p-2 text-center flex gap-5"
-          onMouseEnter={() => setTitleHovered(true)}
-          onMouseLeave={() => setTitleHovered(false)}
-        >
-          {titleHovered && !gridData.templateCategory && (
-            <Icon
-              icon="material-symbols:edit-outline"
-              className="text-2xl cursor-pointer absolute top-0 right-0"
-              onClick={() => openEditDetailsModal(id)}
-            />
-          )}
-
+        <div className="relative w-fit rounded p-2 text-center flex flex-col md:flex-row gap-5">
           {gridData?.gridType === 'project' && !gridData.templateCategory && (
-            <OverallProgressCircle
-              gridsArray={gridData?.grids}
-              size="4rem"
-              completed={gridData?.completedAt}
-            />
+            <div>
+              <OverallProgressCircle
+                gridsArray={gridData?.grids}
+                size="4rem"
+                completed={gridData?.completedAt}
+              />
+            </div>
           )}
           <div>
             <h1 className="text-2xl font-bold text-left mb-2">
@@ -72,24 +62,30 @@ export default function GridView() {
         </div>
 
         {/* TOP CONTROLS */}
-        <div className="w-full flex gap-3 justify-between items-center">
-          <div role="tablist" className="tabs tabs-border">
-            <a
-              role="tab"
-              className={`tab ${view === 'grid' ? '' : 'tab-active'}`}
-              onClick={() => switchView('list')}
-            >
-              List View
-            </a>
-            <a
-              role="tab"
-              className={`tab ${view === 'grid' ? 'tab-active' : ''}`}
-              onClick={() => switchView('grid')}
-            >
-              Grid View
-            </a>
-          </div>
-          {gridData.templateCategory ? (
+        <div
+          className={`w-full flex gap-3 ${
+            !isMobile && 'justify-between'
+          } items-center`}
+        >
+          {!isMobile && (
+            <div role="tablist" className="tabs tabs-border">
+              <a
+                role="tab"
+                className={`tab ${view === 'grid' ? '' : 'tab-active'}`}
+                onClick={() => switchView('list')}
+              >
+                List View
+              </a>
+              <a
+                role="tab"
+                className={`tab ${view === 'grid' ? 'tab-active' : ''}`}
+                onClick={() => switchView('grid')}
+              >
+                Grid View
+              </a>
+            </div>
+          )}
+          {gridData?.templateCategory ? (
             <>
               <button className="btn btn-primary">Use Template</button>
             </>
@@ -122,7 +118,7 @@ export default function GridView() {
             isAnimating ? 'opacity-0' : 'opacity-100'
           }`}
         >
-          {view === 'grid' ? (
+          {view === 'grid' && !isMobile ? (
             <Grid
               switchView={switchView}
               gridData={gridData}
@@ -138,7 +134,7 @@ export default function GridView() {
             />
           )}
         </div>
-      </main>
+      </section>
     </>
   )
 }

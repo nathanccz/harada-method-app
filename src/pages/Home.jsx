@@ -6,7 +6,7 @@ import VideoBackground from '../components/VideoBackground'
 export default function Home() {
   return (
     <main>
-      <Navbar />
+      <Navbar isLoggedOut={true} />
       <VideoBackground />
     </main>
   )

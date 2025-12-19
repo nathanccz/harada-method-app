@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDataContext } from '../providers/DataProvider'
 
-export default function SearchBar() {
+export default function SearchBar({ searchBarFocused, setSearchBarFocused }) {
   const [results, setResults] = useState(null)
   const [inputText, setInputText] = useState('')
   const { grids } = useDataContext()
@@ -25,6 +25,7 @@ export default function SearchBar() {
   }
 
   const handleClickResult = (gridId) => {
+    console.log('hey')
     setResults(null)
     setInputText('')
     navigate(`/dashboard/grid/${gridId}`)
@@ -54,10 +55,12 @@ export default function SearchBar() {
           className="grow"
           placeholder="Search grids"
           onChange={handleInputChange}
+          onFocus={() => setSearchBarFocused(true)}
+          onBlur={() => setSearchBarFocused(false)}
           value={inputText}
         />
       </label>
-      {results && (
+      {results && searchBarFocused && (
         <div className="bg-slate-300 rounded mt-2 p-1 border-gray-400 border absolute z-99">
           <ul className="flex flex-col gap-2 max-h-[40vh] overflow-scroll">
             {results.length > 0 ? (
@@ -65,6 +68,7 @@ export default function SearchBar() {
                 <li
                   className="cursor-pointer hover:bg-slate-100 transition duration-300 p-3"
                   key={result.$id}
+                  onMouseDown={(e) => e.preventDefault()} //NOTE: Need to add accessibility
                   onClick={() => handleClickResult(result._id)}
                 >
                   <span className="font-bold block">{result.title}</span>

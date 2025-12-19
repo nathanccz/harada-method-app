@@ -23,7 +23,7 @@ export default function Main() {
   }, [shouldAnimate])
 
   return !loading ? (
-    <section className="flex flex-col gap-5 mt-5 w-full lg:h-[85vh] lg:overflow-scroll">
+    <section className="flex flex-col gap-5 mt-5 w-full">
       <h1 className="text-2xl font-bold">Welcome, {userData?.firstName} 👋</h1>
       <Stats />
       <Banner />

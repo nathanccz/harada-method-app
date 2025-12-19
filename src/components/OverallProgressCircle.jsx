@@ -2,7 +2,7 @@ import { calculateOverallProgress } from '../../utils/helpers'
 
 export default function OverallProgressCircle({ gridsArray, size, completed }) {
   const progress = completed ? 100 : calculateOverallProgress(gridsArray) || ''
-  const textSize = size === '4rem' ? 'text-sm' : 'text-xs'
+  const textSize = size === '4rem' ? 'text-sm' : 'text-[10px]'
 
   return (
     <div

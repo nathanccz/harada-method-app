@@ -27,7 +27,7 @@ export default function Dashboard() {
       >
         <Sidebar isMobile={isMobile} />
         <main className="w-full lg:w-[75%] p-6">
-          <Outlet />
+          <Outlet context={{ isMobile }} />
         </main>
       </div>
       <Footer />
