@@ -4,6 +4,10 @@ export const getDashboardData = async () => {
   const response = await fetch(`${API_BASE_URL}/api/dashboard`, {
     credentials: 'include',
   })
+  if (response.status === 401) {
+    window.location.href = 'https://myharada.netlify.app/login'
+    return
+  }
   const data = await response.json()
   console.log(data)
   return data
