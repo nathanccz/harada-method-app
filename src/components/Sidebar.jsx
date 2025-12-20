@@ -17,7 +17,8 @@ export default function Sidebar({ isMobile, isPhoneView }) {
 
   const handleLogOut = (e) => {
     e.preventDefault()
-    window.location.href = 'http://localhost:3000/api/logout' // Redirect to backend Google OAuth route
+    window.location.href =
+      'https://myharada-app-backend.onrender.com/api/logout' // Redirect to backend Google OAuth route
   }
 
   const activeGrids = [...grids].filter(
