@@ -27,7 +27,7 @@ export default function LoginField() {
   const handleGoogleLogin = (e) => {
     e.preventDefault()
     window.location.href =
-      'https://myharada-app-backend.onrender.com/api/auth/google'
+      'https://myharada-app-backend.onrender.com/auth/google'
     setLoading(true)
   }
 
