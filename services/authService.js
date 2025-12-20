@@ -9,8 +9,8 @@ export const getDashboardData = async () => {
     // window.location.href = 'https://myharada.netlify.app/login'
     // return
   }
-  console.log(response)
+
   const data = await response.json()
-  console.log(data)
-  return data
+  console.log(data.user)
+  return data.user
 }
