@@ -5,8 +5,9 @@ export const getDashboardData = async () => {
     credentials: 'include',
   })
   if (response.status === 401) {
-    window.location.href = 'https://myharada.netlify.app/login'
-    return
+    console.log('HEYY')
+    // window.location.href = 'https://myharada.netlify.app/login'
+    // return
   }
   const data = await response.json()
   console.log(data)
