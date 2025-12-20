@@ -1,17 +1,16 @@
+const API_BASE_URL = import.meta.env.VITE_API_URL
+
 export const addGrid = async (obj) => {
   try {
     const object = { ...obj }
     object.grids[4][4].text = obj.title
 
-    const response = await fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/add`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(object),
-        credentials: 'include',
-      }
-    )
+    const response = await fetch(`${API_BASE_URL}/api/grids/add`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(object),
+      credentials: 'include',
+    })
     const data = await response.json()
     console.log(data)
     if (!response.ok) {
@@ -26,12 +25,9 @@ export const addGrid = async (obj) => {
 
 export const getGrids = async () => {
   try {
-    const response = await fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/all`,
-      {
-        credentials: 'include',
-      }
-    )
+    const response = await fetch(`${API_BASE_URL}/api/grids/all`, {
+      credentials: 'include',
+    })
     if (!response.ok) {
       console.log('something went wrong')
     }
@@ -46,12 +42,9 @@ export const getGrids = async () => {
 export const getSingleGrid = async (gridId) => {
   console.log(gridId)
   try {
-    const response = await fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/grid/${gridId}`,
-      {
-        credentials: 'include',
-      }
-    )
+    const response = await fetch(`${API_BASE_URL}/api/grids/grid/${gridId}`, {
+      credentials: 'include',
+    })
     if (!response.ok) {
       console.log('something went wrong')
     }
@@ -67,15 +60,12 @@ export const getSingleGrid = async (gridId) => {
 export const editGridCell = async (gridId, gridArray) => {
   console.log(gridArray)
   try {
-    const response = await fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/edit/${gridId}`,
-      {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ grid: gridArray }),
-        credentials: 'include',
-      }
-    )
+    const response = await fetch(`${API_BASE_URL}/api/grids/edit/${gridId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ grid: gridArray }),
+      credentials: 'include',
+    })
 
     if (!response) {
       console.log('Something went wrong')
@@ -91,13 +81,10 @@ export const deleteGrid = async (gridId) => {
   console.log(gridId)
 
   try {
-    const response = await fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/delete/${gridId}`,
-      {
-        method: 'DELETE',
-        credentials: 'include',
-      }
-    )
+    const response = await fetch(`${API_BASE_URL}/api/grids/delete/${gridId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
     const message = response.message
     return { message: 'Grid deleted!' }
   } catch (error) {
@@ -108,7 +95,7 @@ export const deleteGrid = async (gridId) => {
 export const editGridDetails = async (gridId, title, description, gridType) => {
   try {
     const response = await fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/editDetails/${gridId}`,
+      `${API_BASE_URL}/api/grids/editDetails/${gridId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -132,7 +119,7 @@ export const editGridDetails = async (gridId, title, description, gridType) => {
 export const editGridCells = async (obj) => {
   try {
     const response = await fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/editCells/${gridId}`,
+      `${API_BASE_URL}/api/grids/editCells/${gridId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -151,13 +138,10 @@ export const editGridCells = async (obj) => {
 
 export const clearGridCells = async (gridId) => {
   try {
-    const response = fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/clearCells/${gridId}`,
-      {
-        method: 'PUT',
-        credentials: 'include',
-      }
-    )
+    const response = fetch(`${API_BASE_URL}/api/grids/clearCells/${gridId}`, {
+      method: 'PUT',
+      credentials: 'include',
+    })
     console.log(response)
     return { message: 'Grid cleared!' }
   } catch (error) {
@@ -168,7 +152,7 @@ export const clearGridCells = async (gridId) => {
 export const markGridAsCompleted = async (gridId) => {
   try {
     const response = await fetch(
-      `https://myharada-app-backend.onrender.com/api/grids/markComplete/${gridId}`,
+      `${API_BASE_URL}/api/grids/markComplete/${gridId}`,
       {
         method: 'PUT',
         credentials: 'include',
@@ -187,7 +171,7 @@ export const markGridAsCompleted = async (gridId) => {
 
 export const getAIGeneratedGrid = async (message) => {
   try {
-    const URL = 'https://myharada-app-backend.onrender.com/api/grids/groqai'
+    const URL = `${API_BASE_URL}/api/grids/groqai`
     const response = await fetch(URL, {
       method: 'POST',
       headers: {
