@@ -17,9 +17,11 @@ export default function GridView() {
   const { id } = useParams()
   const { isMobile } = useOutletContext()
 
-  const { grids, shouldAnimate, setShouldAnimate } = useDataContext()
+  const { templates, grids, shouldAnimate, setShouldAnimate } = useDataContext()
 
-  const gridData = grids.filter((grid) => grid._id === id)[0]
+  const gridData =
+    grids.filter((grid) => grid._id === id)[0] ||
+    templates.filter((template) => template._id === id)[0]
 
   const switchView = (newView) => {
     if (newView === view) return
