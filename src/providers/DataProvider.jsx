@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import data from '../../data.json'
-import { addGrid, deleteGrid, getGrids } from '../../services/gridService'
+import { getGrids } from '../../services/gridService'
 import { useAuthContext } from './AuthContextProvider'
 
 export const DataProviderContext = createContext(null)
 
 export default function DataProvider({ children }) {
   const [grids, setGrids] = useState([])
+  const [templates, setTemplates] = useState([])
   const [image, setImage] = useState(null)
   const [shouldAnimate, setShouldAnimate] = useState(false)
   const [newAIGeneratedGridId, setNewAIGeneratedGridId] = useState(null)
@@ -17,7 +18,8 @@ export default function DataProvider({ children }) {
 
     const data = await getGrids()
     console.log(data)
-    setGrids(data)
+    setGrids(data.grids)
+    setTemplates(data.templates)
   }
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export default function DataProvider({ children }) {
       value={{
         grids,
         fetchGrids,
+        templates,
         shouldAnimate,
         setShouldAnimate,
         newAIGeneratedGridId,

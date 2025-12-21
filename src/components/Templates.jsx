@@ -4,13 +4,11 @@ import { NavLink } from 'react-router-dom'
 import CategoryFilter from './CategoryFilter'
 
 export default function Templates() {
-  const { grids } = useDataContext()
+  const { templates } = useDataContext()
   const [filterOption, setFilterOption] = useState('All Categories')
 
   // Memoize the filtering and categorization
   const templatesByCategory = useMemo(() => {
-    const templates = grids.filter((grid) => grid.templateCategory)
-
     // Group templates by category
     const grouped = {}
     templates.forEach((template) => {

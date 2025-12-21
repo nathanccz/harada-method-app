@@ -33,7 +33,7 @@ export const getGrids = async () => {
     }
 
     const data = await response.json()
-    return data.grids
+    return data
   } catch (error) {
     console.log(error)
   }
