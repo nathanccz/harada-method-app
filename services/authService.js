@@ -16,6 +16,6 @@ export const getDashboardData = async () => {
   }
 
   const data = await response.json()
-  console.log(data)
-  return data.user
+
+  return data
 }

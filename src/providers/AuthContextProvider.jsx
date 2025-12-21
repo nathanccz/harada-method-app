@@ -19,8 +19,8 @@ export default function AuthContextProvider({ children }) {
       setLoading(true)
       try {
         const data = await getDashboardData()
-        console.log(data)
-        if (data.message === 'Not authenticated') {
+
+        if (!data) {
           window.location.href = 'https://myharada.netlify.app/login'
         } else {
           console.log(data)
