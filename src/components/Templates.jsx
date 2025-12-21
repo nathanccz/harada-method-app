@@ -19,7 +19,7 @@ export default function Templates() {
     })
 
     return grouped
-  }, [grids]) // Only recalculate when grids change
+  }, [templates]) // Only recalculate when grids change
 
   console.log(templatesByCategory)
 
