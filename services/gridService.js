@@ -5,7 +5,7 @@ export const addGrid = async (obj) => {
     const object = { ...obj }
     object.grids[4][4].text = obj.title
 
-    const response = await fetch(`${API_BASE_URL}/api/grids/add`, {
+    const response = await fetch(`${API_BASE_URL}/grids/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(object),
@@ -25,7 +25,7 @@ export const addGrid = async (obj) => {
 
 export const getGrids = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/grids/all`, {
+    const response = await fetch(`${API_BASE_URL}/grids/all`, {
       credentials: 'include',
     })
     if (!response.ok) {
@@ -42,7 +42,7 @@ export const getGrids = async () => {
 export const getSingleGrid = async (gridId) => {
   console.log(gridId)
   try {
-    const response = await fetch(`${API_BASE_URL}/api/grids/grid/${gridId}`, {
+    const response = await fetch(`${API_BASE_URL}/grids/grid/${gridId}`, {
       credentials: 'include',
     })
     if (!response.ok) {
@@ -60,7 +60,7 @@ export const getSingleGrid = async (gridId) => {
 export const editGridCell = async (gridId, gridArray) => {
   console.log(gridArray)
   try {
-    const response = await fetch(`${API_BASE_URL}/api/grids/edit/${gridId}`, {
+    const response = await fetch(`${API_BASE_URL}/grids/edit/${gridId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ grid: gridArray }),
@@ -81,7 +81,7 @@ export const deleteGrid = async (gridId) => {
   console.log(gridId)
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/grids/delete/${gridId}`, {
+    const response = await fetch(`${API_BASE_URL}/grids/delete/${gridId}`, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -95,7 +95,7 @@ export const deleteGrid = async (gridId) => {
 export const editGridDetails = async (gridId, title, description, gridType) => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/grids/editDetails/${gridId}`,
+      `${API_BASE_URL}/grids/editDetails/${gridId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -118,15 +118,12 @@ export const editGridDetails = async (gridId, title, description, gridType) => {
 
 export const editGridCells = async (obj) => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/api/grids/editCells/${gridId}`,
-      {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(obj),
-        credentials: 'include',
-      }
-    )
+    const response = await fetch(`${API_BASE_URL}/grids/editCells/${gridId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(obj),
+      credentials: 'include',
+    })
 
     const message = response.message
 
@@ -138,7 +135,7 @@ export const editGridCells = async (obj) => {
 
 export const clearGridCells = async (gridId) => {
   try {
-    const response = fetch(`${API_BASE_URL}/api/grids/clearCells/${gridId}`, {
+    const response = fetch(`${API_BASE_URL}/grids/clearCells/${gridId}`, {
       method: 'PUT',
       credentials: 'include',
     })
@@ -152,7 +149,7 @@ export const clearGridCells = async (gridId) => {
 export const markGridAsCompleted = async (gridId) => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/grids/markComplete/${gridId}`,
+      `${API_BASE_URL}/grids/markComplete/${gridId}`,
       {
         method: 'PUT',
         credentials: 'include',
@@ -171,7 +168,7 @@ export const markGridAsCompleted = async (gridId) => {
 
 export const getAIGeneratedGrid = async (message) => {
   try {
-    const URL = `${API_BASE_URL}/api/grids/groqai`
+    const URL = `${API_BASE_URL}/grids/groqai`
     const response = await fetch(URL, {
       method: 'POST',
       headers: {
