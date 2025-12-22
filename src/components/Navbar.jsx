@@ -103,8 +103,8 @@ export default function Navbar({ userData, isLoggedOut }) {
         </a>
       ) : (
         <div
-          className={`flex gap-2 items-center ${
-            searchBarFocused ? 'w-60' : 'w-25'
+          className={`items-center ${
+            searchBarFocused ? 'w-60' : 'w-12'
           } md:w-50`}
         >
           <SearchBar
