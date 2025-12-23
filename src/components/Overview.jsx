@@ -152,16 +152,15 @@ export default function Overview({
               <span>
                 {grid.slot === 'middle-center'
                   ? 'Main Goal'
-                  : ind < 4
-                  ? `Pillar ${ind + 1}`
-                  : `Pillar ${ind - 1}`}
+                  : `Pillar ${ind + 1}`}
               </span>
             </li>
-
+            <li>
+              <span>{grid[4].text}</span>
+            </li>
             {/* Skip the middle cell since it's in the list title */}
             {[...grid.slice(0, 4), ...grid.slice(5)].map((cell, ind) => (
               <li className="list-row p-2" key={cell.id}>
-                <div>{grid[4].text}</div>
                 <div className="text-xl font-thin opacity-80 tabular-nums">
                   {(ind + 1).toString().padStart(2, '0')}
                 </div>
