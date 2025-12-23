@@ -150,12 +150,14 @@ export default function Overview({
                   </div>
                 )}
               <span>
-                {grid.slot === 'middle-center'
+                {ind < 4
+                  ? `Pillar ${ind + 1}`
+                  : ind === 4
                   ? 'Main Goal'
-                  : `Pillar ${ind + 1}`}
+                  : `Pillar ${ind - 1}`}
               </span>
             </li>
-            <li>
+            <li className="font-bold p-4 text-center">
               <span>{grid[4].text}</span>
             </li>
             {/* Skip the middle cell since it's in the list title */}
