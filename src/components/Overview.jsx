@@ -154,10 +154,10 @@ export default function Overview({
                   ? `Pillar ${ind + 1}`
                   : ind === 4
                   ? 'Main Goal'
-                  : `Pillar ${ind - 1}`}
+                  : `Pillar ${ind}`}
               </span>
             </li>
-            <li className="font-bold p-4 text-center">
+            <li className="font-bold p-2 text-center text-lg">
               <span>{grid[4].text}</span>
             </li>
             {/* Skip the middle cell since it's in the list title */}
