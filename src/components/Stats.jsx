@@ -1,9 +1,10 @@
 import { Icon } from '@iconify/react'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDataContext } from '../providers/DataProvider'
 import { calculateOverallProgress } from '../../utils/helpers'
 
 export default function Stats() {
+  const navigate = useNavigate()
   const { grids } = useDataContext()
   const activeGrids = [...grids].filter(
     (grid) => !grid.completedAt && !grid.templateCategory
@@ -24,9 +25,20 @@ export default function Stats() {
     return Math.ceil(average)
   }
 
+  const handleClickActiveGrids = () => {
+    navigate('/dashboard/grids')
+  }
+
+  const handleClickCompletedGrids = () => {
+    navigate('/dashboard/completed')
+  }
+
   return (
-    <div className="stats shadow text-center stats-vertical md:stats-horizontal bg-slate-100">
-      <div className="stat hover:bg-slate-200 ease-in-out duration-100">
+    <div
+      className="stats shadow text-center stats-vertical md:stats-horizontal bg-slate-100"
+      onClick={handleClickActiveGrids}
+    >
+      <div className="stat hover:bg-slate-200 ease-in-out duration-100 cursor-pointer">
         <div className="stat-figure text-secondary">
           <Icon icon="vaadin:grid-small-o" className="text-2xl" />
         </div>
@@ -48,7 +60,10 @@ export default function Stats() {
         {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
       </div>
 
-      <div className="stat text-center hover:bg-slate-200 ease-in-out duration-100">
+      <div
+        className="stat text-center hover:bg-slate-200 ease-in-out duration-100 cursor-pointer"
+        onClick={handleClickCompletedGrids}
+      >
         <div className="stat-figure text-secondary">
           <Icon icon="lucide:grid-2x2-check" className="text-2xl" />
         </div>
