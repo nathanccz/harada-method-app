@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 export default function GridCardDropdown({ gridId }) {
   const { openDeleteModal, openEditDetailsModal } = useModalContext()
   return (
-    <div className="dropdown dropdown-end absolute top-0 right-0">
+    <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn m-1">
         <Icon
           icon="mdi:gear-outline"

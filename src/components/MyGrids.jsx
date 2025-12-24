@@ -26,7 +26,11 @@ export default function MyGrids() {
           <OverallProgressCircle gridsArray={grid.grids} size={'2.5rem'} />
         </div>
       )}
-      <GridCardDropdown gridId={grid._id} />
+
+      <div className="absolute top-0 right-0">
+        <GridCardDropdown gridId={grid._id} />
+      </div>
+
       <div className="card-body mt-4">
         <h2 className="card-title">{grid.title}</h2>
         <p>{grid.description}</p>
