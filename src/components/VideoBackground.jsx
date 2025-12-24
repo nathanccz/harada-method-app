@@ -23,13 +23,13 @@ export default function VideoBackground({ isLogin }) {
         {!isLogin ? (
           <div className="hero-content text-center text-white bg-gray-500/35 rounded">
             <div className="max-w-lg p-3">
-              <h1 className="mb-5 text-[2.5rem] font-bold">myHarada</h1>
+              <h1 className="mb-5 text-[2.5rem] font-bold">myharada</h1>
               <p className="mb-5 text-left text-md md:text-lg lg:text-xl">
                 Achieve any goal you've dreamed of with the simplicity of the
                 Harada Method. Create unlimited grids, manage tasks, and track
                 your progress with the myHarada app. <br />
                 <br />
-                <span className="font-bold">It's completely free!</span>
+                <span className="font-bold">It's completely free.</span>
               </p>
               <label className="input input-bordered flex items-center gap-2 mb-3 mx-auto">
                 <svg
