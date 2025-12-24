@@ -34,11 +34,11 @@ export default function Stats() {
   }
 
   return (
-    <div
-      className="stats shadow text-center stats-vertical md:stats-horizontal bg-slate-100"
-      onClick={handleClickActiveGrids}
-    >
-      <div className="stat hover:bg-slate-200 ease-in-out duration-100 cursor-pointer">
+    <div className="stats shadow text-center stats-vertical md:stats-horizontal bg-slate-100">
+      <div
+        className="stat hover:bg-slate-200 ease-in-out duration-100 cursor-pointer"
+        onClick={handleClickActiveGrids}
+      >
         <div className="stat-figure text-secondary">
           <Icon icon="vaadin:grid-small-o" className="text-2xl" />
         </div>

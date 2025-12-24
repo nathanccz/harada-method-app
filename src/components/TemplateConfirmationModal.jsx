@@ -11,7 +11,7 @@ export default function TemplateConfirmationModal() {
         <h3 className="font-bold text-lg">Use Template?</h3>
         <p className="py-4">
           This will create a new project in your grids collection. You'll be
-          able edit or change any part of this grid once it's in your
+          able to edit or change any part of this grid once it's in your
           collection.
         </p>
         <div className="flex justify-end">

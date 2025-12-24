@@ -8,7 +8,7 @@ export default function GridCardDropdown({ gridId }) {
     <div className="dropdown dropdown-end absolute top-0 right-0">
       <div tabIndex={0} role="button" className="btn m-1">
         <Icon
-          icon="typcn:th-menu"
+          icon="mdi:gear-outline"
           className="sm:text-sm mg:text-md lg:text-lg"
         />
       </div>

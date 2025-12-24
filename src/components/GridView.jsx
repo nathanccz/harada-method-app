@@ -8,6 +8,7 @@ import { useOutletContext, useParams } from 'react-router-dom'
 import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
 import OverallProgressCircle from './OverallProgressCircle'
+import GridCardDropdown from './GridCardDropdown'
 
 export default function GridView() {
   const [view, setView] = useState('')
@@ -109,6 +110,7 @@ export default function GridView() {
                 <Icon icon="ix:clear" className="text-lg" /> Clear
               </button>
               <Dropdown gridData={gridData} />
+              <GridCardDropdown gridId={gridData?._id} />
             </div>
           )}
         </div>

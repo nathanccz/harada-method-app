@@ -131,7 +131,7 @@ export default function Overview({
             }
             onMouseLeave={() => setHovered(null)}
           >
-            <li className="p-2 pb-2 text-md opacity-80 font-bold uppercase tracking-wide flex gap-4 items-center">
+            <li className="p-2 pb-2 text-md opacity-80 font-bold uppercase tracking-wide flex gap-3 items-center">
               {gridData.gridType === 'project' &&
                 !gridData.completedAt &&
                 !gridData.templateCategory && (
