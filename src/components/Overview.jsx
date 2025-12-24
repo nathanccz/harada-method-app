@@ -131,7 +131,7 @@ export default function Overview({
             }
             onMouseLeave={() => setHovered(null)}
           >
-            <li className="p-2 pb-2 text-md opacity-80 font-bold uppercase tracking-wide flex gap-2 items-center">
+            <li className="p-2 pb-2 text-md opacity-80 font-bold uppercase tracking-wide flex gap-4 items-center">
               {gridData.gridType === 'project' &&
                 !gridData.completedAt &&
                 !gridData.templateCategory && (
@@ -157,7 +157,7 @@ export default function Overview({
                   : `Pillar ${ind}`}
               </span>
             </li>
-            <li className="font-bold p-2 text-center text-lg">
+            <li className="font-bold p-2 text-center text-md">
               <span>{grid[4].text}</span>
             </li>
             {/* Skip the middle cell since it's in the list title */}
