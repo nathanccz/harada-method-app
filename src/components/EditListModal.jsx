@@ -11,7 +11,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
 
   if (currentParams) {
     currentGrid = grids?.filter((grid) => grid._id === currentParams)[0].grids
-    currentPillar = currentGrid[indexOfGrid]
+    currentPillar = [...currentGrid[indexOfGrid]]
   }
 
   const handleTaskInputChange = (event) => {
