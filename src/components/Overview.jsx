@@ -157,7 +157,7 @@ export default function Overview({
                   : `Pillar ${ind}`}
               </span>
             </li>
-            <li className="font-bold p-2 text-center text-md">
+            <li className="font-bold p-2 text-left text-md">
               <span>{grid[4].text}</span>
             </li>
             {/* Skip the middle cell since it's in the list title */}

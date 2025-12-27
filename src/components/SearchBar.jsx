@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDataContext } from '../providers/DataProvider'
 
-export default function SearchBar({ searchBarFocused, setSearchBarFocused }) {
+export default function SearchBar({ onFocus, onBlur }) {
   const [results, setResults] = useState(null)
   const [inputText, setInputText] = useState('')
   const { grids } = useDataContext()
@@ -17,8 +17,9 @@ export default function SearchBar({ searchBarFocused, setSearchBarFocused }) {
       return
     }
 
-    const filtered = grids.filter((grid) =>
-      grid.title.toLowerCase().includes(newValue)
+    const filtered = grids.filter(
+      (grid) =>
+        grid.title.toLowerCase().includes(newValue) && !grid.templateCategory
     )
     console.log(filtered)
     setResults(filtered)
@@ -55,12 +56,12 @@ export default function SearchBar({ searchBarFocused, setSearchBarFocused }) {
           className="grow"
           placeholder="Search grids"
           onChange={handleInputChange}
-          onFocus={() => setSearchBarFocused(true)}
-          onBlur={() => setSearchBarFocused(false)}
+          onFocus={onFocus}
+          onBlur={onBlur}
           value={inputText}
         />
       </label>
-      {results && searchBarFocused && (
+      {results && (
         <div className="bg-slate-300 rounded mt-2 p-1 border-gray-400 border absolute z-99">
           <ul className="flex flex-col gap-2 max-h-[40vh] overflow-scroll">
             {results.length > 0 ? (

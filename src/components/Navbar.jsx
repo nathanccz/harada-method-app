@@ -108,8 +108,8 @@ export default function Navbar({ userData, isLoggedOut }) {
           } md:w-50`}
         >
           <SearchBar
-            searchBarFocused={searchBarFocused}
-            setSearchBarFocused={setSearchBarFocused}
+            onFocus={() => setSearchBarFocused(true)}
+            onBlur={() => setSearchBarFocused(false)}
           />
         </div>
       )}
