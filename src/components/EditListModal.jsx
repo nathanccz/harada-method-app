@@ -29,14 +29,12 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
   const handleClickSave = async () => {
     const newGrid = grids.filter((grid) => grid._id === currentParams)[0].grids
     newGrid[indexOfGrid] = currentPillar
-    console.log(currentPillar)
-    console.log(newGrid)
 
     if (indexOfGrid === 4) {
       //If it's the main goal pillar, fill in the other grids accordingly
       for (let i = 0; i < 9; i++) {
         if (i === 4) continue
-        newGrid.grids[i][4].text = currentPillar[i].text
+        newGrid[i][4].text = currentPillar[i].text
       }
     }
 
