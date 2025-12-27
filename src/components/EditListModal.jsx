@@ -6,12 +6,11 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
   const { grids, fetchGrids } = useDataContext()
   const { showToast } = useToastContext()
 
-  let currentGrid
   let currentPillar
 
   if (currentParams) {
-    currentGrid = grids?.filter((grid) => grid._id === currentParams)[0].grids
-    currentPillar = [...currentGrid[indexOfGrid]]
+    currentPillar = grids?.filter((grid) => grid._id === currentParams)[0]
+      .grids[indexOfGrid]
   }
 
   const handleTaskInputChange = (event) => {
