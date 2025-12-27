@@ -19,9 +19,9 @@ export default function Banner() {
           <p className="py-6">
             When it comes to setting goals, figuring out what tasks to complete
             can be the most difficult part. The Harada Assistant can help you
-            break down any achievable goal into short tasks and automatically
-            fills in a Harada grid for you! It offers a solid foundation — and
-            you can further refine any grid to fit your needs.
+            break down any achievable goal into short tasks, and it
+            automatically fills in a Harada grid for you! You can further refine
+            any grid to fit your needs.
           </p>
           <button className="btn btn-primary" onClick={openGenerateGridModal}>
             <Icon icon="si:ai-fill" className="text-lg" />

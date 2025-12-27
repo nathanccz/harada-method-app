@@ -8,6 +8,10 @@ export default function LoginField() {
     password: '',
   })
 
+  const AUTH_URL = import.meta.env.DEV
+    ? 'http://localhost:3000/auth/google'
+    : 'https://myharada-app-backend.onrender.com/auth/google'
+
   const handleInputChange = (event) => {
     const { name, value } = event.target
     setFormData((prevFormData) => ({
@@ -26,8 +30,7 @@ export default function LoginField() {
 
   const handleGoogleLogin = (e) => {
     e.preventDefault()
-    window.location.href =
-      'https://myharada-app-backend.onrender.com/auth/google'
+    window.location.href = AUTH_URL
     setLoading(true)
   }
 

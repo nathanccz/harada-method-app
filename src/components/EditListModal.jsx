@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { editGridCell } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
 import { useToastContext } from '../providers/ToastProvider'
@@ -5,24 +6,32 @@ import { useToastContext } from '../providers/ToastProvider'
 export default function EditListModal({ indexOfGrid, currentParams }) {
   const { grids, fetchGrids } = useDataContext()
   const { showToast } = useToastContext()
+  const [currentPillar, setCurrentPillar] = useState([])
 
-  let currentPillar
-
-  if (currentParams) {
-    currentPillar = grids?.filter((grid) => grid._id === currentParams)[0]
-      .grids[indexOfGrid]
-  }
+  useEffect(() => {
+    if (currentParams) {
+      setCurrentPillar(
+        grids?.filter((grid) => grid._id === currentParams)[0].grids[
+          indexOfGrid
+        ]
+      )
+    }
+  }, [currentParams, indexOfGrid])
 
   const handleTaskInputChange = (event) => {
     const index = [...currentPillar].findIndex(
       (cell) => cell.id === event.target.name
     )
+    const copy = [...currentPillar]
+    copy[index] = { ...copy[index], text: event.target.value }
 
-    currentPillar[index] = { ...currentPillar[index], text: event.target.value }
+    setCurrentPillar(copy)
   }
 
   const handleTitleInputChange = (event) => {
-    currentPillar[4].text = event.target.value
+    const copy = [...currentPillar]
+    copy[4].text = event.target.value
+    setCurrentPillar(copy)
   }
 
   const handleClickSave = async () => {
@@ -79,8 +88,8 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
             type="text"
             className="input w-full"
             placeholder="New grid title"
-            defaultValue={currentPillar && currentPillar[4].text}
-            name={currentPillar && currentPillar[4].id}
+            value={currentPillar && currentPillar[4]?.text}
+            name={currentPillar && currentPillar[4]?.id}
             onChange={handleTitleInputChange}
           />
 
@@ -96,7 +105,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
                     type="text"
                     className="input w-full"
                     placeholder="New task"
-                    defaultValue={cell.text}
+                    value={cell.text}
                     name={cell.id}
                     onChange={handleTaskInputChange}
                   />
