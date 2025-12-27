@@ -29,6 +29,8 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
   const handleClickSave = async () => {
     const newGrid = grids.filter((grid) => grid._id === currentParams)[0].grids
     newGrid[indexOfGrid] = currentPillar
+    console.log(currentPillar)
+    console.log(newGrid)
 
     if (indexOfGrid === 4) {
       //If it's the main goal pillar, fill in the other grids accordingly
