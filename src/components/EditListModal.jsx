@@ -32,7 +32,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
 
     if (indexOfGrid === 4) {
       //If it's the main goal pillar, fill in the other grids accordingly
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 9; i++) {
         if (i === 4) continue
         newGrid.grids[i][4].text = currentPillar[i].text
       }
