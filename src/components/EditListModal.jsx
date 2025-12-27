@@ -7,28 +7,36 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
   const { showToast } = useToastContext()
 
   let currentGrid
+  let currentPillar
 
   if (currentParams) {
-    currentGrid = grids?.filter((grid) => grid._id === currentParams)[0].grids[
-      indexOfGrid
-    ]
+    currentGrid = grids?.filter((grid) => grid._id === currentParams)[0].grids
+    currentPillar = currentGrid[indexOfGrid]
   }
 
   const handleTaskInputChange = (event) => {
-    const index = [...currentGrid].findIndex(
+    const index = [...currentPillar].findIndex(
       (cell) => cell.id === event.target.name
     )
 
-    currentGrid[index] = { ...currentGrid[index], text: event.target.value }
+    currentPillar[index] = { ...currentPillar[index], text: event.target.value }
   }
 
   const handleTitleInputChange = (event) => {
-    currentGrid[4].text = event.target.value
+    currentPillar[4].text = event.target.value
   }
 
   const handleClickSave = async () => {
     const newGrid = grids.filter((grid) => grid._id === currentParams)[0].grids
-    newGrid[indexOfGrid] = currentGrid
+    newGrid[indexOfGrid] = currentPillar
+
+    if (indexOfGrid === 4) {
+      //If it's the main goal pillar, fill in the other grids accordingly
+      for (let i = 0; i < 8; i++) {
+        if (i === 4) continue
+        newGrid.grids[i][4].text = currentPillar[i].text
+      }
+    }
 
     //Set createdAt to empty string if the text field is also empty
     //This helps prevent the list view from retaining the completed check mark
