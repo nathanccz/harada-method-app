@@ -80,14 +80,14 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
             type="text"
             className="input w-full"
             placeholder="New grid title"
-            defaultValue={currentGrid && currentGrid[4].text}
-            name={currentGrid && currentGrid[4].id}
+            defaultValue={currentPillar && currentPillar[4].text}
+            name={currentPillar && currentPillar[4].id}
             onChange={handleTitleInputChange}
           />
 
           <label className="label">Tasks</label>
-          {currentGrid &&
-            [...currentGrid.slice(0, 4), ...currentGrid.slice(5)].map(
+          {currentPillar &&
+            [...currentPillar.slice(0, 4), ...currentPillar.slice(5)].map(
               (cell, ind) => (
                 <div className="flex gap-3" key={cell.id}>
                   <div className="flex items-center text-lg">
