@@ -4,7 +4,7 @@ import Overview from './Overview'
 import { formatDate } from '../../utils/helpers'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import Dropdown from './Dropdown'
-import { useOutletContext, useParams } from 'react-router-dom'
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
 import OverallProgressCircle from './OverallProgressCircle'
@@ -14,11 +14,14 @@ export default function GridView() {
   const [view, setView] = useState('')
   const [loading, setLoading] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
-  const { openEditDetailsModal, openClearModal } = useModalContext()
+  const { openClearModal, openUseTemplateModal, newGridId, setNewGridId } =
+    useModalContext()
   const { id } = useParams()
   const { isMobile } = useOutletContext()
 
   const { templates, grids, shouldAnimate, setShouldAnimate } = useDataContext()
+
+  const navigate = useNavigate()
 
   const gridData =
     grids.filter((grid) => grid._id === id)[0] ||
@@ -36,7 +39,7 @@ export default function GridView() {
   }
 
   const handleClickUseTemplate = () => {
-    document.getElementById('template_confirmation_modal').showModal()
+    openUseTemplateModal(gridData)
   }
 
   useEffect(() => {
@@ -44,6 +47,15 @@ export default function GridView() {
 
     setView(viewPreference)
   }, [])
+
+  useEffect(() => {
+    if (newGridId) {
+      navigate(`/dashboard/grid/${newGridId}`)
+      setNewGridId(false)
+    } else {
+      return
+    }
+  }, [newGridId])
 
   return (
     <>

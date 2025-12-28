@@ -16,7 +16,7 @@ export const addGrid = async (obj) => {
     if (!response.ok) {
       console.log('something went wrong!')
     } else {
-      return { message: 'Grid added successfully!' }
+      return { message: 'Grid added successfully!', gridId: data.gridId }
     }
   } catch (error) {
     console.log(error)

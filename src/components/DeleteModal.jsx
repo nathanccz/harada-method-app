@@ -8,10 +8,7 @@ export default function DeleteModal({ removeGrid }) {
     fetchGrids()
   }
   return (
-    <dialog
-      id="delete_modal"
-      className="modal modal-bottom sm:modal-middle text-2xl"
-    >
+    <dialog id="delete_modal" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box text-center">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
