@@ -4,7 +4,7 @@ export default function EditPanelModal() {
       <div className="modal-box text-center">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-2xl">
             ✕
           </button>
         </form>
