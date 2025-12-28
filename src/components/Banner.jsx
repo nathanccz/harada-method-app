@@ -21,7 +21,7 @@ export default function Banner() {
             can be the most difficult part. The Harada Assistant can help you
             break down any achievable goal into short tasks, and it
             automatically fills in a Harada grid for you! You can further refine
-            any grid to fit your needs.
+            any generated grid to fit your needs.
           </p>
           <button className="btn btn-primary" onClick={openGenerateGridModal}>
             <Icon icon="si:ai-fill" className="text-lg" />

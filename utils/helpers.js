@@ -1,3 +1,13 @@
+const days = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+]
+
 export function formatDate(date) {
   const createdAt = new Date(date)
   const month = createdAt.getMonth()

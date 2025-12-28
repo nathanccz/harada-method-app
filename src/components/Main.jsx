@@ -7,6 +7,7 @@ import MainSkeleton from './MainSkeleton'
 import { useDataContext } from '../providers/DataProvider'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ProgressBar from './ProgressBar'
 
 export default function Main() {
   const { openCreateModal } = useModalContext()
@@ -26,6 +27,7 @@ export default function Main() {
     <section className="flex flex-col gap-5 mt-5 basis-4/5 relative">
       <h1 className="text-2xl font-bold">Welcome, {userData?.firstName} 👋</h1>
       <Stats />
+      <ProgressBar />
       <Banner />
       {grids.length === 0 && (
         <div className="border rounded border-gray-300 bg-secondary text-white p-8 lg:p-36 text-center flex flex-col gap-3">
