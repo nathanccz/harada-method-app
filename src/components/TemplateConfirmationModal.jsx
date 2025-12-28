@@ -1,4 +1,41 @@
-export default function TemplateConfirmationModal() {
+import { useState } from 'react'
+import { addGrid } from '../../services/gridService'
+import { useModalContext } from '../providers/ModalProvider'
+import { useToastContext } from '../providers/ToastProvider'
+import { useNavigate } from 'react-router-dom'
+import { useDataContext } from '../providers/DataProvider'
+
+export default function TemplateConfirmationModal({ template, setTemplate }) {
+  const { setNewGridId } = useModalContext()
+  const { fetchGrids } = useDataContext()
+  const [loading, setLoading] = useState(false)
+  const { showToast } = useToastContext()
+
+  const handleClickProceed = async () => {
+    setLoading(true)
+
+    const cleanTemplate = {
+      title: template.title,
+      description: template.description,
+      gridType: 'project',
+      grids: template.grids,
+      lastModified: null,
+      completedAt: null,
+    }
+
+    try {
+      const response = await addGrid(cleanTemplate)
+
+      if (response.message) {
+        showToast(response.message)
+        setTemplate(null)
+        setLoading(false)
+        setNewGridId(response.gridId)
+        document.getElementById('template_confirmation_modal').close()
+        fetchGrids()
+      }
+    } catch (error) {}
+  }
   return (
     <dialog id="template_confirmation_modal" className="modal">
       <div className="modal-box">
@@ -15,7 +52,16 @@ export default function TemplateConfirmationModal() {
           collection.
         </p>
         <div className="flex justify-end">
-          <button className="btn btn-primary">Proceed</button>
+          {!loading ? (
+            <button className="btn btn-primary" onClick={handleClickProceed}>
+              Proceed
+            </button>
+          ) : (
+            <button className="btn btn-primary">
+              <span className="loading loading-spinner loading-md"></span>{' '}
+              Creating grid...
+            </button>
+          )}
         </div>
       </div>
     </dialog>
