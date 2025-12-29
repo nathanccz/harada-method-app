@@ -133,14 +133,19 @@ export const editGridCells = async (obj) => {
   }
 }
 
-export const clearGridCells = async (gridId) => {
+export const clearGrid = async (gridId, choice) => {
+  console.log(choice)
+
   try {
-    const response = fetch(`${API_BASE_URL}/grids/clearCells/${gridId}`, {
+    const response = await fetch(`${API_BASE_URL}/grids/clearCells/${gridId}`, {
       method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ choice: choice }),
       credentials: 'include',
     })
-    console.log(response)
-    return { message: 'Grid cleared!' }
+    const data = await response.json()
+    console.log(data)
+    return { message: data.message }
   } catch (error) {
     console.log('Error clearing grid:', error)
   }

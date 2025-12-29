@@ -3,7 +3,6 @@ import CreateModal from '../components/CreateModal'
 import data from '../../data.json'
 import {
   addGrid,
-  clearGridCells,
   deleteGrid,
   editGridDetails,
 } from '../../services/gridService'
@@ -119,16 +118,6 @@ export default function ModalProvider({ children }) {
     }
   }
 
-  const clearGrid = async () => {
-    try {
-      const response = await clearGridCells(gridToClear)
-      setGridToEdit(null)
-      showToast('Grid cleared!')
-    } catch (error) {
-      console.log('Error clearing grid:', error)
-    }
-  }
-
   return (
     <ModalProviderContext.Provider
       value={{
@@ -144,6 +133,8 @@ export default function ModalProvider({ children }) {
         gridToDelete,
         newGridId,
         setNewGridId,
+        gridToClear,
+        setGridToClear,
       }}
     >
       {children}
@@ -160,7 +151,7 @@ export default function ModalProvider({ children }) {
       <DeleteModal gridToDelete={gridToDelete} removeGrid={removeGrid} />
       <EditDetailsModal gridToEdit={gridToEdit} editDetails={editDetails} />
       <EditListModal indexOfGrid={indexOfGrid} currentParams={currentParams} />
-      <ClearModal clearGrid={clearGrid} />
+      <ClearModal />
       <GenerateGridModal />
       <CompletionModal />
       <TemplateModal />
