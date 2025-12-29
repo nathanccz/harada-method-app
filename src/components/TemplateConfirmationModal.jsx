@@ -7,7 +7,7 @@ import { useDataContext } from '../providers/DataProvider'
 
 export default function TemplateConfirmationModal({ template, setTemplate }) {
   const { setNewGridId } = useModalContext()
-  const { fetchGrids } = useDataContext()
+  const { fetchGrids, setNewTemplateCreated } = useDataContext()
   const [loading, setLoading] = useState(false)
   const { showToast } = useToastContext()
 
@@ -31,6 +31,7 @@ export default function TemplateConfirmationModal({ template, setTemplate }) {
         setTemplate(null)
         setLoading(false)
         setNewGridId(response.gridId)
+        setNewTemplateCreated(true)
         document.getElementById('template_confirmation_modal').close()
         fetchGrids()
       }

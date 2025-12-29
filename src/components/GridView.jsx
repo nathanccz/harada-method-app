@@ -16,6 +16,7 @@ export default function GridView() {
   const [isAnimating, setIsAnimating] = useState(false)
   const { openClearModal, openUseTemplateModal, newGridId, setNewGridId } =
     useModalContext()
+  const { newTemplateCreated, setNewTemplateCreated } = useDataContext()
   const { id } = useParams()
   const { isMobile } = useOutletContext()
 
@@ -49,13 +50,12 @@ export default function GridView() {
   }, [])
 
   useEffect(() => {
-    if (newGridId) {
-      navigate(`/dashboard/grid/${newGridId}`)
-      setNewGridId(false)
-    } else {
-      return
-    }
-  }, [newGridId])
+    if (!newTemplateCreated) return
+
+    navigate(`/dashboard/grid/${newGridId}`)
+    setNewGridId(false)
+    setNewTemplateCreated(false)
+  }, [newTemplateCreated])
 
   return (
     <>
