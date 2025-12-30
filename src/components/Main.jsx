@@ -11,9 +11,14 @@ import ProgressBar from './ProgressBar'
 
 export default function Main() {
   const { openCreateModal } = useModalContext()
-  const { userData, loading } = useAuthContext()
-  const { shouldAnimate, newAIGeneratedGridId, fetchGrids, grids } =
-    useDataContext()
+  const { userData, userDataLoading } = useAuthContext()
+  const {
+    shouldAnimate,
+    newAIGeneratedGridId,
+    fetchGrids,
+    grids,
+    gridsLoading,
+  } = useDataContext()
 
   const navigate = useNavigate()
 
@@ -23,7 +28,7 @@ export default function Main() {
     navigate(`/dashboard/grid/${newAIGeneratedGridId}`)
   }, [shouldAnimate])
 
-  return !loading ? (
+  return !userDataLoading && !gridsLoading ? (
     <section className="flex flex-col gap-5 mt-5 basis-4/5 relative">
       <h1 className="text-2xl font-bold">Welcome, {userData?.firstName} 👋</h1>
       <Stats />

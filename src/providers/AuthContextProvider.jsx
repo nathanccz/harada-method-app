@@ -5,7 +5,7 @@ export const AuthContext = createContext(null)
 
 export default function AuthContextProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [userDataLoading, setUserDataLoading] = useState(true)
   const [userData, setUserData] = useState(null)
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function AuthContextProvider({ children }) {
       return
 
     async function fetchUserData() {
-      setLoading(true)
+      setUserDataLoading(true)
       try {
         const data = await getDashboardData()
 
@@ -25,7 +25,6 @@ export default function AuthContextProvider({ children }) {
         } else {
           console.log(data)
           setUserData(data)
-          setLoading(false)
           setIsAuthenticated(true)
         }
       } catch (error) {
@@ -40,8 +39,9 @@ export default function AuthContextProvider({ children }) {
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        loading,
+        setUserDataLoading,
         userData,
+        userDataLoading,
       }}
     >
       {children}

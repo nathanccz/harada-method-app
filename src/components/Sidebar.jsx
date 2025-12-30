@@ -10,8 +10,8 @@ import SearchBar from './SearchBar'
 
 export default function Sidebar({ isMobile, isPhoneView }) {
   const { openCreateModal } = useModalContext()
-  const { userData, loading } = useAuthContext()
-  const { grids } = useDataContext()
+  const { userData, userDataLoading } = useAuthContext()
+  const { grids, gridsLoading } = useDataContext()
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-gray-300 block' : 'block'
 
@@ -28,7 +28,7 @@ export default function Sidebar({ isMobile, isPhoneView }) {
 
   return isMobile ? (
     <Navbar userData={userData} isPhoneView={isPhoneView} />
-  ) : !loading ? (
+  ) : !userDataLoading && !gridsLoading ? (
     <aside className="flex flex-col min-w-[275px] mb-8 pl-8">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">

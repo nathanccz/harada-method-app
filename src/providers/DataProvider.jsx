@@ -12,15 +12,22 @@ export default function DataProvider({ children }) {
   const [shouldAnimate, setShouldAnimate] = useState(false)
   const [newTemplateCreated, setNewTemplateCreated] = useState(false)
   const [newAIGeneratedGridId, setNewAIGeneratedGridId] = useState(null)
-  const { isAuthenticated } = useAuthContext()
+  const [gridsLoading, setGridsLoading] = useState(false)
+  const { isAuthenticated, setUserDataLoading } = useAuthContext()
 
   const fetchGrids = async () => {
     if (!isAuthenticated) return
-
-    const data = await getGrids()
-    console.log(data)
-    setGrids(data.grids)
-    setTemplates(data.templates)
+    setGridsLoading(true)
+    try {
+      const data = await getGrids()
+      console.log(data)
+      setGrids(data.grids)
+      setTemplates(data.templates)
+      setGridsLoading(false)
+      setUserDataLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -41,6 +48,7 @@ export default function DataProvider({ children }) {
         setImage,
         newTemplateCreated,
         setNewTemplateCreated,
+        gridsLoading,
       }}
     >
       {children}

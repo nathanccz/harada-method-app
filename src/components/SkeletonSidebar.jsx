@@ -1,6 +1,6 @@
 export default function SkeletonSidebar() {
   return (
-    <aside className="flex w-80 flex-col">
+    <aside className="flex flex-col min-w-[275px] mb-8 pl-8">
       <div className="flex w-52 flex-col gap-4 mt-4 mb-8 p-2">
         <div className="flex items-center gap-4">
           <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>

@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
+import { useDataContext } from '../providers/DataProvider'
 
 export default function Grid({ gridData }) {
   const [hovered, setHovered] = useState(null)
-  const { loading } = useAuthContext()
+  const { userDataLoading } = useAuthContext()
+  const { gridsLoading } = useDataContext()
   const { openEditCellModal } = useModalContext()
 
   return (
@@ -13,7 +15,7 @@ export default function Grid({ gridData }) {
       {/* MAIN GRID WRAPPER */}
       <div className="max-h-[950px] max-w-[950px] mx-auto text-center">
         {/* GRID OR SKELETON */}
-        {!loading ? (
+        {!gridsLoading && !userDataLoading ? (
           <div className="grid grid-cols-3 mx-auto gap-4">
             {gridData?.grids.map((grid, ind) => (
               <div className="grid grid-cols-3 gap-4" key={`grid-${ind + 1}`}>

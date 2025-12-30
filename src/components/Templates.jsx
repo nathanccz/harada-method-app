@@ -2,10 +2,13 @@ import { useMemo, useState } from 'react'
 import { useDataContext } from '../providers/DataProvider'
 import { NavLink } from 'react-router-dom'
 import CategoryFilter from './CategoryFilter'
+import TemplatesSkeleton from './TemplatesSkeleton'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function Templates() {
-  const { templates } = useDataContext()
+  const { templates, gridsLoading } = useDataContext()
   const [filterOption, setFilterOption] = useState('All Categories')
+  const { userDataLoading } = useAuthContext()
 
   // Memoize the filtering and categorization
   const templatesByCategory = useMemo(() => {
@@ -32,7 +35,7 @@ export default function Templates() {
     'Home & Lifestyle',
   ]
 
-  return (
+  return !gridsLoading && !userDataLoading ? (
     <section className="flex flex-col gap-5 mt-5 basis-4/5 lg:h-[85vh] lg:overflow-scroll relative">
       <h1 className="text-2xl font-bold">Templates</h1>
       <p>
@@ -95,5 +98,7 @@ export default function Templates() {
           )
         })}
     </section>
+  ) : (
+    <TemplatesSkeleton />
   )
 }

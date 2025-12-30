@@ -5,11 +5,13 @@ import GridCardDropdown from './GridCardDropdown'
 import { useDataContext } from '../providers/DataProvider'
 import OverallProgressCircle from './OverallProgressCircle'
 import FilterDropdown from './FilterDropdown'
+import MyGridsSkeleton from './MyGridsSkeleton'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function MyGrids() {
   const [filterOption, setFilterOption] = useState('All Grids')
-
-  const { grids } = useDataContext()
+  const { userDataLoading } = useAuthContext()
+  const { grids, gridsLoading } = useDataContext()
   const activeGrids = grids.filter(
     (grid) => !grid.completedAt && !grid.templateCategory
   )
@@ -46,7 +48,7 @@ export default function MyGrids() {
     </div>
   )
 
-  return (
+  return !userDataLoading && !gridsLoading ? (
     <section className="flex flex-col gap-5 mt-5 basis-4/5 relative lg:h-[85vh] lg:overflow-scroll">
       <h1 className="text-2xl font-bold">My Active Grids</h1>
       <div>
@@ -94,5 +96,7 @@ export default function MyGrids() {
         </>
       )}
     </section>
+  ) : (
+    <MyGridsSkeleton />
   )
 }
