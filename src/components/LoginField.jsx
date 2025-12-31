@@ -61,14 +61,14 @@ export default function LoginField() {
           <button className="btn btn-neutral mt-4" onClick={handleClickLogin}>
             Sign In
           </button>
-          <p>OR</p>
+          <p className="text-lg my-3">OR</p>
 
           <button
             className="btn btn-outline flex justify-center gap-5"
             onClick={handleGoogleLogin}
           >
             <Icon icon="devicon:google" className="text-2xl" />
-            Log in with Google
+            Continue with Google
           </button>
         </>
       ) : (

@@ -90,7 +90,7 @@ function Contact() {
             <input
               type="hidden"
               name="from_name"
-              value={`${formData.name} from NewBizLA`}
+              value={`${formData.name} from myharada`}
             />
             <input type="hidden" name="replyto" value={formData.email} />
             <div className="flex flex-col gap-3 md:flex-row w-full">

@@ -19,7 +19,7 @@ export default function AuthContextProvider({ children }) {
       setUserDataLoading(true)
       try {
         const data = await getDashboardData()
-
+        console.log(data)
         if (!data) {
           window.location.href = 'https://myharada.netlify.app/login'
         } else {
@@ -29,7 +29,7 @@ export default function AuthContextProvider({ children }) {
         }
       } catch (error) {
         console.log(error)
-        // window.location.replace('http://localhost:5173/login')
+        window.location.replace('http://localhost:5173/login')
       }
     }
     fetchUserData()
