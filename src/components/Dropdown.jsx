@@ -5,6 +5,9 @@ import { useState } from 'react'
 import { markGridAsCompleted } from '../../services/gridService'
 import { useToastContext } from '../providers/ToastProvider'
 import { useDataContext } from '../providers/DataProvider'
+import { NavLink } from 'react-router-dom'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import MyDocument from './MyDocument'
 
 export default function Dropdown({ gridData }) {
   const [loading, setLoading] = useState(false)
@@ -58,7 +61,24 @@ export default function Dropdown({ gridData }) {
           )}
         </li>
         <li>
-          <PdfDownloader />
+          <PDFDownloadLink
+            document={<MyDocument gridData={gridData} />}
+            fileName={`${gridData.title || 'harada-grid'}.pdf`}
+          >
+            {({ loading }) =>
+              loading ? (
+                <a className="flex gap-2">
+                  <Icon icon="teenyicons:pdf-outline" className="text-lg" />{' '}
+                  Generating PDF...
+                </a>
+              ) : (
+                <a className="flex gap-2">
+                  <Icon icon="teenyicons:pdf-outline" className="text-lg" />{' '}
+                  Save as PDF
+                </a>
+              )
+            }
+          </PDFDownloadLink>
         </li>
         <li>
           <JsonDownloader gridData={gridData} />
