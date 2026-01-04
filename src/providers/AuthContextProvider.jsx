@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { getDashboardData } from '../../services/authService'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export const AuthContext = createContext(null)
 
@@ -7,12 +8,15 @@ export default function AuthContextProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [userDataLoading, setUserDataLoading] = useState(true)
   const [userData, setUserData] = useState(null)
+  const BLOCKED_ROUTES = ['/', '/login', '/signup']
+  const REDIRECT_URL = import.meta.env.DEV
+    ? 'http://localhost:5173/'
+    : 'https://myharada.netlify.app/'
 
   useEffect(() => {
     if (
       window.location.pathname === '/' ||
-      window.location.pathname === '/login' ||
-      window.location.pathname === '/pdf'
+      window.location.pathname === '/login'
     )
       return
 
@@ -22,7 +26,7 @@ export default function AuthContextProvider({ children }) {
         const data = await getDashboardData()
         console.log(data)
         if (!data) {
-          window.location.href = 'https://myharada.netlify.app/login'
+          window.location.href = REDIRECT_URL
         } else {
           console.log(data)
           setUserData(data)
@@ -30,7 +34,7 @@ export default function AuthContextProvider({ children }) {
         }
       } catch (error) {
         console.log(error)
-        window.location.replace('http://localhost:5173/login')
+        window.location.replace(REDIRECT_URL)
       }
     }
     fetchUserData()

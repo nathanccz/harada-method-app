@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
+import Signup from './pages/Signup.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Main from './components/Main.jsx'
 import MyGrids from './components/MyGrids.jsx'
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/signup',
+    element: <Signup />,
   },
   {
     path: '/dashboard',
