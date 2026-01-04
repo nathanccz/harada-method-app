@@ -15,6 +15,7 @@ import AuthContextProvider from './providers/AuthContextProvider.jsx'
 import ToastProvider from './providers/ToastProvider.jsx'
 import DataProvider from './providers/DataProvider.jsx'
 import Completed from './components/Completed.jsx'
+import PDFView from './pages/PDFView.jsx'
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/grid/:id',
         element: <GridView />,
+      },
+      {
+        path: '/dashboard/pdf/:id',
+        element: <PDFView />,
       },
       {
         path: '/dashboard/completed',
