@@ -11,8 +11,7 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     if (
       window.location.pathname === '/' ||
-      window.location.pathname === '/login' ||
-      window.location.pathname === '/pdf'
+      window.location.pathname === '/login'
     )
       return
 
