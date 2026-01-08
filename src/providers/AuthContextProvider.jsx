@@ -8,36 +8,61 @@ export default function AuthContextProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [userDataLoading, setUserDataLoading] = useState(true)
   const [userData, setUserData] = useState(null)
+  const [token, setToken] = useState(null)
+
+  const API_BASE_URL = import.meta.env.VITE_API_URL
   const BLOCKED_ROUTES = ['/', '/login', '/signup']
   const REDIRECT_URL = import.meta.env.DEV
     ? 'http://localhost:5173/'
     : 'https://myharada.netlify.app/'
 
-  useEffect(() => {
-    if (
-      window.location.pathname === '/' ||
-      window.location.pathname === '/login'
-    )
-      return
-
-    async function fetchUserData() {
-      setUserDataLoading(true)
-      try {
-        const data = await getDashboardData()
-        console.log(data)
-        if (!data) {
-          window.location.href = REDIRECT_URL
-        } else {
-          console.log(data)
-          setUserData(data)
-          setIsAuthenticated(true)
-        }
-      } catch (error) {
-        console.log(error)
-        window.location.replace(REDIRECT_URL)
+  async function fetchUserData(token) {
+    try {
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       }
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+
+      const response = await fetch(`${API_BASE_URL}/auth/dashboard`, {
+        method: 'GET',
+        headers: headers,
+        credentials: 'include',
+      })
+
+      const mongoUser = await response.json()
+      // if (mongoUser.error) return
+      console.log(mongoUser)
+      setUserData(mongoUser)
+      setIsAuthenticated(true)
+    } catch (error) {
+      console.log(error)
+      window.location.replace(REDIRECT_URL)
     }
-    fetchUserData()
+  }
+
+  useEffect(() => {
+    if (BLOCKED_ROUTES.includes(window.location.pathname)) return
+
+    setUserDataLoading(true)
+
+    const auth = getAuth()
+
+    // Listen for Firebase auth changes
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const token = await firebaseUser.getIdToken()
+        setToken(token)
+        fetchUserData(token)
+      } else {
+        fetchUserData()
+      }
+    })
+
+    return unsubscribe
   }, [])
 
   return (
@@ -47,6 +72,7 @@ export default function AuthContextProvider({ children }) {
         setUserDataLoading,
         userData,
         userDataLoading,
+        token,
       }}
     >
       {children}

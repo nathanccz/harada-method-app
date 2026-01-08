@@ -17,7 +17,7 @@ export default function Overview({
   const [hovered, setHovered] = useState(null)
   const { id } = useParams()
   const { openEditListModal, setCurrentParams } = useModalContext()
-  const { userDataLoading } = useAuthContext()
+  const { userDataLoading, token } = useAuthContext()
   const { fetchGrids, gridsLoading } = useDataContext()
   const container = useRef()
 
@@ -74,7 +74,11 @@ export default function Overview({
     }
 
     try {
-      const response = await editGridCell(updatedGrid._id, updatedGrid.grids)
+      const response = await editGridCell(
+        updatedGrid._id,
+        updatedGrid.grids,
+        token
+      )
       if (!response) {
         console.log('Something went wrong.')
         return

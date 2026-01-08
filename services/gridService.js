@@ -1,18 +1,24 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL
 
-export const addGrid = async (obj) => {
+export const addGrid = async (obj, token) => {
+  const headers = { 'Content-Type': 'application/json' }
+  console.log(headers)
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   try {
     const object = { ...obj }
     object.grids[4][4].text = obj.title
 
     const response = await fetch(`${API_BASE_URL}/grids/add`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headers,
       body: JSON.stringify(object),
       credentials: 'include',
     })
     const data = await response.json()
-    console.log(data)
+
     if (!response.ok) {
       console.log('something went wrong!')
     } else {
@@ -23,9 +29,19 @@ export const addGrid = async (obj) => {
   }
 }
 
-export const getGrids = async () => {
+export const getGrids = async (token) => {
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}/grids/all`, {
+      headers,
       credentials: 'include',
     })
     if (!response.ok) {
@@ -39,10 +55,12 @@ export const getGrids = async () => {
   }
 }
 
-export const getSingleGrid = async (gridId) => {
-  console.log(gridId)
+export const getSingleGrid = async (gridId, token) => {
+  const headers = token ? { Authorization: `Bearer ${token}` } : {}
+
   try {
     const response = await fetch(`${API_BASE_URL}/grids/grid/${gridId}`, {
+      headers,
       credentials: 'include',
     })
     if (!response.ok) {
@@ -57,12 +75,17 @@ export const getSingleGrid = async (gridId) => {
   }
 }
 
-export const editGridCell = async (gridId, gridArray) => {
-  console.log(gridArray)
+export const editGridCell = async (gridId, gridArray, token) => {
+  const headers = { 'Content-Type': 'application/json' }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}/grids/edit/${gridId}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({ grid: gridArray }),
       credentials: 'include',
     })
@@ -77,28 +100,42 @@ export const editGridCell = async (gridId, gridArray) => {
   }
 }
 
-export const deleteGrid = async (gridId) => {
-  console.log(gridId)
+export const deleteGrid = async (gridId, token) => {
+  const headers = token ? { Authorization: `Bearer ${token}` } : {}
 
   try {
     const response = await fetch(`${API_BASE_URL}/grids/delete/${gridId}`, {
       method: 'DELETE',
+      headers,
       credentials: 'include',
     })
     const message = response.message
+    console.log(message)
     return { message: 'Grid deleted!' }
   } catch (error) {
     console.log('Error deleting grid:', error)
   }
 }
 
-export const editGridDetails = async (gridId, title, description, gridType) => {
+export const editGridDetails = async (
+  gridId,
+  title,
+  description,
+  gridType,
+  token
+) => {
+  const headers = { 'Content-Type': 'application/json' }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   try {
     const response = await fetch(
       `${API_BASE_URL}/grids/editDetails/${gridId}`,
       {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           title: title,
           description: description,
@@ -116,11 +153,17 @@ export const editGridDetails = async (gridId, title, description, gridType) => {
   }
 }
 
-export const editGridCells = async (obj) => {
+export const editGridCells = async (obj, token) => {
+  const headers = { 'Content-Type': 'application/json' }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}/grids/editCells/${gridId}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify(obj),
       credentials: 'include',
     })
@@ -133,13 +176,17 @@ export const editGridCells = async (obj) => {
   }
 }
 
-export const clearGrid = async (gridId, choice) => {
-  console.log(choice)
+export const clearGrid = async (gridId, choice, token) => {
+  const headers = { 'Content-Type': 'application/json' }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
 
   try {
     const response = await fetch(`${API_BASE_URL}/grids/clearCells/${gridId}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({ choice: choice }),
       credentials: 'include',
     })
@@ -151,16 +198,18 @@ export const clearGrid = async (gridId, choice) => {
   }
 }
 
-export const markGridAsCompleted = async (gridId) => {
+export const markGridAsCompleted = async (gridId, token) => {
+  const headers = token ? { Authorization: `Bearer ${token}` } : {}
+
   try {
     const response = await fetch(
       `${API_BASE_URL}/grids/markComplete/${gridId}`,
       {
         method: 'PUT',
+        headers,
         credentials: 'include',
       }
     )
-    console.log(response)
     if (!response) {
       console.log('Something went wrong!')
     } else {
@@ -171,14 +220,18 @@ export const markGridAsCompleted = async (gridId) => {
   }
 }
 
-export const getAIGeneratedGrid = async (message) => {
+export const getAIGeneratedGrid = async (message, token) => {
+  const headers = { 'Content-Type': 'application/json' }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
   try {
     const URL = `${API_BASE_URL}/grids/groqai`
     const response = await fetch(URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({
         message: message,
       }),

@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import JsonDownloader from './JsonDownloader'
-import PdfDownloader from './PdfDownloader'
+
 import { useState } from 'react'
 import { markGridAsCompleted } from '../../services/gridService'
 import { useToastContext } from '../providers/ToastProvider'
@@ -8,18 +8,20 @@ import { useDataContext } from '../providers/DataProvider'
 import { NavLink } from 'react-router-dom'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import MyDocument from './MyDocument'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function Dropdown({ gridData }) {
   const [loading, setLoading] = useState(false)
   const { showToast } = useToastContext()
   const { fetchGrids } = useDataContext()
+  const { token } = useAuthContext()
 
   const handleClickSaveAsCompleted = async () => {
     if (gridData.completedAt) return
 
     setLoading(true)
     try {
-      const response = await markGridAsCompleted(gridData._id)
+      const response = await markGridAsCompleted(gridData._id, token)
       setLoading(true)
       showToast('Grid saved successfully!')
       setLoading(false)
@@ -61,24 +63,26 @@ export default function Dropdown({ gridData }) {
           )}
         </li>
         <li>
-          <PDFDownloadLink
-            document={<MyDocument gridData={gridData} />}
-            fileName={`${gridData.title || 'harada-grid'}.pdf`}
-          >
-            {({ loading }) =>
-              loading ? (
-                <a className="flex gap-2">
-                  <Icon icon="teenyicons:pdf-outline" className="text-lg" />{' '}
-                  Generating PDF...
-                </a>
-              ) : (
-                <a className="flex gap-2">
-                  <Icon icon="teenyicons:pdf-outline" className="text-lg" />{' '}
-                  Save as PDF
-                </a>
-              )
-            }
-          </PDFDownloadLink>
+          {gridData && (
+            <PDFDownloadLink
+              document={<MyDocument gridData={gridData} />}
+              fileName={`${gridData.title || 'harada-grid'}.pdf`}
+            >
+              {({ loading }) =>
+                loading ? (
+                  <a className="flex gap-2">
+                    <Icon icon="teenyicons:pdf-outline" className="text-lg" />{' '}
+                    Generating PDF...
+                  </a>
+                ) : (
+                  <a className="flex gap-2">
+                    <Icon icon="teenyicons:pdf-outline" className="text-lg" />{' '}
+                    Save as PDF
+                  </a>
+                )
+              }
+            </PDFDownloadLink>
+          )}
         </li>
         <li>
           <JsonDownloader gridData={gridData} />

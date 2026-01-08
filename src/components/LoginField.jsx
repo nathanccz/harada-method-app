@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useState } from 'react'
 import { auth } from '../../services/firebase'
-import { signInWithEmailLink, sendSignInLinkToEmail } from 'firebase/auth'
+import { signInWithEmailAndPassword, getAuth, signOut } from 'firebase/auth'
 
 export default function LoginField() {
   const [loading, setLoading] = useState(false)
@@ -15,6 +15,10 @@ export default function LoginField() {
     ? 'http://localhost:3000/auth/google'
     : 'https://myharada-app-backend.onrender.com/auth/google'
 
+  const FIREBASE_AUTH_URL = import.meta.env.DEV
+    ? 'http://localhost:3000/api/auth/firebase-login'
+    : 'https://myharada-app-backend.onrender.com/auth/google'
+
   const handleInputChange = (event) => {
     const { name, value } = event.target
     setFormData((prevFormData) => ({
@@ -25,24 +29,43 @@ export default function LoginField() {
 
   const handleClickSignIn = async (e) => {
     e.preventDefault()
-    console.log(formData)
+
     const email = formData.email.trim()
     const password = formData.password.trim()
+    let user
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-      })
+    try {
+      const firebaseResponse = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      user = firebaseResponse.user
+    } catch (error) {
+      const errorCode = error.code
+      const errorMessage = error.message
+      alert(errorMessage)
+    }
+
+    const response = await fetch(FIREBASE_AUTH_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+      credentials: 'include',
+    })
+
+    const data = await response.json()
+
+    if (data) {
+      window.location.replace('http://localhost:5173/dashboard')
+    }
   }
 
-  const handleGoogleLogin = (e) => {
+  const handleGoogleLogin = async (e) => {
     e.preventDefault()
+    const auth = getAuth()
+    await signOut(auth)
     window.location.href = GOOGLE_AUTH_URL
     setLoading(true)
   }

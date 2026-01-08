@@ -15,6 +15,14 @@ export default function SignupField() {
     ? 'http://localhost:3000/auth/google'
     : 'https://myharada-app-backend.onrender.com/auth/google'
 
+  const FIREBASE_AUTH_URL = import.meta.env.DEV
+    ? 'http://localhost:3000/api/auth/firebase-login'
+    : 'https://myharada-app-backend.onrender.com/auth/google'
+
+  const REDIRECT_URL = import.meta.env.DEV
+    ? 'http://localhost:5173/dashboard'
+    : 'https://myharada.netlify.app/dashboard'
+
   const handleInputChange = (event) => {
     const { name, value } = event.target
     setFormData((prevFormData) => ({
@@ -30,13 +38,16 @@ export default function SignupField() {
     const email = formData.email.trim()
     const password = formData.password.trim()
 
+    let user
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       )
-      const user = userCredential.user
+
+      user = userCredential.user
 
       await updateProfile(user, {
         displayName: username,
@@ -47,6 +58,20 @@ export default function SignupField() {
       const errorCode = error.code
       const errorMessage = error.message
       alert(errorMessage)
+    }
+
+    const response = await fetch(FIREBASE_AUTH_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+      credentials: 'include',
+    })
+
+    const data = await response.json()
+
+    if (data) {
+      window.location.replace(REDIRECT_URL)
     }
   }
 

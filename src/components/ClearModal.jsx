@@ -3,6 +3,7 @@ import { useDataContext } from '../providers/DataProvider'
 import { useModalContext } from '../providers/ModalProvider'
 import { clearGrid } from '../../services/gridService'
 import { useToastContext } from '../providers/ToastProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function ClearModal() {
   const { fetchGrids } = useDataContext()
@@ -10,6 +11,7 @@ export default function ClearModal() {
   const [loading, setLoading] = useState(false)
   const { gridToClear } = useModalContext()
   const { showToast } = useToastContext()
+  const { token } = useAuthContext()
 
   const handleClickClear = async () => {
     if (!choice) {
@@ -20,7 +22,7 @@ export default function ClearModal() {
     setLoading(true)
 
     try {
-      const response = await clearGrid(gridToClear, choice)
+      const response = await clearGrid(gridToClear, choice, token)
       setLoading(false)
       document.getElementById('clear_modal').close()
       showToast(response.message)

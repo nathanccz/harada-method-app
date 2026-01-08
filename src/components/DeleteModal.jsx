@@ -1,10 +1,16 @@
 import JsonDownloader from './JsonDownloader'
 import { useDataContext } from '../providers/DataProvider'
+import { useState } from 'react'
 
 export default function DeleteModal({ removeGrid }) {
   const { fetchGrids } = useDataContext()
+  const [loading, setLoading] = useState(false)
+
   const handleDeleteGrid = async () => {
+    setLoading(true)
     const response = await removeGrid()
+    setLoading(false)
+    document.getElementById('delete_modal').close()
     fetchGrids()
   }
   return (
@@ -26,12 +32,19 @@ export default function DeleteModal({ removeGrid }) {
           <button className="btn btn-primary">
             <JsonDownloader />
           </button>
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
+          {!loading ? (
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-error" onClick={handleDeleteGrid}>
+                Delete
+              </button>
+            </form>
+          ) : (
             <button className="btn btn-error" onClick={handleDeleteGrid}>
-              Delete
+              <span className="loading loading-spinner loading-md"></span>{' '}
+              Deleting
             </button>
-          </form>
+          )}
         </div>
       </div>
     </dialog>

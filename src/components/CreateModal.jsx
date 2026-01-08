@@ -3,12 +3,14 @@ import FileUploader from './FileUploader'
 import { addGrid } from '../../services/gridService'
 import { Icon } from '@iconify/react'
 import { useDataContext } from '../providers/DataProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function CreateModal({ createProject, loading, setLoading }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [gridType, setGridType] = useState('ongoing')
   const { fetchGrids } = useDataContext()
+  const { token } = useAuthContext()
 
   const handleClickCreateGrid = async () => {
     const response = await createProject(title, description, gridType)

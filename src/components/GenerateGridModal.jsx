@@ -4,13 +4,14 @@ import { getAIGeneratedGrid } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
 import { useToastContext } from '../providers/ToastProvider'
 import { useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function GenerateGridModal() {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
-  const { fetchGrids, setShouldAnimate, setNewAIGeneratedGridId } =
-    useDataContext()
+  const { setShouldAnimate, setNewAIGeneratedGridId } = useDataContext()
   const { showToast } = useToastContext()
+  const { token } = useAuthContext()
 
   const handleUserInput = (event) => {
     setMessage(event.target.value)
@@ -23,7 +24,7 @@ export default function GenerateGridModal() {
   const handleClickGenerateGrid = async () => {
     setLoading(true)
     try {
-      const response = await getAIGeneratedGrid(message)
+      const response = await getAIGeneratedGrid(message, token)
 
       if (response?.error) {
         alert(response.error)
