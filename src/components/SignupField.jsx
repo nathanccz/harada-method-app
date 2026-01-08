@@ -15,7 +15,7 @@ export default function SignupField() {
 
   const GOOGLE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/auth/google'
-    : `${API_BASE_URL}/auth/google`
+    : 'https://myharada-app-backend.onrender.com'
 
   const FIREBASE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/api/auth/firebase-login'
@@ -73,7 +73,7 @@ export default function SignupField() {
     })
 
     const data = await response.json()
-
+    console.log(data)
     if (data) {
       window.location.replace(REDIRECT_URL)
     }
