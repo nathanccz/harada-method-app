@@ -11,13 +11,15 @@ export default function SignupField() {
     password: '',
   })
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL
+
   const GOOGLE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/auth/google'
-    : 'https://myharada-app-backend.onrender.com/auth/google'
+    : `${API_BASE_URL}/auth/google`
 
   const FIREBASE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/api/auth/firebase-login'
-    : 'https://myharada-app-backend.onrender.com/auth/google'
+    : `${API_BASE_URL}/api/auth/firebase-login`
 
   const REDIRECT_URL = import.meta.env.DEV
     ? 'http://localhost:5173/dashboard'

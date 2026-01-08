@@ -11,13 +11,19 @@ export default function LoginField() {
     password: '',
   })
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL
+
   const GOOGLE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/auth/google'
-    : 'https://myharada-app-backend.onrender.com/auth/google'
+    : `${API_BASE_URL}/auth/google`
 
   const FIREBASE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/api/auth/firebase-login'
-    : 'https://myharada-app-backend.onrender.com/auth/google'
+    : `${API_BASE_URL}/api/auth/firebase-login`
+
+  const REDIRECT_URL = import.meta.env.DEV
+    ? 'http://localhost:5173/dashboard'
+    : 'https://myharada.netlify.app/dashboard'
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
@@ -58,7 +64,7 @@ export default function LoginField() {
     const data = await response.json()
 
     if (data) {
-      window.location.replace('http://localhost:5173/dashboard')
+      window.location.replace(REDIRECT_URL)
     }
   }
 

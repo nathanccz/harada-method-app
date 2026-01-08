@@ -2,7 +2,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL
 
 export const addGrid = async (obj, token) => {
   const headers = { 'Content-Type': 'application/json' }
-  console.log(headers)
+
   if (token) {
     headers['Authorization'] = `Bearer ${token}`
   }
@@ -68,7 +68,7 @@ export const getSingleGrid = async (gridId, token) => {
     }
 
     const data = await response.json()
-    console.log(data)
+
     return data.grid
   } catch (error) {
     console.log(error)
@@ -110,7 +110,7 @@ export const deleteGrid = async (gridId, token) => {
       credentials: 'include',
     })
     const message = response.message
-    console.log(message)
+
     return { message: 'Grid deleted!' }
   } catch (error) {
     console.log('Error deleting grid:', error)
@@ -191,7 +191,7 @@ export const clearGrid = async (gridId, choice, token) => {
       credentials: 'include',
     })
     const data = await response.json()
-    console.log(data)
+
     return { message: data.message }
   } catch (error) {
     console.log('Error clearing grid:', error)
@@ -238,7 +238,7 @@ export const getAIGeneratedGrid = async (message, token) => {
       credentials: 'include',
     })
     const data = await response.json()
-    console.log(data)
+
     return data
   } catch (error) {
     console.log(error)
