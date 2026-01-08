@@ -57,7 +57,7 @@ export default function SignupField() {
         displayName: username,
       })
 
-      console.log(user)
+      await auth.currentUser.getIdToken(true) //Need this to force refresh token with displayName
     } catch (error) {
       const errorCode = error.code
       const errorMessage = error.message
@@ -73,7 +73,7 @@ export default function SignupField() {
     })
 
     const data = await response.json()
-    console.log(data)
+
     if (data) {
       window.location.replace(REDIRECT_URL)
     }
