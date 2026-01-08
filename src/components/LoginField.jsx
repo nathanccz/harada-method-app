@@ -15,7 +15,7 @@ export default function LoginField() {
 
   const GOOGLE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/auth/google'
-    : 'https://myharada-app-backend.onrender.com'
+    : 'https://myharada-app-backend.onrender.com/auth/google'
 
   const FIREBASE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/api/auth/firebase-login'
