@@ -19,7 +19,7 @@ export default function SignupField() {
 
   const FIREBASE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/api/auth/firebase-login'
-    : `${API_BASE_URL}/api/auth/firebase-login`
+    : `${API_BASE_URL}/auth/firebase-login`
 
   const REDIRECT_URL = import.meta.env.DEV
     ? 'http://localhost:5173/dashboard'
@@ -35,6 +35,8 @@ export default function SignupField() {
 
   const onFormSubmit = async (e) => {
     e.preventDefault()
+
+    setLoading(true)
 
     const username = formData.username
     const email = formData.email.trim()
