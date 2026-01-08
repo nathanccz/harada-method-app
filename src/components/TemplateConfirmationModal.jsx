@@ -4,12 +4,14 @@ import { useModalContext } from '../providers/ModalProvider'
 import { useToastContext } from '../providers/ToastProvider'
 import { useNavigate } from 'react-router-dom'
 import { useDataContext } from '../providers/DataProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function TemplateConfirmationModal({ template, setTemplate }) {
   const { setNewGridId } = useModalContext()
   const { fetchGrids, setNewTemplateCreated } = useDataContext()
   const [loading, setLoading] = useState(false)
   const { showToast } = useToastContext()
+  const { token } = useAuthContext()
 
   const handleClickProceed = async () => {
     setLoading(true)
@@ -24,7 +26,7 @@ export default function TemplateConfirmationModal({ template, setTemplate }) {
     }
 
     try {
-      const response = await addGrid(cleanTemplate)
+      const response = await addGrid(cleanTemplate, token)
 
       if (response.message) {
         showToast(response.message)

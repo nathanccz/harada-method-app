@@ -13,13 +13,13 @@ export default function DataProvider({ children }) {
   const [newTemplateCreated, setNewTemplateCreated] = useState(false)
   const [newAIGeneratedGridId, setNewAIGeneratedGridId] = useState(null)
   const [gridsLoading, setGridsLoading] = useState(false)
-  const { isAuthenticated, setUserDataLoading } = useAuthContext()
+  const { isAuthenticated, setUserDataLoading, token } = useAuthContext()
 
   const fetchGrids = async () => {
     if (!isAuthenticated) return
     setGridsLoading(true)
     try {
-      const data = await getGrids()
+      const data = await getGrids(token)
       console.log(data)
       setGrids(data.grids)
       setTemplates(data.templates)

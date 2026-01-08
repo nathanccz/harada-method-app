@@ -2,10 +2,12 @@ import { Icon } from '@iconify/react'
 import { addGrid } from '../../services/gridService'
 import { useToastContext } from '../providers/ToastProvider'
 import { useDataContext } from '../providers/DataProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function FileUploader({ loading, setLoading }) {
   const { showToast } = useToastContext()
   const { fetchGrids } = useDataContext()
+  const { token } = useAuthContext()
 
   const handleFileUpload = async () => {
     const fileToUpload = document.getElementById('json-uploader').files[0]
@@ -27,7 +29,7 @@ export default function FileUploader({ loading, setLoading }) {
     reader.onload = async (event) => {
       try {
         const json = JSON.parse(event.target.result)
-        const response = await addGrid(json)
+        const response = await addGrid(json, token)
         if (response.message) {
           setLoading(false)
           document.getElementById('create_modal').close()

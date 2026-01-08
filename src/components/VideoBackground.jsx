@@ -1,4 +1,5 @@
 import LoginField from './LoginField'
+import SignupField from './SignupField'
 import { useLocation } from 'react-router-dom'
 
 export default function VideoBackground({}) {
@@ -30,14 +31,17 @@ export default function VideoBackground({}) {
               <p className="mb-5 text-left text-md md:text-lg lg:text-xl">
                 Achieve any goal you've dreamed of with the simplicity of the
                 Harada Method. Create unlimited grids, manage tasks, and track
-                your progress with the myHarada app. <br />
+                your progress with the myharada app. <br />
                 <br />
                 <span className="font-bold">It's completely free.</span>
               </p>
 
               <div className="flex gap-5 justify-center w-full">
-                <a href="/login" className="w-full">
-                  <button className="btn btn-success w-[60%]">Log In</button>
+                <a href="/login">
+                  <button className="btn btn-success">Log In</button>
+                </a>
+                <a href="/signup">
+                  <button className="btn btn-accent">Sign Up</button>
                 </a>
               </div>
             </div>
@@ -46,6 +50,11 @@ export default function VideoBackground({}) {
         {location.pathname === '/login' && (
           <div className="hero-content text-center">
             <LoginField />
+          </div>
+        )}
+        {location.pathname === '/signup' && (
+          <div className="hero-content text-center">
+            <SignupField />
           </div>
         )}
       </div>

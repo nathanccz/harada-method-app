@@ -1,15 +1,22 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useState } from 'react'
+import { auth } from '../../services/firebase'
+import { signInWithEmailAndPassword, getAuth, signOut } from 'firebase/auth'
 
 export default function LoginField() {
   const [loading, setLoading] = useState(false)
+  const [isEmailSent, setIsEmailSent] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
 
-  const AUTH_URL = import.meta.env.DEV
+  const GOOGLE_AUTH_URL = import.meta.env.DEV
     ? 'http://localhost:3000/auth/google'
+    : 'https://myharada-app-backend.onrender.com/auth/google'
+
+  const FIREBASE_AUTH_URL = import.meta.env.DEV
+    ? 'http://localhost:3000/api/auth/firebase-login'
     : 'https://myharada-app-backend.onrender.com/auth/google'
 
   const handleInputChange = (event) => {
@@ -20,17 +27,46 @@ export default function LoginField() {
     }))
   }
 
-  const handleClickLogin = () => {
-    if (!isValidEmail(formData.email)) {
-      alert('Please enter a valid email.')
-      return
+  const handleClickSignIn = async (e) => {
+    e.preventDefault()
+
+    const email = formData.email.trim()
+    const password = formData.password.trim()
+    let user
+
+    try {
+      const firebaseResponse = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      user = firebaseResponse.user
+    } catch (error) {
+      const errorCode = error.code
+      const errorMessage = error.message
+      alert(errorMessage)
     }
-    // handleEmailLogin(formData.email, formData.password)
+
+    const response = await fetch(FIREBASE_AUTH_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+      credentials: 'include',
+    })
+
+    const data = await response.json()
+
+    if (data) {
+      window.location.replace('http://localhost:5173/dashboard')
+    }
   }
 
-  const handleGoogleLogin = (e) => {
+  const handleGoogleLogin = async (e) => {
     e.preventDefault()
-    window.location.href = AUTH_URL
+    const auth = getAuth()
+    await signOut(auth)
+    window.location.href = GOOGLE_AUTH_URL
     setLoading(true)
   }
 
@@ -38,7 +74,7 @@ export default function LoginField() {
     <fieldset className="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box text-black">
       {!loading ? (
         <>
-          <h1 className="font-bold text-lg">Welcome!</h1>
+          <h1 className="font-bold text-lg">Welcome Back!</h1>
 
           <label className="fieldset-label">Email</label>
           <input
@@ -56,9 +92,11 @@ export default function LoginField() {
             placeholder="Password"
             name="password"
             onChange={handleInputChange}
+            value={formData.password}
+            required
           />
 
-          <button className="btn btn-neutral mt-4" onClick={handleClickLogin}>
+          <button className="btn btn-neutral mt-4" onClick={handleClickSignIn}>
             Sign In
           </button>
           <p className="text-lg my-3">OR</p>

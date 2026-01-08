@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cellText: {
-    fontSize: 8,
+    fontSize: 7,
     textAlign: 'center',
     hyphens: 'auto',
   },

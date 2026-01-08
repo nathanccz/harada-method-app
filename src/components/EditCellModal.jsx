@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react'
 import { editGridCell } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
 import { useToastContext } from '../providers/ToastProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
   const [content, setContent] = useState('')
+  const [loading, setLoading] = useState(false)
   const { grids, fetchGrids } = useDataContext()
   const { showToast } = useToastContext()
+  const { token } = useAuthContext()
 
   useEffect(() => {
     setContent(cellText)
@@ -21,6 +24,8 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
   }
 
   const handleClickSave = async () => {
+    setLoading(true)
+
     const data = grids.filter((grid) => grid._id === gridToEdit)[0]
 
     const gridIndex = data.grids.findIndex((grid) =>
@@ -34,13 +39,14 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
     const copy = { ...data }
     copy.grids[gridIndex][taskIndex].text = content
 
-    const response = await editGridCell(data._id, copy.grids)
+    const response = await editGridCell(data._id, copy.grids, token)
 
     if (!response) {
       console.log('Something went wrong')
       return
     } else {
       console.log(response)
+      setLoading(false)
       fetchGrids()
       showToast(response.message)
       setContent('')
@@ -68,10 +74,15 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
           onChange={handleFormChange}
           value={content ?? ''}
         />
-
-        <button className="btn btn-success ml-3" onClick={handleClickSave}>
-          Save
-        </button>
+        {!loading ? (
+          <button className="btn btn-success ml-3" onClick={handleClickSave}>
+            Save
+          </button>
+        ) : (
+          <button className="btn btn-success ml-3">
+            <span className="loading loading-spinner loading-md"></span>
+          </button>
+        )}
       </div>
     </dialog>
   )

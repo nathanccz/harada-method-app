@@ -3,6 +3,7 @@ import { editGridDetails } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
 import { Icon } from '@iconify/react'
 import { useToastContext } from '../providers/ToastProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function EditDetailsModal({ gridToEdit }) {
   const [title, setTitle] = useState('')
@@ -11,6 +12,7 @@ export default function EditDetailsModal({ gridToEdit }) {
   const { fetchGrids } = useDataContext()
   const { grids } = useDataContext()
   const { showToast } = useToastContext()
+  const { token } = useAuthContext()
   const currentGrid = grids.filter((grid) => grid._id === gridToEdit)[0]
 
   const handleTitleInputChange = (event) => {
@@ -25,7 +27,8 @@ export default function EditDetailsModal({ gridToEdit }) {
       currentGrid._id,
       title,
       description,
-      gridType
+      gridType,
+      token
     )
     setDescription('')
     setTitle('')

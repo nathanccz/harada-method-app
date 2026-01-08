@@ -16,6 +16,7 @@ import GenerateGridModal from '../components/GenerateGridModal'
 import CompletionModal from '../components/CompletionModal'
 import TemplateModal from '../components/TemplateModal'
 import TemplateConfirmationModal from '../components/TemplateConfirmationModal'
+import { useAuthContext } from './AuthContextProvider'
 
 export const ModalProviderContext = createContext(null)
 
@@ -31,6 +32,7 @@ export default function ModalProvider({ children }) {
   const [cellToEdit, setCellToEdit] = useState(null)
   const [template, setTemplate] = useState(null)
   const [newGridId, setNewGridId] = useState(null)
+  const { token } = useAuthContext()
 
   const openCreateModal = () => {
     document.getElementById('create_modal').showModal()
@@ -88,7 +90,7 @@ export default function ModalProvider({ children }) {
     console.log(newGrid)
 
     try {
-      const response = await addGrid(newGrid)
+      const response = await addGrid(newGrid, token)
       showToast(response.message)
       return response.message
     } catch (error) {
@@ -98,7 +100,7 @@ export default function ModalProvider({ children }) {
 
   const removeGrid = async () => {
     try {
-      const response = await deleteGrid(gridToDelete)
+      const response = await deleteGrid(gridToDelete, token)
       console.log(response)
       setGridToDelete(null)
       showToast('Grid deleted!')
@@ -109,7 +111,12 @@ export default function ModalProvider({ children }) {
 
   const editDetails = async (title, description) => {
     try {
-      const response = await editGridDetails(gridToEdit, title, description)
+      const response = await editGridDetails(
+        gridToEdit,
+        title,
+        description,
+        token
+      )
       console.log(response)
       setGridToEdit(null)
       showToast('Grid details updated!')

@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { editGridCell } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
 import { useToastContext } from '../providers/ToastProvider'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function EditListModal({ indexOfGrid, currentParams }) {
   const { grids, fetchGrids } = useDataContext()
   const { showToast } = useToastContext()
   const [currentPillar, setCurrentPillar] = useState([])
+  const { token } = useAuthContext()
 
   useEffect(() => {
     if (currentParams) {
@@ -58,7 +60,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
     }
 
     try {
-      const response = await editGridCell(currentParams, newGrid)
+      const response = await editGridCell(currentParams, newGrid, token)
       if (!response.message) {
         console.log('Something went wrong')
       } else {

@@ -19,13 +19,21 @@ export default function Navbar({ userData, isLoggedOut }) {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="profile-pic"
-                  src={userData?.image}
-                  referrerPolicy="no-referrer"
-                />
-              </div>
+              {userData?.image ? (
+                <div className="w-15 rounded-full">
+                  <img
+                    alt="profile-pic"
+                    src={userData?.image}
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+              ) : (
+                <div className="bg-neutral text-neutral-content w-16 rounded-full flex justify-center items-center">
+                  <div className="text-3xl text-center">
+                    <Icon icon="fluent:person-16-filled" />
+                  </div>
+                </div>
+              )}
             </div>
             <ul
               tabIndex="-1"

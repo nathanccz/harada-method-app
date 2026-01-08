@@ -7,6 +7,7 @@ import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
 import SearchBar from './SearchBar'
+import { Icon } from '@iconify/react'
 
 export default function Sidebar({ isMobile, isPhoneView }) {
   const { openCreateModal } = useModalContext()
@@ -20,6 +21,7 @@ export default function Sidebar({ isMobile, isPhoneView }) {
     window.location.href =
       'https://myharada-app-backend.onrender.com/api/logout' // Redirect to backend Google OAuth route
   }
+  console.log(userData)
 
   const activeGrids = [...grids].filter(
     (grid) => !grid.completedAt && !grid.templateCategory
@@ -32,13 +34,21 @@ export default function Sidebar({ isMobile, isPhoneView }) {
     <aside className="flex flex-col min-w-[275px] mb-8 pl-8">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
-          <div className="w-15 rounded-full">
-            <img
-              alt="profile-pic"
-              src={userData?.image}
-              referrerPolicy="no-referrer"
-            />
-          </div>
+          {userData?.image ? (
+            <div className="w-15 rounded-full">
+              <img
+                alt="profile-pic"
+                src={userData?.image}
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          ) : (
+            <div className="bg-neutral text-neutral-content w-16 rounded-full flex justify-center items-center">
+              <div className="text-3xl text-center">
+                <Icon icon="fluent:person-16-filled" />
+              </div>
+            </div>
+          )}
         </div>
         <div className="mt-2 ml-3">
           <h3 className="font-bold">{userData?.displayName}</h3>

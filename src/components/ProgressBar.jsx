@@ -14,7 +14,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export default function ProgressBar() {
   const { grids } = useDataContext()
-
+  console.log(grids)
   const completedTasks = []
 
   const projectGrids = grids.filter(
@@ -91,17 +91,20 @@ export default function ProgressBar() {
       {grids.length > 0 && completedTasks.length > 0 ? (
         <Bar data={data} id={'progress-bar'} />
       ) : (
-        <div className="p-20 flex justify-center items-center border rounded bg-secondary text-white">
-          <div className="text-center">
-            <h2 className="mb-3 font-bold text-xl">
-              You haven't completed any tasks, yet!
-            </h2>
-            <p>
-              Once you start marking off completed tasks, you'll see a graph of
-              your weekly progress.
-            </p>
+        grids.length > 0 &&
+        completedTasks.length === 0 && (
+          <div className="p-20 flex justify-center items-center border rounded bg-secondary text-white">
+            <div className="text-center">
+              <h2 className="mb-3 font-bold text-xl">
+                You haven't completed any tasks, yet!
+              </h2>
+              <p>
+                Once you start marking off completed tasks, you'll see a graph
+                of your weekly progress.
+              </p>
+            </div>
           </div>
-        </div>
+        )
       )}
     </>
   )
