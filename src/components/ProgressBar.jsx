@@ -14,7 +14,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export default function ProgressBar() {
   const { grids } = useDataContext()
-  console.log(grids)
+
   const completedTasks = []
 
   const projectGrids = grids.filter(

@@ -8,6 +8,7 @@ import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
 import SearchBar from './SearchBar'
 import { Icon } from '@iconify/react'
+import LogoutButton from './LogoutButton'
 
 export default function Sidebar({ isMobile, isPhoneView }) {
   const { openCreateModal } = useModalContext()
@@ -15,13 +16,6 @@ export default function Sidebar({ isMobile, isPhoneView }) {
   const { grids, gridsLoading } = useDataContext()
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-gray-300 block' : 'block'
-
-  const handleLogOut = (e) => {
-    e.preventDefault()
-    window.location.href =
-      'https://myharada-app-backend.onrender.com/api/logout' // Redirect to backend Google OAuth route
-  }
-  console.log(userData)
 
   const activeGrids = [...grids].filter(
     (grid) => !grid.completedAt && !grid.templateCategory
@@ -113,12 +107,9 @@ export default function Sidebar({ isMobile, isPhoneView }) {
         </li>
       </ul>
 
-      <button
-        className="btn btn-outline mt-8 mx-7 w-4/5"
-        onClick={handleLogOut}
-      >
-        Log Out
-      </button>
+      <div className="mt-8 w-full">
+        <LogoutButton />
+      </div>
     </aside>
   ) : (
     <SkeletonSidebar />

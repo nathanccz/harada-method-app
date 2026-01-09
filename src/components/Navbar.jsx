@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import SearchBar from './SearchBar'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
+import LogoutButton from './LogoutButton'
 
 export default function Navbar({ userData, isLoggedOut }) {
   const [searchBarFocused, setSearchBarFocused] = useState(false)
@@ -90,6 +91,9 @@ export default function Navbar({ userData, isLoggedOut }) {
                 <NavLink to={'/dashboard/support'} className={getNavLinkClass}>
                   Support
                 </NavLink>
+              </li>
+              <li className="p-4">
+                <LogoutButton />
               </li>
             </ul>
           </>

@@ -34,8 +34,9 @@ export default function AuthContextProvider({ children }) {
       })
 
       const mongoUser = await response.json()
-      // if (mongoUser.error) return
-      console.log(mongoUser)
+      if (mongoUser.error) {
+        window.location.replace(REDIRECT_URL)
+      }
       setUserData(mongoUser)
       setIsAuthenticated(true)
     } catch (error) {
