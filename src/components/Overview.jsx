@@ -24,7 +24,7 @@ export default function Overview({
 
   useGSAP(
     () => {
-      if (!shouldAnimate || !gridData) return
+      if (!shouldAnimate || !gridData || gridData.length === 0) return
 
       gsap.from('.subGoal > *', {
         opacity: 0,
@@ -36,7 +36,7 @@ export default function Overview({
 
       setShouldAnimate(false)
     },
-    { dependencies: [gridData] } // <- triggers animation when 'results' changes
+    { dependencies: [shouldAnimate, gridData] } // <- triggers animation when 'results' changes
   )
 
   const handleClickOpenEditListModal = (index) => {
