@@ -5,7 +5,7 @@ export default function DemoVideo() {
     <div className="aspect-video my-5">
       <ReactPlayer
         className="inset-0"
-        src="https://www.youtube.com/watch?v=2y2Z06hVmWE"
+        src="https://res.cloudinary.com/dw2e6ddjn/video/upload/v1768185922/myharada-demo-video-compressed_rtqlej.mp4"
         width="100%"
         height="100%"
         playing={true}

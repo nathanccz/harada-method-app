@@ -7,7 +7,7 @@ export default function Footer() {
       <nav className="grid grid-flow-col gap-4">
         <NavLink to={'/'}>Home</NavLink>
         <a className="link link-hover">About</a>
-        <NavLink to={'/contact'}>Contact</NavLink>
+        <a className="link link-hover">Contact</a>
 
         <a className="link link-hover">Privacy</a>
       </nav>

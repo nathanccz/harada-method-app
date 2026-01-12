@@ -12,11 +12,16 @@ export default function Home() {
       <VideoBackground />
       <section className="text-center text-white p-16 bg-slate-800">
         <h2 className="text-3xl mb-8">Create your own Harada grid</h2>
-        <div className="flex gap-10 justify-center flex-col-reverse md:flex-row max-w-[1400px] mx-auto">
+        <p className="mb-4 p-4">
+          Whether you've got a complete roadmap in mind, or you need a little
+          inspiration, the myharada app makes it easy to design a grid that's
+          tailored to your dreams and goals.
+        </p>
+        <div className="flex gap-10 justify-center flex-col-reverse lg:flex-row max-w-[1400px] mx-auto">
           <div className="basis-2/3">
             <DemoVideo />
           </div>
-          <div className="p-8 w-120 mx-auto">
+          <div className="p-0 lg:p-8 w-full lg:w-120 mx-auto">
             <Accordion />
           </div>
         </div>
