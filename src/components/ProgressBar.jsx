@@ -25,7 +25,7 @@ export default function ProgressBar() {
     const flattened = project.grids
       .flat()
       .flat()
-      .filter((task) => task.completedAt)
+      .filter((task) => task.completedAt && task.slot !== 'middle-center')
     completedTasks.push(...flattened)
   })
 
