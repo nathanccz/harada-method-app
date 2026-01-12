@@ -6,7 +6,9 @@ export default function DeleteModal({ removeGrid }) {
   const { fetchGrids } = useDataContext()
   const [loading, setLoading] = useState(false)
 
-  const handleDeleteGrid = async () => {
+  const handleDeleteGrid = async (e) => {
+    e.preventDefault()
+
     setLoading(true)
     const response = await removeGrid()
     setLoading(false)

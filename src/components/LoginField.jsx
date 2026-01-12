@@ -53,6 +53,7 @@ export default function LoginField() {
       const errorCode = error.code
       const errorMessage = error.message
       alert(errorMessage)
+      setLoading(false)
     }
 
     const response = await fetch(FIREBASE_AUTH_URL, {

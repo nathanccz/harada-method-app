@@ -1,0 +1,45 @@
+export default function Accordion(data) {
+  return (
+    <div className="flex flex-col gap-3">
+      <details
+        className="collapse bg-slate-800 border border-base-300"
+        name="my-accordion-det-1"
+        open
+      >
+        <summary className="collapse-title font-semibold">
+          Build a custom grid of your own
+        </summary>
+        <div className="collapse-content text-sm">
+          Just set a title and description and you're on your way! Fill in
+          sub-goals and tasks directly in the grid view – or switch to list view
+          to edit tasks in batches.
+        </div>
+      </details>
+      <details
+        className="collapse bg-slate-800  border border-base-300"
+        name="my-accordion-det-1"
+      >
+        <summary className="collapse-title font-semibold">
+          Use the AI-powered Harada Assistant
+        </summary>
+        <div className="collapse-content text-sm">
+          Have a goal in mind but unsure where to start? The Harada Assistant
+          can automatically fill in a grid with sub-goals and tasks – and you
+          can change things up as needed!
+        </div>
+      </details>
+      <details
+        className="collapse bg-slate-800  border border-base-300"
+        name="my-accordion-det-1"
+      >
+        <summary className="collapse-title font-semibold">
+          Track your weekly progress
+        </summary>
+        <div className="collapse-content text-sm">
+          As you mark off tasks, you'll see a rolling weekly view of what you've
+          accomplished in the past seven days.
+        </div>
+      </details>
+    </div>
+  )
+}

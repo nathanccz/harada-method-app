@@ -70,15 +70,15 @@ export default function Dropdown({ gridData }) {
             >
               {({ loading }) =>
                 loading ? (
-                  <a className="flex gap-2">
+                  <div className="flex gap-2">
                     <Icon icon="teenyicons:pdf-outline" className="text-lg" />{' '}
                     Generating PDF...
-                  </a>
+                  </div>
                 ) : (
-                  <a className="flex gap-2">
+                  <div className="flex gap-2">
                     <Icon icon="teenyicons:pdf-outline" className="text-lg" />{' '}
                     Save as PDF
-                  </a>
+                  </div>
                 )
               }
             </PDFDownloadLink>

@@ -11,9 +11,9 @@ export default function Navbar({ userData, isLoggedOut }) {
     isActive ? 'bg-gray-300 block' : 'block'
 
   return (
-    <div className="navbar bg-base-100 shadow-sm top-0 sticky z-999 justify-between">
+    <div className="navbar bg-base-100 shadow-sm top-0 sticky z-999 justify-between px-8">
       <div className="dropdown dropdown-start">
-        {!isLoggedOut && (
+        {!isLoggedOut ? (
           <>
             <div
               tabIndex={0}
@@ -82,11 +82,7 @@ export default function Navbar({ userData, isLoggedOut }) {
                   </div>
                 </NavLink>
               </li>
-              {/* <li>
-          <NavLink to={'/about'} className={getNavLinkClass}>
-            About
-          </NavLink>
-        </li> */}
+
               <li>
                 <NavLink to={'/dashboard/support'} className={getNavLinkClass}>
                   Support
@@ -97,10 +93,18 @@ export default function Navbar({ userData, isLoggedOut }) {
               </li>
             </ul>
           </>
+        ) : (
+          <div className="w-[150px] h-10 scale-130">
+            <img
+              alt="mharada logo"
+              src="/logo.svg"
+              className="w-full h-full object-cover"
+            />
+          </div>
         )}
       </div>
 
-      {!searchBarFocused && (
+      {!searchBarFocused && !isLoggedOut && (
         <div className="w-[150px] h-10 scale-130">
           <img
             alt="mharada logo"

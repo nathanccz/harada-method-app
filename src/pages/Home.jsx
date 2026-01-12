@@ -1,13 +1,27 @@
-import Hero from '../components/Hero'
-import LoginField from '../components/LoginField'
 import Navbar from '../components/Navbar'
 import VideoBackground from '../components/VideoBackground'
+import Footer from '../components/Footer'
+
+import Accordion from '../components/Accordion'
+import DemoVideo from '../components/DemoVideo'
 
 export default function Home() {
   return (
     <main>
       <Navbar isLoggedOut={true} />
       <VideoBackground />
+      <section className="text-center text-white p-16 bg-slate-800">
+        <h2 className="text-3xl mb-8">Create your own Harada grid</h2>
+        <div className="flex gap-10 justify-center flex-col-reverse md:flex-row max-w-[1400px] mx-auto">
+          <div className="basis-2/3">
+            <DemoVideo />
+          </div>
+          <div className="p-8 w-120 mx-auto">
+            <Accordion />
+          </div>
+        </div>
+      </section>
+      <Footer />
     </main>
   )
 }

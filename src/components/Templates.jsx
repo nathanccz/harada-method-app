@@ -24,8 +24,6 @@ export default function Templates() {
     return grouped
   }, [templates]) // Only recalculate when grids change
 
-  console.log(templatesByCategory)
-
   const templateCategories = [
     'All Categories',
     'Career Growth',

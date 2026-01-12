@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { getDashboardData } from '../../services/authService'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export const AuthContext = createContext(null)
