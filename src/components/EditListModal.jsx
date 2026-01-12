@@ -51,7 +51,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
     //Set createdAt to empty string if the text field is also empty
     //This helps prevent the list view from retaining the completed check mark
     //when the text field is empty
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 9; i++) {
       const cell = newGrid[indexOfGrid][i]
 
       if (!cell.text) {

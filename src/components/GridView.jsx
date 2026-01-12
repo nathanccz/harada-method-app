@@ -19,14 +19,17 @@ export default function GridView() {
   const { newTemplateCreated, setNewTemplateCreated } = useDataContext()
   const { id } = useParams()
   const { isMobile } = useOutletContext()
-
+  const [gridData, setGridData] = useState([])
   const { templates, grids, shouldAnimate, setShouldAnimate } = useDataContext()
 
   const navigate = useNavigate()
 
-  const gridData =
-    grids.filter((grid) => grid._id === id)[0] ||
-    templates.filter((template) => template._id === id)[0]
+  useEffect(() => {
+    setGridData(
+      grids.filter((grid) => grid._id === id)[0] ||
+        templates.filter((template) => template._id === id)[0]
+    )
+  }, [grids])
 
   const switchView = (newView) => {
     if (newView === view) return
@@ -74,7 +77,7 @@ export default function GridView() {
           )}
           <div>
             <h1 className="text-2xl font-bold text-left mb-2">
-              {gridData?.title || 'Untitled'}
+              {gridData?.title || <div className="skeleton h-16 w-96"></div>}
             </h1>
             <p className="text-left">{gridData?.description || ''}</p>
           </div>
@@ -153,6 +156,7 @@ export default function GridView() {
             <Overview
               switchView={switchView}
               gridData={gridData}
+              setGridData={setGridData}
               loading={loading}
               shouldAnimate={shouldAnimate}
               setShouldAnimate={setShouldAnimate}

@@ -11,6 +11,7 @@ import { useGSAP } from '@gsap/react'
 
 export default function Overview({
   gridData,
+  setGridData,
   shouldAnimate,
   setShouldAnimate,
 }) {
@@ -18,7 +19,7 @@ export default function Overview({
   const { id } = useParams()
   const { openEditListModal, setCurrentParams } = useModalContext()
   const { userDataLoading, token } = useAuthContext()
-  const { fetchGrids, gridsLoading } = useDataContext()
+  const { fetchGrids } = useDataContext()
   const container = useRef()
 
   useGSAP(
@@ -44,7 +45,8 @@ export default function Overview({
   }
 
   const handleClickCheck = async (cellId) => {
-    const updatedGrid = { ...gridData }
+    const fallback = structuredClone(gridData)
+    const updatedGrid = structuredClone(gridData)
 
     const gridIndex = updatedGrid.grids.findIndex((grid) =>
       grid.some((cell) => cell.id === cellId)
@@ -72,6 +74,7 @@ export default function Overview({
     } else {
       updatedGrid.grids[gridIndex][4].completedAt = ''
     }
+    setGridData(updatedGrid)
 
     try {
       const response = await editGridCell(
@@ -81,6 +84,7 @@ export default function Overview({
       )
       if (!response) {
         console.log('Something went wrong.')
+        setGridData(fallback)
         return
       } else {
         fetchGrids()
@@ -113,7 +117,9 @@ export default function Overview({
   }
 
   const calculatePercentage = (subGrid) => {
-    const completed = subGrid.filter((cell) => cell.completedAt).length
+    const completed = subGrid.filter(
+      (cell) => cell.completedAt && cell.slot !== 'middle-center'
+    ).length
 
     return Math.floor((completed / 8) * 100)
   }
@@ -123,8 +129,8 @@ export default function Overview({
       ref={container}
       className="lg:max-h-[950px] max-w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 lg:overflow-scroll border border-accent/25 rounded-lg p-3 "
     >
-      {!userDataLoading && !gridsLoading ? (
-        gridData?.grids.map((grid, ind) => (
+      {!userDataLoading ? (
+        gridData?.grids?.map((grid, ind) => (
           <ul
             className={`list ${
               grid[0].id.startsWith('main') ? 'bg-yellow-100' : 'bg-slate-100'
