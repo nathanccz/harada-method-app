@@ -8,20 +8,20 @@ export default function Accordion(data) {
         name="my-accordion-det-1"
         open
       >
-        <summary className="collapse-title font-semibold text-xl flex items-center gap-3">
+        <summary className="collapse-title font-semibold text-md lg:text-xl flex items-center gap-3">
           <Icon icon="et:grid" className="text-2xl" /> Build a custom grid
         </summary>
         <div className="collapse-content text-sm">
-          Just set a title and description and you're on your way! Fill in
-          sub-goals and tasks directly in the grid view – or switch to list view
-          to edit tasks in batches.
+          Just set a title and description and you're ready to get started! Fill
+          in sub-goals and tasks directly in the grid view – or switch to list
+          view to edit tasks in batches.
         </div>
       </details>
       <details
         className="collapse bg-slate-800  border border-base-300"
         name="my-accordion-det-1"
       >
-        <summary className="collapse-title font-semibold text-xl flex items-center gap-3">
+        <summary className="collapse-title font-semibold text-md lg:text-xl flex items-center gap-3">
           <Icon icon="humbleicons:ai" className="text-2xl" /> Use the AI
           Assistant
         </summary>
@@ -35,7 +35,7 @@ export default function Accordion(data) {
         className="collapse bg-slate-800  border border-base-300"
         name="my-accordion-det-1"
       >
-        <summary className="collapse-title font-semibold text-xl flex items-center gap-3">
+        <summary className="collapse-title font-semibold text-md lg:text-xl flex items-center gap-3">
           <Icon
             icon="streamline-plump:graph-bar-increase-remix"
             className="text-2xl"
