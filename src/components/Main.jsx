@@ -24,6 +24,7 @@ export default function Main() {
 
   useEffect(() => {
     if (!shouldAnimate) return
+    localStorage.setItem('view_preference', 'list')
     fetchGrids()
     navigate(`/dashboard/grid/${newAIGeneratedGridId}`)
   }, [shouldAnimate])

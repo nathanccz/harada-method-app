@@ -1,7 +1,11 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useState } from 'react'
 import { auth } from '../../services/firebase'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+} from 'firebase/auth'
 
 export default function SignupField() {
   const [loading, setLoading] = useState(false)
@@ -76,6 +80,8 @@ export default function SignupField() {
     const data = await response.json()
 
     if (data) {
+      await sendEmailVerification(auth.currentUser)
+      user.reload()
       window.location.replace(REDIRECT_URL)
     }
   }
