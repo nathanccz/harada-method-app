@@ -86,10 +86,31 @@ export default function ProgressBar() {
       },
     ],
   }
+
+  const options = {
+    scales: {
+      y: {
+        min: 0,
+        suggestedMax: 10,
+        ticks: {
+          stepSize: 1,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          boxWidth: 0, // Removes the width of the color box
+          boxHeight: 0, // Removes the height of the color box
+        },
+      },
+    },
+  }
+
   return (
     <>
       {grids.length > 0 && completedTasks.length > 0 ? (
-        <Bar data={data} id={'progress-bar'} />
+        <Bar data={data} options={options} id={'progress-bar'} />
       ) : (
         grids.length > 0 &&
         completedTasks.length === 0 && (
