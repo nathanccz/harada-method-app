@@ -11,7 +11,7 @@ export default function Accordion(data) {
         <summary className="collapse-title font-semibold text-md lg:text-xl flex items-center gap-3">
           <Icon icon="et:grid" className="text-2xl" /> Build a custom grid
         </summary>
-        <div className="collapse-content text-sm">
+        <div className="collapse-content text-sm text-left">
           Just set a title and description and you're ready to get started! Fill
           in sub-goals and tasks directly in the grid view – or switch to list
           view to edit tasks in batches.
@@ -25,7 +25,7 @@ export default function Accordion(data) {
           <Icon icon="humbleicons:ai" className="text-2xl" /> Use the AI
           Assistant
         </summary>
-        <div className="collapse-content text-sm">
+        <div className="collapse-content text-sm text-left">
           Have a goal in mind but unsure where to start? The Harada Assistant
           can automatically fill in a grid with sub-goals and tasks – and you
           can change things up as needed!
@@ -42,7 +42,7 @@ export default function Accordion(data) {
           />{' '}
           Track your progress
         </summary>
-        <div className="collapse-content text-sm">
+        <div className="collapse-content text-sm text-left">
           As you mark off tasks, you'll see a rolling weekly view of what you've
           accomplished in the past seven days.
         </div>
