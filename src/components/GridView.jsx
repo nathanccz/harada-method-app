@@ -29,7 +29,7 @@ export default function GridView() {
       grids.filter((grid) => grid._id === id)[0] ||
         templates.filter((template) => template._id === id)[0]
     )
-  }, [grids])
+  }, [grids, id])
 
   const switchView = (newView) => {
     if (newView === view) return

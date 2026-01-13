@@ -21,12 +21,11 @@ export default function SearchBar({ onFocus, onBlur }) {
       (grid) =>
         grid.title.toLowerCase().includes(newValue) && !grid.templateCategory
     )
-    console.log(filtered)
+
     setResults(filtered)
   }
 
   const handleClickResult = (gridId) => {
-    console.log('hey')
     setResults(null)
     setInputText('')
     navigate(`/dashboard/grid/${gridId}`)
@@ -68,7 +67,7 @@ export default function SearchBar({ onFocus, onBlur }) {
               results.map((result) => (
                 <li
                   className="cursor-pointer hover:bg-slate-100 transition duration-300 p-3"
-                  key={result.$id}
+                  key={result._id}
                   onMouseDown={(e) => e.preventDefault()} //NOTE: Need to add accessibility
                   onClick={() => handleClickResult(result._id)}
                 >
