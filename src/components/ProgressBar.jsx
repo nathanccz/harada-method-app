@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
+import { toLocalDateString } from '../../utils/helpers'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -22,6 +23,8 @@ export default function ProgressBar() {
   )
 
   projectGrids.forEach((project) => {
+    // Flatten Harada grid structure: project.grids contains pillars (arrays),
+    // each pillar contains cells (objects). Double flat() gets all cells.
     const flattened = project.grids
       .flat()
       .flat()
@@ -31,28 +34,22 @@ export default function ProgressBar() {
 
   const generateDateLabels = () => {
     const labels = []
-
     for (let i = 0; i < 7; i++) {
       const date = new Date()
-
       date.setDate(date.getDate() - i)
-
-      // toISOString() returns "2025-12-27T18:30:00.000Z"
-      // .split('T')[0] takes only "2025-12-27"
-      labels.push(date.toISOString().split('T')[0])
+      labels.push(toLocalDateString(date))
     }
-
     return labels.reverse()
   }
 
   const currentWeek = generateDateLabels()
-
   const hashCount = {}
 
   for (const task of completedTasks) {
-    const day = task.completedAt.split('T')[0]
-    if (currentWeek.includes(day)) {
-      hashCount[day] = hashCount[day] + 1 || 1
+    const day = new Date(task.completedAt)
+    const localeDateString = toLocalDateString(day)
+    if (currentWeek.includes(localeDateString)) {
+      hashCount[localeDateString] = hashCount[localeDateString] + 1 || 1
     }
   }
 
