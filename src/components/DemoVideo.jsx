@@ -1,5 +1,3 @@
-import ReactPlayer from 'react-player'
-
 export default function DemoVideo() {
   return (
     <div className="inset-0">
