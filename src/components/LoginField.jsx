@@ -54,16 +54,6 @@ export default function LoginField() {
 
     setLoading(true)
 
-    try {
-      const timer = setTimeout(() => setServerWaking(true), 5000)
-      await waitForServer()
-      clearTimeout(timer)
-      setServerWaking(false)
-    } catch (error) {
-      alert('There was a server error. Please try again in a few minutes!')
-      return window.location.replace('/')
-    }
-
     let user
 
     try {
@@ -78,6 +68,16 @@ export default function LoginField() {
       const errorMessage = error.message
       alert(errorMessage)
       setLoading(false)
+    }
+
+    try {
+      const timer = setTimeout(() => setServerWaking(true), 5000)
+      await waitForServer()
+      clearTimeout(timer)
+      setServerWaking(false)
+    } catch (error) {
+      alert('There was a server error. Please try again in a few minutes!')
+      return window.location.replace('/')
     }
 
     const response = await fetch(FIREBASE_AUTH_URL, {

@@ -50,16 +50,6 @@ export default function SignupField() {
     const email = formData.email.trim()
     const password = formData.password.trim()
 
-    try {
-      const timer = setTimeout(() => setServerWaking(true), 5000)
-      await waitForServer()
-      clearTimeout(timer)
-      setServerWaking(false)
-    } catch (error) {
-      alert('There was a server error. Please try again in a few minutes!')
-      return window.location.replace('/')
-    }
-
     const status = await validatePassword(auth, password)
 
     if (!status.isValid) {
@@ -91,6 +81,16 @@ export default function SignupField() {
       const errorMessage = error.message
       alert(errorMessage)
       setLoading(false)
+    }
+
+    try {
+      const timer = setTimeout(() => setServerWaking(true), 5000)
+      await waitForServer()
+      clearTimeout(timer)
+      setServerWaking(false)
+    } catch (error) {
+      alert('There was a server error. Please try again in a few minutes!')
+      return window.location.replace('/')
     }
 
     const response = await fetch(FIREBASE_AUTH_URL, {
