@@ -165,6 +165,7 @@ export default function LoginField() {
             />
             <button
               className="absolute right-3 text-lg z-100"
+              type="button"
               onClick={() => setPasswordHidden(!passwordHidden)}
             >
               <Icon icon={passwordHidden ? 'mdi:eye-off-outline' : 'mdi:eye'} />
@@ -172,6 +173,7 @@ export default function LoginField() {
           </div>
           <button
             className="p-2 border border-gray-400 rounded mt-2 hover:bg-gray-200 duration-100 ease-in-out cursor-pointer"
+            type="button"
             onClick={handleClickForgotPassword}
           >
             Forgot password?

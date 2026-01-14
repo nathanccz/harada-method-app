@@ -129,7 +129,7 @@ export default function Overview({
       ref={container}
       className="lg:max-h-[950px] max-w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 lg:overflow-scroll border border-accent/25 rounded-lg p-3 "
     >
-      {!userDataLoading ? (
+      {!userDataLoading && gridData ? (
         gridData?.grids?.map((grid, ind) => (
           <ul
             className={`list ${

@@ -12,6 +12,7 @@ export default function DataProvider({ children }) {
   const [shouldAnimate, setShouldAnimate] = useState(false)
   const [newTemplateCreated, setNewTemplateCreated] = useState(false)
   const [newAIGeneratedGridId, setNewAIGeneratedGridId] = useState(null)
+  const [gridsLoaded, setGridsLoaded] = useState(false)
 
   const { isAuthenticated, setUserDataLoading, token } = useAuthContext()
 
@@ -24,6 +25,7 @@ export default function DataProvider({ children }) {
       setGrids(data.grids)
       setTemplates(data.templates)
       setUserDataLoading(false)
+      setGridsLoaded(true)
     } catch (error) {
       console.log(error)
     }
@@ -47,6 +49,7 @@ export default function DataProvider({ children }) {
         setImage,
         newTemplateCreated,
         setNewTemplateCreated,
+        gridsLoaded,
       }}
     >
       {children}

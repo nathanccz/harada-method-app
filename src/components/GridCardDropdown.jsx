@@ -25,15 +25,6 @@ export default function GridCardDropdown({ gridId }) {
             Edit Details
           </a>
         </li>
-        <li>
-          <NavLink to={`/dashboard/grid/${gridId}`}>
-            <Icon
-              icon="hugeicons:view"
-              className="sm:text-sm mg:text-md lg:text-lg"
-            />{' '}
-            View Grid
-          </NavLink>
-        </li>
         <li className="text-red-700">
           <a onClick={() => openDeleteModal(gridId)}>
             <Icon
