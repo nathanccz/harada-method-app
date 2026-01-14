@@ -7,11 +7,13 @@ import {
   signOut,
   sendPasswordResetEmail,
 } from 'firebase/auth'
+import { waitForServer } from '../../services/api'
 
 export default function LoginField() {
   const [loading, setLoading] = useState(false)
   const [isResettingPassword, setIsResettingPassword] = useState(false)
   const [passwordHidden, setPasswordHidden] = useState(true)
+  const [serverWaking, setServerWaking] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -51,6 +53,16 @@ export default function LoginField() {
     const password = formData.password.trim()
 
     setLoading(true)
+
+    try {
+      const timer = setTimeout(() => setServerWaking(true), 5000)
+      await waitForServer()
+      clearTimeout(timer)
+      setServerWaking(false)
+    } catch (error) {
+      alert('There was a server error. Please try again in a few minutes!')
+      return window.location.replace('/')
+    }
 
     let user
 
@@ -219,10 +231,21 @@ export default function LoginField() {
           </button>
         </>
       )}
-      {loading && (
+      {loading && !serverWaking && (
         <div className="flex justify-center items-center gap-3">
           <span className="text-xl font-bold">Logging in...</span>
           <span className="loading loading-spinner text-primary loading-xl"></span>
+        </div>
+      )}
+      {serverWaking && (
+        <div className="flex justify-center items-center gap-3 flex-col">
+          <p className="text-xl font-bold">
+            Waking up server...{' '}
+            <span className="loading loading-spinner text-primary loading-xl"></span>
+          </p>
+          <p className="text-lg font-bold">
+            This might take a minute. Please hold! 🙏
+          </p>
         </div>
       )}
     </fieldset>
