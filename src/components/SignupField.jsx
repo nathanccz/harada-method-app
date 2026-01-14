@@ -5,10 +5,12 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
+  validatePassword,
 } from 'firebase/auth'
 
 export default function SignupField() {
   const [loading, setLoading] = useState(false)
+  const [passwordHidden, setPasswordHidden] = useState(true)
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -45,6 +47,16 @@ export default function SignupField() {
     const username = formData.username
     const email = formData.email.trim()
     const password = formData.password.trim()
+
+    const status = await validatePassword(auth, password)
+
+    if (!status.isValid) {
+      alert(
+        'Password must be at least 6 characters and contain at least one lowercase letter, one uppercase letter and one number.'
+      )
+      setLoading(false)
+      return
+    }
 
     let user
 
@@ -127,15 +139,26 @@ export default function SignupField() {
             </div>
             <div>
               <label className="fieldset-label">Password</label>
-              <input
-                type="password"
-                className="input"
-                placeholder="Password"
-                name="password"
-                onChange={handleInputChange}
-                value={formData.password}
-                required
-              />
+              <div className="relative flex items-center">
+                <input
+                  type={!passwordHidden ? 'text' : 'password'}
+                  className="input"
+                  placeholder="Password"
+                  name="password"
+                  onChange={handleInputChange}
+                  value={formData.password}
+                  required
+                />
+                <button
+                  className="absolute right-3 text-lg z-100"
+                  type="button"
+                  onClick={() => setPasswordHidden(!passwordHidden)}
+                >
+                  <Icon
+                    icon={passwordHidden ? 'mdi:eye-off-outline' : 'mdi:eye'}
+                  />
+                </button>
+              </div>
             </div>
             <button className="btn btn-neutral mt-4 w-full" type="submit">
               Sign Up

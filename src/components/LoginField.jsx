@@ -11,6 +11,7 @@ import {
 export default function LoginField() {
   const [loading, setLoading] = useState(false)
   const [isResettingPassword, setIsResettingPassword] = useState(false)
+  const [passwordHidden, setPasswordHidden] = useState(true)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -152,15 +153,23 @@ export default function LoginField() {
           />
 
           <label className="fieldset-label">Password</label>
-          <input
-            type="password"
-            className="input"
-            placeholder="Password"
-            name="password"
-            onChange={handleInputChange}
-            value={formData.password}
-            required
-          />
+          <div className="relative flex items-center">
+            <input
+              type={!passwordHidden ? 'text' : 'password'}
+              className="input"
+              placeholder="Password"
+              name="password"
+              onChange={handleInputChange}
+              value={formData.password}
+              required
+            />
+            <button
+              className="absolute right-3 text-lg z-100"
+              onClick={() => setPasswordHidden(!passwordHidden)}
+            >
+              <Icon icon={passwordHidden ? 'mdi:eye-off-outline' : 'mdi:eye'} />
+            </button>
+          </div>
           <button
             className="p-2 border border-gray-400 rounded mt-2 hover:bg-gray-200 duration-100 ease-in-out cursor-pointer"
             onClick={handleClickForgotPassword}
