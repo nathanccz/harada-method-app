@@ -3,8 +3,11 @@ import { addGrid } from '../../services/gridService'
 import { useToastContext } from '../providers/ToastProvider'
 import { useDataContext } from '../providers/DataProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
+import { useState } from 'react'
 
-export default function FileUploader({ loading, setLoading }) {
+export default function FileUploader() {
+  const [loading, setLoading] = useState(false)
+
   const { showToast } = useToastContext()
   const { fetchGrids } = useDataContext()
   const { token } = useAuthContext()

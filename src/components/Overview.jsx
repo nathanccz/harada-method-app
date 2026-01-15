@@ -65,16 +65,49 @@ export default function Overview({
       updatedGrid.grids[gridIndex][taskIndex].completedAt = ''
     }
 
+    // If an item is checked off in the MAIN GOAL panel, mark off all the corresponding pillar's tasks as complete
+    if (gridIndex === 4) {
+      for (let i = 0; i < 9; i++) {
+        const taskCompleted = updatedGrid.grids[taskIndex][i].completedAt
+
+        if (!taskCompleted && !isCompleted) {
+          updatedGrid.grids[taskIndex][i].completedAt = new Date().toISOString()
+        } else {
+          updatedGrid.grids[taskIndex][i].completedAt = ''
+        }
+      }
+    }
+
     if (
       updatedGrid.grids[gridIndex]
         .filter((grid) => grid.slot !== 'middle-center')
         .every((cell) => cell.completedAt)
     ) {
       updatedGrid.grids[gridIndex][4].completedAt = new Date().toISOString()
+      updatedGrid.grids[4][gridIndex].completedAt = new Date().toISOString()
     } else {
       updatedGrid.grids[gridIndex][4].completedAt = ''
+      updatedGrid.grids[4][gridIndex].completedAt = ''
     }
+
+    if (
+      updatedGrid.grids[4]
+        .filter((grid) => grid.slot !== 'middle-center')
+        .every((cell) => cell.completedAt)
+    ) {
+      updatedGrid.grids[4][4].completedAt = new Date().toISOString()
+    }
+
     setGridData(updatedGrid)
+
+    if (
+      updatedGrid.grids
+        .flat()
+        .flat()
+        .every((grid) => grid.completedAt)
+    ) {
+      showCompletionModal()
+    }
 
     try {
       const response = await editGridCell(
@@ -88,19 +121,9 @@ export default function Overview({
         return
       } else {
         fetchGrids()
-        console.log(response.message)
       }
     } catch (error) {
       console.log('Error updating grid:', error)
-    }
-
-    if (
-      updatedGrid.grids
-        .flat()
-        .flat()
-        .every((grid) => grid.completedAt)
-    ) {
-      showCompletionModal()
     }
   }
 
@@ -127,7 +150,7 @@ export default function Overview({
   return (
     <div
       ref={container}
-      className="lg:max-h-[950px] max-w-[950px] mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 lg:overflow-scroll border border-accent/25 rounded-lg p-3 "
+      className="w-full mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 lg:overflow-scroll border border-accent/25 rounded-lg p-3 "
     >
       {!userDataLoading && gridData ? (
         gridData?.grids?.map((grid, ind) => (
@@ -177,7 +200,11 @@ export default function Overview({
                   {(ind + 1).toString().padStart(2, '0')}
                 </div>
 
-                <div className="list-col-grow flex items-center">
+                <div
+                  className={`list-col-grow flex items-center ${
+                    cell.id.startsWith('main') && 'font-bold'
+                  }`}
+                >
                   <div
                     className={cell.completedAt && 'text-gray-500 line-through'}
                   >

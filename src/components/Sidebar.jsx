@@ -10,7 +10,7 @@ import SearchBar from './SearchBar'
 import { Icon } from '@iconify/react'
 import LogoutButton from './LogoutButton'
 
-export default function Sidebar({ isMobile, isPhoneView }) {
+export default function Sidebar({ isMobile, isTablet }) {
   const { openCreateModal } = useModalContext()
   const { userData, userDataLoading } = useAuthContext()
   const { grids, gridsLoading } = useDataContext()
@@ -22,10 +22,10 @@ export default function Sidebar({ isMobile, isPhoneView }) {
   )
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
 
-  return isMobile ? (
-    <Navbar userData={userData} isPhoneView={isPhoneView} />
+  return isMobile || isTablet ? (
+    <Navbar userData={userData} isTablet={isTablet} />
   ) : !userDataLoading && !gridsLoading ? (
-    <aside className="flex flex-col min-w-[275px] mb-8 pl-8">
+    <aside className="flex flex-col min-w-[250px] mb-8 pl-8">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
           {userData?.image ? (
@@ -45,8 +45,7 @@ export default function Sidebar({ isMobile, isPhoneView }) {
           )}
         </div>
         <div className="mt-2 ml-3">
-          <h3 className="font-bold">{userData?.displayName}</h3>
-          <span>{userData?.email}</span>
+          <h3 className="font-bold text-sm">{userData?.displayName}</h3>
         </div>
       </div>
       <div className="mb-3 w-full">
@@ -95,11 +94,7 @@ export default function Sidebar({ isMobile, isPhoneView }) {
             </div>
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink to={'/about'} className={getNavLinkClass}>
-            About
-          </NavLink>
-        </li> */}
+
         <li>
           <NavLink to={'/dashboard/support'} className={getNavLinkClass}>
             Support

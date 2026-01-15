@@ -53,7 +53,7 @@ export default function GridView() {
   }
 
   useEffect(() => {
-    const viewPreference = localStorage.getItem('view_preference')
+    const viewPreference = localStorage.getItem('view_preference') || 'grid'
 
     setView(viewPreference)
   }, [])
@@ -71,7 +71,7 @@ export default function GridView() {
       <section className="flex flex-col gap-5 basis-4/5">
         {/* TITLE AREA */}
 
-        <div className="relative w-fit rounded p-2 text-center flex flex-col md:flex-row gap-5">
+        <div className="relative w-fit rounded p-5 text-center flex flex-col md:flex-row gap-5">
           {gridData?.gridType === 'project' && !gridData.templateCategory && (
             <div>
               <OverallProgressCircle
@@ -91,7 +91,7 @@ export default function GridView() {
 
         {/* TOP CONTROLS */}
         <div
-          className={`w-full flex gap-3 ${
+          className={`w-full flex gap-3 px-5 ${
             !isMobile && 'justify-between'
           } items-center`}
         >
@@ -99,17 +99,17 @@ export default function GridView() {
             <div role="tablist" className="tabs tabs-border">
               <a
                 role="tab"
-                className={`tab ${view === 'grid' ? '' : 'tab-active'}`}
-                onClick={() => switchView('list')}
-              >
-                List View
-              </a>
-              <a
-                role="tab"
                 className={`tab ${view === 'grid' ? 'tab-active' : ''}`}
                 onClick={() => switchView('grid')}
               >
                 Grid View
+              </a>
+              <a
+                role="tab"
+                className={`tab ${view === 'grid' ? '' : 'tab-active'}`}
+                onClick={() => switchView('list')}
+              >
+                List View
               </a>
             </div>
           )}
@@ -137,7 +137,7 @@ export default function GridView() {
         </div>
         {/* LAST MODIFIED */}
         {gridData?.lastModified && !gridData?.completedAt && (
-          <span className="text-xs italic">
+          <span className="text-xs italic px-6">
             Last modified: {formatDate(gridData.lastModified)}
           </span>
         )}

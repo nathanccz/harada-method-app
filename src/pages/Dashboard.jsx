@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react'
 
 export default function Dashboard() {
   const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024)
+      setIsTablet(window.innerWidth >= 1024 && window.innerWidth < 1300)
     }
 
     window.addEventListener('resize', handleResize)
@@ -21,13 +23,13 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col justify-between h-screen">
       <div
-        className={`flex relative gap-5 w-full max-w-[1300px] mx-auto flex-grow-2 pb-6 ${
-          isMobile && 'flex-col'
+        className={`flex relative gap-3 w-full max-w-[1300px] mx-auto flex-grow-2 pb-6 ${
+          isMobile || isTablet ? 'flex-col' : 'flex-row'
         }`}
       >
-        <Sidebar isMobile={isMobile} />
-        <main className="w-full lg:w-[75%] p-6">
-          <Outlet context={{ isMobile }} />
+        <Sidebar isMobile={isMobile} isTablet={isTablet} />
+        <main className={`${isMobile || isTablet ? 'w-full' : 'w-[80%]'} p-5`}>
+          <Outlet context={{ isMobile, isTablet }} />
         </main>
       </div>
       <Footer />

@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import FileUploader from './FileUploader'
-import { addGrid } from '../../services/gridService'
 import { Icon } from '@iconify/react'
 import { useDataContext } from '../providers/DataProvider'
-import { useAuthContext } from '../providers/AuthContextProvider'
 
-export default function CreateModal({ createProject, loading, setLoading }) {
+export default function CreateModal({ createProject }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [gridType, setGridType] = useState('ongoing')
+  const [loading, setLoading] = useState(false)
   const { fetchGrids } = useDataContext()
-  const { token } = useAuthContext()
 
   const handleClickCreateGrid = async () => {
+    setLoading(true)
     const response = await createProject(title, description, gridType)
     if (response) {
       fetchGrids()
       setTitle('')
       setDescription('')
+      setLoading(false)
       document.getElementById('create_modal').close()
     }
   }
@@ -37,6 +37,7 @@ export default function CreateModal({ createProject, loading, setLoading }) {
     setGridType('ongoing')
     setTitle('')
     setDescription('')
+    document.getElementById('json-uploader').value = ''
   }
 
   return (
@@ -110,12 +111,22 @@ export default function CreateModal({ createProject, loading, setLoading }) {
           </div>
         </fieldset>
         <div className="flex justify-end">
-          <button className="btn btn-info ml-3" onClick={handleClickCreateGrid}>
-            <Icon icon="qlementine-icons:new-24" className="text-xl" /> Create
-            New Grid
-          </button>
+          {!loading ? (
+            <button
+              className="btn btn-info ml-3"
+              onClick={handleClickCreateGrid}
+            >
+              <Icon icon="qlementine-icons:new-24" className="text-xl" /> Create
+              New Grid
+            </button>
+          ) : (
+            <button className="btn btn-info ml-3">
+              <span className="loading loading-spinner loading-md" /> Creating
+              New Grid...
+            </button>
+          )}
         </div>
-        OR
+        <span className="block my-3 font-bold">OR</span>
         <h2 className="text-left font-bold mb-3">Upload JSON File</h2>
         <FileUploader loading={loading} setLoading={setLoading} />
       </div>

@@ -18,7 +18,7 @@ export default function Grid({ gridData }) {
         {!gridsLoading && !userDataLoading ? (
           <div className="grid grid-cols-3 mx-auto gap-4">
             {gridData?.grids.map((grid, ind) => (
-              <div className="grid grid-cols-3 gap-4" key={`grid-${ind + 1}`}>
+              <div className="grid grid-cols-3 gap-2" key={`grid-${ind + 1}`}>
                 {grid.map((task) => {
                   const isMainCenter =
                     task.id.startsWith('main') && task.slot === 'middle-center'
@@ -28,7 +28,7 @@ export default function Grid({ gridData }) {
                   return (
                     <div
                       key={task.id}
-                      className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[90px] w-[90px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hyphens-auto 
+                      className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[95px] w-[95px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hyphens-auto 
                       ${
                         isMainCenter
                           ? 'bg-yellow-200 font-bold hover:bg-yellow-100'
