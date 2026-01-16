@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import SkeletonSidebar from './SkeletonSidebar'
 import NewGridButton from './NewGridButton'
@@ -10,7 +9,7 @@ import SearchBar from './SearchBar'
 import { Icon } from '@iconify/react'
 import LogoutButton from './LogoutButton'
 
-export default function Sidebar({ isMobile, isTablet }) {
+export default function Sidebar({ isMobile, isTablet, isPhone }) {
   const { openCreateModal } = useModalContext()
   const { userData, userDataLoading } = useAuthContext()
   const { grids, gridsLoading } = useDataContext()
@@ -22,7 +21,7 @@ export default function Sidebar({ isMobile, isTablet }) {
   )
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
 
-  return isMobile || isTablet ? (
+  return isMobile || isTablet || isPhone ? (
     <Navbar userData={userData} isTablet={isTablet} />
   ) : !userDataLoading && !gridsLoading ? (
     <aside className="flex flex-col min-w-[250px] mb-8 pl-8">
@@ -57,16 +56,22 @@ export default function Sidebar({ isMobile, isTablet }) {
       <div className="mb-5">
         <SearchBar />
       </div>
-      <ul className="menu bg-base-200 rounded-box w-full gap-3 text-lg font-bold mt-3">
+      <ul className="menu bg-base-200 rounded-box w-full gap-3 text-md font-bold mt-3">
         <li>
           <NavLink to={'/dashboard'} className={getNavLinkClass} end>
-            Dashboard
+            <div className="flex gap-2 items-center">
+              <Icon icon="ix:dashboard" className="text-2xl" />
+              <div>Dashboard</div>
+            </div>
           </NavLink>
         </li>
         <li>
           <NavLink to={'/dashboard/grids'} className={getNavLinkClass}>
-            <div className="flex justify-between">
-              <div>Active Grids</div>
+            <div className="flex justify-between items-center">
+              <div className="flex gap-2 items-center">
+                <Icon icon="mingcute:grid-line" className="text-2xl" />
+                <div>Active Grids</div>
+              </div>
               {activeGrids.length > 0 && (
                 <div className="bg-white px-2 rounded-full">
                   {activeGrids.length}
@@ -77,7 +82,8 @@ export default function Sidebar({ isMobile, isTablet }) {
         </li>
         <li>
           <NavLink to={'/dashboard/templates'} className={getNavLinkClass}>
-            <div className="flex justify-between">
+            <div className="flex gap-2 items-center">
+              <Icon icon="fluent-mdl2:explore-content" className="text-2xl" />
               <div>Templates</div>
             </div>
           </NavLink>
@@ -85,7 +91,10 @@ export default function Sidebar({ isMobile, isTablet }) {
         <li>
           <NavLink to={'/dashboard/completed'} className={getNavLinkClass}>
             <div className="flex justify-between">
-              <div>Completed</div>
+              <div className="flex gap-2 items-center">
+                <Icon icon="lucide:grid-2x2-check" className="text-2xl" />
+                <div>Completed</div>
+              </div>
               {completedGrids.length > 0 && (
                 <div className="bg-white px-2 rounded-full">
                   {completedGrids.length}
@@ -97,7 +106,10 @@ export default function Sidebar({ isMobile, isTablet }) {
 
         <li>
           <NavLink to={'/dashboard/support'} className={getNavLinkClass}>
-            Support
+            <div className="flex gap-2 items-center">
+              <Icon icon="ic:baseline-contact-mail" className="text-2xl" />
+              <div>Support</div>
+            </div>
           </NavLink>
         </li>
       </ul>

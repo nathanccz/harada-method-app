@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         element: <MyGrids />,
       },
       {
-        path: '/dashboard/grid/:id',
+        path: '/dashboard/grids/:id',
         element: <GridView />,
       },
       {
@@ -57,8 +57,16 @@ const router = createBrowserRouter([
         element: <Completed />,
       },
       {
+        path: '/dashboard/completed/:id',
+        element: <GridView />,
+      },
+      {
         path: '/dashboard/templates',
         element: <Templates />,
+      },
+      {
+        path: '/dashboard/templates/:id',
+        element: <GridView />,
       },
       {
         path: '/dashboard/support',

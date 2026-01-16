@@ -5,7 +5,7 @@ export default function Banner() {
   const { openGenerateGridModal } = useModalContext()
   return (
     <div className="hero bg-base-200 rounded">
-      <div className="hero-content flex-col lg:flex-row-reverse p-8">
+      <div className="hero-content flex-col-reverse lg:flex-row-reverse p-8">
         <figure className="flex-1">
           <img
             src="/automation-section-photo.jpg"

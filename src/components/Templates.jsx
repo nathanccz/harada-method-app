@@ -82,7 +82,7 @@ export default function Templates() {
                       <h2 className="card-title">{template.title}</h2>
                       <p>{template.description}</p>
                       <div className="card-actions">
-                        <NavLink to={`/dashboard/grid/${template._id}`}>
+                        <NavLink to={`/dashboard/templates/${template._id}`}>
                           <button className="btn btn-primary">
                             View Template
                           </button>

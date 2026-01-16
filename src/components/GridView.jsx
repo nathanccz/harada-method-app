@@ -18,7 +18,7 @@ export default function GridView() {
     useModalContext()
   const { newTemplateCreated, setNewTemplateCreated } = useDataContext()
   const { id } = useParams()
-  const { isMobile } = useOutletContext()
+  const { isMobile, isPhone } = useOutletContext()
   const [gridData, setGridData] = useState([])
   const { templates, grids, shouldAnimate, setShouldAnimate, gridsLoaded } =
     useDataContext()
@@ -95,7 +95,7 @@ export default function GridView() {
             !isMobile && 'justify-between'
           } items-center`}
         >
-          {!isMobile && (
+          {!isMobile && !isPhone && (
             <div role="tablist" className="tabs tabs-border">
               <a
                 role="tab"
@@ -152,7 +152,7 @@ export default function GridView() {
             isAnimating ? 'opacity-0' : 'opacity-100'
           }`}
         >
-          {view === 'grid' && !isMobile ? (
+          {view === 'grid' && !isMobile && !isPhone ? (
             <Grid
               switchView={switchView}
               gridData={gridData}

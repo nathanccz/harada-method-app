@@ -26,9 +26,26 @@ export default function SearchBar({ onFocus, onBlur }) {
   }
 
   const handleClickResult = (gridId) => {
+    const URL = getNavLink(gridId)
+
     setResults(null)
     setInputText('')
-    navigate(`/dashboard/grid/${gridId}`)
+    navigate(URL)
+  }
+
+  const getNavLink = (gridId) => {
+    const grid = grids.find((grid) => grid._id === gridId)
+    let url = '/dashboard/'
+
+    if (grid.completedAt) {
+      url += `/completed/${gridId}`
+    } else if (grid.templateCategory) {
+      url += `/templates/${gridId}`
+    } else {
+      url += `/grids/${gridId}`
+    }
+
+    return url
   }
 
   return (
