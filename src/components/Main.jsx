@@ -6,7 +6,7 @@ import Banner from './Banner'
 import MainSkeleton from './MainSkeleton'
 import { useDataContext } from '../providers/DataProvider'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutletContext } from 'react-router-dom'
 import ProgressBar from './ProgressBar'
 
 export default function Main() {
@@ -20,11 +20,19 @@ export default function Main() {
     gridsLoading,
   } = useDataContext()
 
+  const { isTablet, isDesktop } = useOutletContext()
+
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!shouldAnimate) return
-    localStorage.setItem('view_preference', 'list')
+
+    if (isTablet || isDesktop) {
+      localStorage.setItem('view_preference', 'grid')
+    } else {
+      localStorage.setItem('view_preference', 'list')
+    }
+
     fetchGrids()
     navigate(`/dashboard/grids/${newAIGeneratedGridId}`)
   }, [shouldAnimate])

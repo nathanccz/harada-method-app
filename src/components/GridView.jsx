@@ -157,6 +157,9 @@ export default function GridView() {
               switchView={switchView}
               gridData={gridData}
               loading={loading}
+              setGridData={setGridData}
+              shouldAnimate={shouldAnimate}
+              setShouldAnimate={setShouldAnimate}
             />
           ) : (
             <Overview

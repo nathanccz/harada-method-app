@@ -108,7 +108,7 @@ export default function Navbar({ userData, isPhone }) {
             </>
           </div>
           <div className="w-[130px] h-10 scale-130">
-            <NavLink to={'/dashboard/'}>
+            <NavLink to={'/dashboard'}>
               <img
                 alt="myharada logo"
                 src="/logo.svg"

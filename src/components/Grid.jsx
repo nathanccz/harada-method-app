@@ -3,12 +3,39 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
+import { useRef } from 'react'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
 
-export default function Grid({ gridData }) {
+export default function Grid({
+  gridData,
+  setGridData,
+  shouldAnimate,
+  setShouldAnimate,
+}) {
   const [hovered, setHovered] = useState(null)
   const { userDataLoading } = useAuthContext()
   const { gridsLoading } = useDataContext()
   const { openEditCellModal } = useModalContext()
+
+  const container = useRef()
+
+  useGSAP(
+    () => {
+      if (!shouldAnimate || !gridData || gridData.length === 0) return
+
+      gsap.from('.subGrid > *', {
+        opacity: 0,
+        y: 20,
+        stagger: 0.8, // More delay between each item
+        duration: 2.5, // Each item takes longer to animate
+        ease: 'power2.out', // Smooth easing
+      })
+
+      setShouldAnimate(false)
+    },
+    { dependencies: [shouldAnimate, gridData] } // <- triggers animation when 'results' changes
+  )
 
   return (
     <>
@@ -16,7 +43,7 @@ export default function Grid({ gridData }) {
       <div className="max-h-[950px] max-w-[950px] mx-auto text-center">
         {/* GRID OR SKELETON */}
         {!gridsLoading && !userDataLoading ? (
-          <div className="grid grid-cols-3 mx-auto gap-4">
+          <div className="grid grid-cols-3 mx-auto gap-4 subGrid">
             {gridData?.grids.map((grid, ind) => (
               <div className="grid grid-cols-3 gap-2" key={`grid-${ind + 1}`}>
                 {grid.map((task) => {
@@ -33,8 +60,8 @@ export default function Grid({ gridData }) {
                         isMainCenter
                           ? 'bg-yellow-200 font-bold hover:bg-yellow-100'
                           : isMainOrCenter
-                          ? 'bg-slate-400 font-bold'
-                          : ''
+                            ? 'bg-slate-400 font-bold'
+                            : ''
                       }`}
                       onMouseEnter={() => setHovered(task.id)}
                       onMouseLeave={() => setHovered(null)}
