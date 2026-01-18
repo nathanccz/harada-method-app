@@ -61,7 +61,7 @@ export default function GridView() {
   useEffect(() => {
     if (!newTemplateCreated) return
 
-    navigate(`/dashboard/grid/${newGridId}`)
+    navigate(`/dashboard/grids/${newGridId}`)
     setNewGridId(false)
     setNewTemplateCreated(false)
   }, [newTemplateCreated])

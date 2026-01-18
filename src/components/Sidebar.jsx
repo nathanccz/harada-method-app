@@ -22,7 +22,7 @@ export default function Sidebar({ isMobile, isTablet, isPhone }) {
   const completedGrids = [...grids].filter((grid) => grid.completedAt)
 
   return isMobile || isTablet || isPhone ? (
-    <Navbar userData={userData} isTablet={isTablet} />
+    <Navbar userData={userData} isTablet={isTablet} isPhone={isPhone} />
   ) : !userDataLoading && !gridsLoading ? (
     <aside className="flex flex-col min-w-[250px] mb-8 pl-8">
       <div className="flex mb-8 mt-4 mx-4">
@@ -49,7 +49,7 @@ export default function Sidebar({ isMobile, isTablet, isPhone }) {
       </div>
       <div className="mb-3 w-full">
         <NewGridButton
-          text={'Create New Grid'}
+          text={'Create a New Grid'}
           openCreateModal={openCreateModal}
         />
       </div>

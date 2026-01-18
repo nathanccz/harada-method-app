@@ -26,7 +26,7 @@ export default function Main() {
     if (!shouldAnimate) return
     localStorage.setItem('view_preference', 'list')
     fetchGrids()
-    navigate(`/dashboard/grid/${newAIGeneratedGridId}`)
+    navigate(`/dashboard/grids/${newAIGeneratedGridId}`)
   }, [shouldAnimate])
 
   return !userDataLoading && !gridsLoading ? (
