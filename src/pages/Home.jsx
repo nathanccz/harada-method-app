@@ -4,11 +4,12 @@ import Footer from '../components/Footer'
 
 import Accordion from '../components/Accordion'
 import DemoVideo from '../components/DemoVideo'
+import PublicNavbar from '../components/PublicNavbar'
 
 export default function Home() {
   return (
     <main>
-      <Navbar isLoggedOut={true} />
+      <PublicNavbar />
       <VideoBackground />
       <section className="text-center text-white p-8 md:p-12 lg:p-16 bg-slate-800">
         <h2 className="text-3xl mb-8">Create your own Harada grid</h2>
