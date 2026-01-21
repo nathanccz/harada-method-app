@@ -72,7 +72,7 @@ export default function Overview({
 
         if (!taskCompleted && !isCompleted) {
           updatedGrid.grids[taskIndex][i].completedAt = new Date().toISOString()
-        } else {
+        } else if (isCompleted) {
           updatedGrid.grids[taskIndex][i].completedAt = ''
         }
       }
@@ -186,8 +186,8 @@ export default function Overview({
                 {ind < 4
                   ? `Pillar ${ind + 1}`
                   : ind === 4
-                  ? 'Main Goal'
-                  : `Pillar ${ind}`}
+                    ? 'Main Goal'
+                    : `Pillar ${ind}`}
               </span>
             </li>
             <li className="font-bold p-2 text-left text-md">
