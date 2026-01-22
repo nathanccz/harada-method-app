@@ -15,6 +15,7 @@ export default function DeleteModal({ removeGrid }) {
     document.getElementById('delete_modal').close()
     fetchGrids()
   }
+
   return (
     <dialog id="delete_modal" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box text-center">
@@ -42,7 +43,7 @@ export default function DeleteModal({ removeGrid }) {
               </button>
             </form>
           ) : (
-            <button className="btn btn-error" onClick={handleDeleteGrid}>
+            <button className="btn btn-error">
               <span className="loading loading-spinner loading-md"></span>{' '}
               Deleting
             </button>

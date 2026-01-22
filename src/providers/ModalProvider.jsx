@@ -32,6 +32,7 @@ export default function ModalProvider({ children }) {
   const [cellToEdit, setCellToEdit] = useState(null)
   const [template, setTemplate] = useState(null)
   const [newGridId, setNewGridId] = useState(null)
+  const [completedGridId, setCompletedGridId] = useState(null)
   const { token } = useAuthContext()
 
   const openCreateModal = () => {
@@ -70,6 +71,11 @@ export default function ModalProvider({ children }) {
   const openUseTemplateModal = (data) => {
     setTemplate(data)
     document.getElementById('template_confirmation_modal').showModal()
+  }
+
+  const openCompletionModal = (gridId) => {
+    setCompletedGridId(gridId)
+    document.getElementById('completion_modal').showModal()
   }
 
   const createProject = async (
@@ -142,6 +148,8 @@ export default function ModalProvider({ children }) {
         setNewGridId,
         gridToClear,
         setGridToClear,
+        openCompletionModal,
+        completedGridId,
       }}
     >
       {children}
@@ -160,7 +168,7 @@ export default function ModalProvider({ children }) {
       <EditListModal indexOfGrid={indexOfGrid} currentParams={currentParams} />
       <ClearModal />
       <GenerateGridModal />
-      <CompletionModal />
+      <CompletionModal completedGridId={completedGridId} />
       <TemplateModal />
       <TemplateConfirmationModal
         template={template}

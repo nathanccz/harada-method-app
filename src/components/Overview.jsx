@@ -17,7 +17,8 @@ export default function Overview({
 }) {
   const [hovered, setHovered] = useState(null)
   const { id } = useParams()
-  const { openEditListModal, setCurrentParams } = useModalContext()
+  const { openEditListModal, setCurrentParams, openCompletionModal } =
+    useModalContext()
   const { userDataLoading, token } = useAuthContext()
   const { fetchGrids } = useDataContext()
   const container = useRef()
@@ -106,7 +107,7 @@ export default function Overview({
         .flat()
         .every((grid) => grid.completedAt)
     ) {
-      showCompletionModal()
+      openCompletionModal(id)
     }
 
     try {
@@ -125,10 +126,6 @@ export default function Overview({
     } catch (error) {
       console.log('Error updating grid:', error)
     }
-  }
-
-  const showCompletionModal = () => {
-    document.getElementById('completion_modal').showModal()
   }
 
   const calculateFraction = (subGrid) => {
