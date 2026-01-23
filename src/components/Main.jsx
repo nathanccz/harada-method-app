@@ -8,6 +8,7 @@ import { useDataContext } from '../providers/DataProvider'
 import { useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import ProgressBar from './ProgressBar'
+import RecentlyCompletedTable from './RecentlyCompletedTable'
 
 export default function Main() {
   const { openCreateModal } = useModalContext()
@@ -44,6 +45,10 @@ export default function Main() {
       </h1>
       <Stats />
       <ProgressBar />
+      <div className="flex flex-col gap-3">
+        <h3 className="font-bold">Task History</h3>
+        <RecentlyCompletedTable data={grids} />
+      </div>
       <Banner />
       {grids.length === 0 && (
         <div className="border rounded border-gray-300 bg-secondary text-white p-8 lg:p-36 text-center flex flex-col gap-3">
