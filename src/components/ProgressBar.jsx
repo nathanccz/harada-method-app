@@ -10,6 +10,7 @@ import {
   Legend,
 } from 'chart.js'
 import { toLocalDateString } from '../../utils/helpers'
+import RecentlyCompletedTable from './RecentlyCompletedTable'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -107,7 +108,13 @@ export default function ProgressBar() {
   return (
     <>
       {grids.length > 0 && completedTasks.length > 0 ? (
-        <Bar data={data} options={options} id={'progress-bar'} />
+        <>
+          <Bar data={data} options={options} id={'progress-bar'} />
+          <div className="flex flex-col gap-3">
+            <h3 className="font-bold">Task History</h3>
+            <RecentlyCompletedTable data={grids} />
+          </div>
+        </>
       ) : (
         grids.length > 0 &&
         completedTasks.length === 0 && (
