@@ -13,13 +13,8 @@ dialog .file-input {
   Using scrollbar-gutter: unset; removes this reserved space when a modal is open.
 */
 :root:has(
-    :is(
-        .modal-open,
-        .modal:target,
-        .modal-toggle:checked + .modal,
-        .modal[open]
-      )
-  ) {
+  :is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])
+) {
   scrollbar-gutter: unset;
 }
 

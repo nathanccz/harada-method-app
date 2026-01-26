@@ -34,7 +34,7 @@ export default function Templates() {
   ]
 
   return !gridsLoading && !userDataLoading ? (
-    <section className="flex flex-col gap-5 mt-5 basis-4/5 lg:h-[85vh] lg:overflow-scroll relative">
+    <section className="flex flex-col gap-5 mt-5 basis-4/5 relative">
       <h1 className="text-2xl font-bold">Templates</h1>
       <p>
         Explore these templates to get some inspiration – or simply use them as
@@ -65,7 +65,7 @@ export default function Templates() {
                 {categoryTemplates.map((template) => (
                   <div
                     key={template._id}
-                    className="card bg-slate-100 shadow-sm border border-transparent hover:bg-slate-200 hover:border-accent ease-in-out duration-100"
+                    className="card shadow-sm border border-primary/60 hover:bg-secondary/60 hover:border-accent ease-in-out duration-100"
                   >
                     <figure className="px-10 pt-10">
                       <img

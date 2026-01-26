@@ -147,14 +147,14 @@ export default function Overview({
   return (
     <div
       ref={container}
-      className="w-full mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 lg:overflow-scroll border border-accent/25 rounded-lg p-3 "
+      className="w-full mb-24 grid grid-cols-1 lg:grid-cols-3 gap-3 basis-4/5 lg:overflow-auto rounded-lg p-3 "
     >
       {!userDataLoading && gridData ? (
         gridData?.grids?.map((grid, ind) => (
           <ul
             className={`list ${
-              grid[0].id.startsWith('main') ? 'bg-yellow-100' : 'bg-slate-100'
-            } rounded-box shadow-md hover:bg-slate-200 ease-in-out duration-100 border border-transparent hover:border-primary relative subGoal`}
+              grid[0].id.startsWith('main') ? 'bg-primary/60' : 'bg-base-100'
+            } rounded-box shadow-md hover:bg-secondary/40 ease-in-out duration-100 border border-primary/60 hover:border-primary relative subGoal`}
             key={`grid-${ind + 1}`}
             onMouseEnter={() =>
               setHovered(grid[0].id.split('-').slice(0, 3).join('-'))

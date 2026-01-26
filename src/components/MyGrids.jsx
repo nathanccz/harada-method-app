@@ -21,7 +21,7 @@ export default function MyGrids() {
   const renderGrid = (grid) => (
     <div
       key={grid._id}
-      className="card bg-slate-100 card-md shadow-sm border border-transparent hover:bg-slate-200 hover:border-accent ease-in-out duration-100 relative pt-5"
+      className="card card-md shadow-sm border border-primary/60 hover:bg-secondary/60 hover:border-accent ease-in-out duration-100 relative pt-5"
     >
       {grid.gridType === 'project' && (
         <div className="absolute top-1 left-1">
@@ -49,7 +49,7 @@ export default function MyGrids() {
   )
 
   return !userDataLoading && !gridsLoading ? (
-    <section className="flex flex-col gap-5 mt-5 basis-4/5 relative lg:h-[85vh] lg:overflow-scroll">
+    <section className="flex flex-col gap-5 mt-5 basis-4/5 relative ">
       <h1 className="text-2xl font-bold">My Active Grids</h1>
       <div>
         {activeGrids && activeGrids.length === 0 && (

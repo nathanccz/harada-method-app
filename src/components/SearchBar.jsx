@@ -78,12 +78,12 @@ export default function SearchBar({ onFocus, onBlur, searchBarFocused }) {
         />
       </label>
       {results && searchBarFocused && (
-        <div className="bg-slate-300 rounded mt-2 p-1 border-gray-400 border absolute z-99">
+        <div className="bg-base-300 rounded mt-2 p-1 border-gray-400 border absolute z-99">
           <ul className="flex flex-col gap-2 max-h-[40vh] overflow-scroll">
             {results.length > 0 ? (
               results.map((result) => (
                 <li
-                  className="cursor-pointer hover:bg-slate-100 transition duration-300 p-3"
+                  className="cursor-pointer bg-base-300 hover:bg-accent/40 transition duration-300 p-3"
                   key={result._id}
                   onMouseDown={(e) => e.preventDefault()} //NOTE: Need to add accessibility
                   onClick={() => handleClickResult(result._id)}

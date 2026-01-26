@@ -66,7 +66,7 @@ export default function GenerateGridModal() {
             </p>
             <textarea
               placeholder="Ex: 'I want to plan a trip to Greece focusing on amazing culinary experiences.'"
-              className="textarea textarea-lg w-full bg-base-200 text-black mt-4 mb-7"
+              className="textarea textarea-lg w-full bg-white text-black h-48 mt-4 mb-7"
               onChange={handleUserInput}
               value={message}
             ></textarea>

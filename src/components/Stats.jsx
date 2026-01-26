@@ -34,9 +34,9 @@ export default function Stats() {
   }
 
   return (
-    <div className="stats shadow text-center stats-vertical md:stats-horizontal bg-slate-100">
+    <div className="stats shadow text-center stats-vertical md:stats-horizontal border border-accent/40">
       <div
-        className="stat hover:bg-slate-200 ease-in-out duration-100 cursor-pointer"
+        className="stat hover:bg-secondary/60 ease-in-out duration-100 cursor-pointer"
         onClick={handleClickActiveGrids}
       >
         <div className="stat-figure text-secondary">
@@ -49,7 +49,7 @@ export default function Stats() {
         {/* <div className="stat-desc">Jan 1st - Feb 1st</div> */}
       </div>
 
-      <div className="stat text-center hover:bg-slate-200 ease-in-out duration-100">
+      <div className="stat text-center hover:bg-secondary/60 ease-in-out duration-100">
         <div className="stat-figure text-secondary">
           <Icon icon="mdi:graph-line-shimmer" className="text-2xl" />
         </div>
@@ -61,7 +61,7 @@ export default function Stats() {
       </div>
 
       <div
-        className="stat text-center hover:bg-slate-200 ease-in-out duration-100 cursor-pointer"
+        className="stat text-center hover:bg-secondary/60 ease-in-out duration-100 cursor-pointer"
         onClick={handleClickCompletedGrids}
       >
         <div className="stat-figure text-secondary">

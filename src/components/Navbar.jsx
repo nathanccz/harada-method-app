@@ -12,7 +12,7 @@ export default function Navbar({ userData, isPhone }) {
   const { openCreateModal } = useModalContext()
 
   const getNavLinkClass = ({ isActive }) =>
-    isActive ? 'bg-gray-300 block' : 'block'
+    isActive ? 'bg-accent/40 block' : 'block'
 
   const handleSearchBarFocused = () => {
     setSearchBarFocused(true)
@@ -40,15 +40,28 @@ export default function Navbar({ userData, isPhone }) {
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="text-black w-16 rounded-full flex justify-center items-center">
-                  <div className="text-4xl text-center">
-                    <Icon icon="line-md:menu" />
-                  </div>
+                <div className="flex-none">
+                  <button className="btn btn-square btn-ghost">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className="inline-block h-5 w-5 stroke-current"
+                    >
+                      {' '}
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                      ></path>{' '}
+                    </svg>
+                  </button>
                 </div>
               </div>
               <ul
                 tabIndex="-1"
-                className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
               >
                 <li>
                   <NavLink to={'/dashboard'} end>

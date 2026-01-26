@@ -8,13 +8,14 @@ import { useDataContext } from '../providers/DataProvider'
 import SearchBar from './SearchBar'
 import { Icon } from '@iconify/react'
 import LogoutButton from './LogoutButton'
+import ThemeToggle from './ThemeToggle'
 
 export default function Sidebar({ isMobile, isTablet, isPhone }) {
   const { openCreateModal } = useModalContext()
   const { userData, userDataLoading } = useAuthContext()
   const { grids, gridsLoading } = useDataContext()
   const getNavLinkClass = ({ isActive }) =>
-    isActive ? 'bg-gray-300 block' : 'block'
+    isActive ? 'bg-accent/40 block' : 'block'
 
   const activeGrids = [...grids].filter(
     (grid) => !grid.completedAt && !grid.templateCategory
@@ -24,7 +25,7 @@ export default function Sidebar({ isMobile, isTablet, isPhone }) {
   return isMobile || isTablet || isPhone ? (
     <Navbar userData={userData} isTablet={isTablet} isPhone={isPhone} />
   ) : !userDataLoading && !gridsLoading ? (
-    <aside className="flex flex-col min-w-[250px] mb-8 pl-8">
+    <aside className="flex flex-col min-w-[250px] pl-8">
       <div className="flex mb-8 mt-4 mx-4">
         <div className="avatar placeholder">
           {userData?.image ? (
@@ -46,6 +47,9 @@ export default function Sidebar({ isMobile, isTablet, isPhone }) {
         <div className="mt-2 ml-3">
           <h3 className="font-bold text-sm">{userData?.displayName}</h3>
         </div>
+      </div>
+      <div className="mb-3">
+        <ThemeToggle />
       </div>
       <div className="mb-3 w-full">
         <NewGridButton
@@ -73,7 +77,7 @@ export default function Sidebar({ isMobile, isTablet, isPhone }) {
                 <div>Active Grids</div>
               </div>
               {activeGrids.length > 0 && (
-                <div className="bg-white px-2 rounded-full">
+                <div className="border bg-base-100 px-2 rounded-full">
                   {activeGrids.length}
                 </div>
               )}
@@ -96,7 +100,7 @@ export default function Sidebar({ isMobile, isTablet, isPhone }) {
                 <div>Completed</div>
               </div>
               {completedGrids.length > 0 && (
-                <div className="bg-white px-2 rounded-full">
+                <div className="border bg-base-100 px-2 rounded-full">
                   {completedGrids.length}
                 </div>
               )}

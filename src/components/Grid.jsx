@@ -40,7 +40,7 @@ export default function Grid({
   return (
     <>
       {/* MAIN GRID WRAPPER */}
-      <div className="max-h-[950px] max-w-[950px] mx-auto text-center">
+      <div className="max-h-[950px] max-w-[950px] mx-auto text-center text-black">
         {/* GRID OR SKELETON */}
         {!gridsLoading && !userDataLoading ? (
           <div className="grid grid-cols-3 mx-auto gap-4 subGrid">

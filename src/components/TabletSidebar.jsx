@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom'
 
 export default function TabletSidebar() {
   const getNavLinkClass = ({ isActive }) =>
-    isActive ? 'bg-gray-300 block' : 'block'
+    isActive ? 'bg-accent/40 block' : 'block'
   return (
     <aside className="flex flex-col w-20">
-      <ul className="menu bg-white rounded-box flex flex-col gap-3">
+      <ul className="menu rounded-box flex flex-col gap-3">
         <li>
           <NavLink to={'/dashboard'} className={getNavLinkClass} end>
             <div className="flex flex-col gap-1 text-center">

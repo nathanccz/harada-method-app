@@ -27,9 +27,9 @@ export default function Dashboard() {
   // NOTE: Will refactor for maintainability. This works but is messy!
 
   return (
-    <div className="flex flex-col justify-between h-screen">
+    <div className="flex flex-col justify-between">
       <div
-        className={`flex gap-3 relative w-full max-w-[1300px] mx-auto flex-grow-2 pb-6 ${
+        className={`flex gap-3 relative w-full max-w-[1300px] mx-auto flex-grow-2 ${
           isMobile || isTablet || isPhone ? 'flex-col' : 'flex-row'
         }`}
       >
@@ -51,13 +51,13 @@ export default function Dashboard() {
         >
           {(isTablet || isMobile) && <TabletSidebar />}
           <div
-            className={`${isTablet ? 'w-[90%] p-3' : isDesktop || isPhone ? 'p-6 w-full' : 'p-6 w-[90%]'}`}
+            className={`lg:h-[97vh] overflow-y-auto ${isTablet ? 'w-[90%] p-3' : isDesktop || isPhone ? 'p-3 w-full' : 'p-3 w-[90%]'}`}
           >
             <Outlet context={{ isMobile, isTablet, isDesktop, isPhone }} />
           </div>
         </main>
       </div>
-      <Footer />
+      {/* <Footer /> */}
       <SpeedDial />
     </div>
   )
