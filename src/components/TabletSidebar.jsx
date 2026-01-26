@@ -1,11 +1,12 @@
 import { Icon } from '@iconify/react'
 import { NavLink } from 'react-router-dom'
+import ThemeToggle from './ThemeToggle'
 
 export default function TabletSidebar() {
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-accent/40 block' : 'block'
   return (
-    <aside className="flex flex-col w-20">
+    <aside className="flex flex-col w-25">
       <ul className="menu rounded-box flex flex-col gap-3">
         <li>
           <NavLink to={'/dashboard'} className={getNavLinkClass} end>
@@ -54,6 +55,9 @@ export default function TabletSidebar() {
           </NavLink>
         </li>
       </ul>
+      <div className="ml-2 py-2 px-1">
+        <ThemeToggle />
+      </div>
     </aside>
   )
 }

@@ -2,7 +2,7 @@ import Hero from '../components/Hero'
 
 export default function Login() {
   return (
-    <main>
+    <main data-theme="fantasy">
       <Hero isLogin={true} />
     </main>
   )

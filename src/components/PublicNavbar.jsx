@@ -4,7 +4,7 @@ export default function PublicNavbar() {
       <div className="w-[150px] h-10 scale-130">
         <img
           alt="mharada logo"
-          src="/logo.svg"
+          src="/logo-dark.svg"
           className="w-full h-full object-cover"
         />
       </div>

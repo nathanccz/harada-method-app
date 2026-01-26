@@ -1,17 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useThemeContext } from '../providers/ThemeProvider'
 
 export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(
-    typeof window !== 'undefined' && localStorage.getItem('theme') === 'dark'
-  )
-
-  useEffect(() => {
-    document.documentElement.setAttribute(
-      'data-theme',
-      isDark ? 'dark' : 'fantasy'
-    )
-    localStorage.setItem('theme', isDark ? 'dark' : 'light')
-  }, [isDark])
+  const { isDark, setIsDark } = useThemeContext()
 
   const handleChange = (e) => {
     console.log(e.target.checked)

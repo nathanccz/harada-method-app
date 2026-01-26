@@ -17,6 +17,7 @@ import ToastProvider from './providers/ToastProvider.jsx'
 import DataProvider from './providers/DataProvider.jsx'
 import Completed from './components/Completed.jsx'
 import PDFView from './pages/PDFView.jsx'
+import ThemeProviderContext from './providers/ThemeProvider.jsx'
 
 const router = createBrowserRouter([
   {
@@ -78,14 +79,16 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthContextProvider>
-      <DataProvider>
-        <ToastProvider>
-          <ModalProvider>
-            <RouterProvider router={router} />
-          </ModalProvider>
-        </ToastProvider>
-      </DataProvider>
-    </AuthContextProvider>
+    <ThemeProviderContext>
+      <AuthContextProvider>
+        <DataProvider>
+          <ToastProvider>
+            <ModalProvider>
+              <RouterProvider router={router} />
+            </ModalProvider>
+          </ToastProvider>
+        </DataProvider>
+      </AuthContextProvider>
+    </ThemeProviderContext>
   </StrictMode>
 )

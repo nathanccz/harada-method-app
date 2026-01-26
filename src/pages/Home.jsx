@@ -8,7 +8,7 @@ import PublicNavbar from '../components/PublicNavbar'
 
 export default function Home() {
   return (
-    <main>
+    <main data-theme="fantasy">
       <PublicNavbar />
       <VideoBackground />
       <section className="text-center text-white p-8 md:p-12 lg:p-16 bg-slate-800">

@@ -5,11 +5,14 @@ import { useState } from 'react'
 import NewGridButton from './NewGridButton'
 import LogoutButton from './LogoutButton'
 import { useModalContext } from '../providers/ModalProvider'
+import { useThemeContext } from '../providers/ThemeProvider'
+import ThemeToggle from './ThemeToggle'
 
 export default function Navbar({ userData, isPhone }) {
   const [searchBarFocused, setSearchBarFocused] = useState(false)
   const [searchBarFull, setSearchBarFull] = useState(false)
   const { openCreateModal } = useModalContext()
+  const { isDark } = useThemeContext()
 
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-accent/40 block' : 'block'
@@ -114,6 +117,9 @@ export default function Navbar({ userData, isPhone }) {
                     Support
                   </NavLink>
                 </li>
+                <li className="mt-4 mx-auto">
+                  <ThemeToggle />
+                </li>
                 <li className="p-4">
                   <LogoutButton />
                 </li>
@@ -124,7 +130,7 @@ export default function Navbar({ userData, isPhone }) {
             <NavLink to={'/dashboard'}>
               <img
                 alt="myharada logo"
-                src="/logo.svg"
+                src={`/logo-${isDark ? 'white' : 'dark'}.svg`}
                 className="w-full h-full object-cover"
               />
             </NavLink>

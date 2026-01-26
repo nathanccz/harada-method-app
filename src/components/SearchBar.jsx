@@ -9,6 +9,7 @@ export default function SearchBar({ onFocus, onBlur, searchBarFocused }) {
   const navigate = useNavigate()
 
   const handleInputChange = (e) => {
+    console.log(e.target.value)
     const newValue = e.target.value.toLowerCase()
     setInputText(newValue)
 
@@ -23,6 +24,8 @@ export default function SearchBar({ onFocus, onBlur, searchBarFocused }) {
     )
 
     setResults(filtered)
+
+    console.log(searchBarFocused)
   }
 
   const handleClickResult = (gridId) => {
