@@ -67,7 +67,7 @@ export default function Navbar({ userData, isPhone }) {
                 className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
               >
                 <li>
-                  <NavLink to={'/dashboard'} end>
+                  <NavLink to={'/dashboard'} className={getNavLinkClass} end>
                     Dashboard
                   </NavLink>
                 </li>

@@ -9,13 +9,30 @@ import SearchBar from './SearchBar'
 import { Icon } from '@iconify/react'
 import LogoutButton from './LogoutButton'
 import ThemeToggle from './ThemeToggle'
+import { useState } from 'react'
 
 export default function Sidebar({ isMobile, isTablet, isPhone }) {
   const { openCreateModal } = useModalContext()
   const { userData, userDataLoading } = useAuthContext()
   const { grids, gridsLoading } = useDataContext()
+  const [searchBarFocused, setSearchBarFocused] = useState(false)
+  const [searchBarFull, setSearchBarFull] = useState(false)
+
   const getNavLinkClass = ({ isActive }) =>
     isActive ? 'bg-accent/40 block' : 'block'
+
+  const handleSearchBarFocused = () => {
+    setSearchBarFocused(true)
+
+    if (isPhone) {
+      setSearchBarFull(true)
+    }
+  }
+
+  const handleSearchBarBlurred = () => {
+    setSearchBarFocused(false)
+    setSearchBarFull(false)
+  }
 
   const activeGrids = [...grids].filter(
     (grid) => !grid.completedAt && !grid.templateCategory
@@ -58,7 +75,11 @@ export default function Sidebar({ isMobile, isTablet, isPhone }) {
         />
       </div>
       <div className="mb-5">
-        <SearchBar />
+        <SearchBar
+          onFocus={handleSearchBarFocused}
+          onBlur={handleSearchBarBlurred}
+          searchBarFocused={searchBarFocused}
+        />
       </div>
       <ul className="menu bg-base-200 rounded-box w-full gap-3 text-md font-bold mt-3">
         <li>
