@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { sendErrorToServer } from '../../services/api'
 
 export const AuthContext = createContext(null)
 
@@ -33,13 +34,15 @@ export default function AuthContextProvider({ children }) {
       })
 
       const mongoUser = await response.json()
+
       if (mongoUser.error) {
+        await sendErrorToServer(mongoUser.error)
         window.location.replace(REDIRECT_URL)
       }
       setUserData(mongoUser)
       setIsAuthenticated(true)
     } catch (error) {
-      console.log(error)
+      await sendErrorToServer(error)
       window.location.replace(REDIRECT_URL)
     }
   }
