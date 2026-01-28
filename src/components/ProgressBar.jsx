@@ -60,7 +60,7 @@ export default function ProgressBar() {
     labels: generateDateLabels(),
     datasets: [
       {
-        label: 'Completed Tasks (Past 7 Days)',
+        label: 'Actions Completed (Past 7 Days)',
         data: chartData,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -111,7 +111,7 @@ export default function ProgressBar() {
         <>
           <Bar data={data} options={options} id={'progress-bar'} />
           <div className="flex flex-col gap-3">
-            <h3 className="font-bold">Task History</h3>
+            <h3 className="font-bold">Action History</h3>
             <RecentlyCompletedTable data={grids} />
           </div>
         </>

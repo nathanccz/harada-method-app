@@ -27,7 +27,7 @@ export default function RecentlyCompletedTable({ data }) {
         <thead>
           <tr>
             <th>Date</th>
-            <th>Task</th>
+            <th>Action</th>
             <th>Grid Name</th>
           </tr>
         </thead>

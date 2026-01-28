@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { addGrid } from '../../services/gridService'
 import { useModalContext } from '../providers/ModalProvider'
 import { useToastContext } from '../providers/ToastProvider'
-import { useNavigate } from 'react-router-dom'
 import { useDataContext } from '../providers/DataProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 
@@ -37,7 +36,9 @@ export default function TemplateConfirmationModal({ template, setTemplate }) {
         document.getElementById('template_confirmation_modal').close()
         fetchGrids()
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <dialog id="template_confirmation_modal" className="modal">

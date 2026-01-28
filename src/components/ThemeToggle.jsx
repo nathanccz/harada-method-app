@@ -5,7 +5,6 @@ export default function ThemeToggle() {
   const { isDark, setIsDark } = useThemeContext()
 
   const handleChange = (e) => {
-    console.log(e.target.checked)
     setIsDark(e.target.checked)
   }
 
