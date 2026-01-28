@@ -102,7 +102,7 @@ export default function CreateModal({ createProject }) {
             </label>
             <div
               className="tooltip"
-              data-tip="Project-based grids let you mark completed tasks and track progress."
+              data-tip="Project-based grids let you mark completed actions and track progress."
             >
               <button className="btn">
                 <Icon icon="ri:question-line" className="text-xl" />

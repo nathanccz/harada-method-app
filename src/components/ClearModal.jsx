@@ -72,11 +72,11 @@ export default function ClearModal() {
                 type="radio"
                 name="clear-radio-1"
                 className="radio"
-                value="Clear all pillars & tasks"
-                checked={choice === 'Clear all pillars & tasks'}
+                value="Clear all pillars & actions"
+                checked={choice === 'Clear all pillars & actions'}
                 onChange={handleClickInput}
               />
-              Clear all pillars & tasks
+              Clear all pillars & actions
             </label>
           </div>
         </fieldset>

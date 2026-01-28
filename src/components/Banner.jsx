@@ -17,9 +17,9 @@ export default function Banner() {
             Meet Your Harada Assistant
           </h1>
           <p className="py-6">
-            When it comes to setting goals, figuring out what tasks to complete
-            can be the most difficult part. The Harada Assistant can help you
-            break down any achievable goal into short tasks, and it
+            When it comes to setting goals, figuring out what actions to
+            complete can be the most difficult part. The Harada Assistant can
+            help you break down any achievable goal into short actions, and it
             automatically fills in a Harada grid for you! You can further refine
             any generated grid to fit your needs.
           </p>

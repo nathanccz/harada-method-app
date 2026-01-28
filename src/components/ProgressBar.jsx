@@ -121,11 +121,11 @@ export default function ProgressBar() {
           <div className="p-20 flex justify-center items-center border rounded bg-secondary text-white">
             <div className="text-center">
               <h2 className="mb-3 font-bold text-xl">
-                You haven't completed any tasks, yet!
+                You haven't completed any actions, yet!
               </h2>
               <p>
-                Once you start marking off completed tasks, you'll see a graph
-                of your weekly progress.
+                Once you start completing actions, you'll see a graph of your
+                weekly progress.
               </p>
             </div>
           </div>

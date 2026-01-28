@@ -112,8 +112,7 @@ export default function MyDocument({ gridData }) {
         </View>
 
         <Text style={styles.footer}>
-          Want to create your own grid? Go to myharada.netlify.app for free
-          unlimited grids!
+          Go to myharada.netlify.app to generate unlimited Harada grids!
         </Text>
       </Page>
     </Document>

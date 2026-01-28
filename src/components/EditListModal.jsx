@@ -95,7 +95,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
             onChange={handleTitleInputChange}
           />
 
-          <label className="label">Tasks</label>
+          <label className="label">Actions</label>
           {currentPillar &&
             [...currentPillar.slice(0, 4), ...currentPillar.slice(5)].map(
               (cell, ind) => (
@@ -106,7 +106,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
                   <input
                     type="text"
                     className="input w-full"
-                    placeholder="New task"
+                    placeholder="New action"
                     value={cell.text}
                     name={cell.id}
                     onChange={handleTaskInputChange}
