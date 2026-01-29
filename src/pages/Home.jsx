@@ -5,8 +5,15 @@ import Footer from '../components/Footer'
 import Accordion from '../components/Accordion'
 import DemoVideo from '../components/DemoVideo'
 import PublicNavbar from '../components/PublicNavbar'
+import { useEffect } from 'react'
 
 export default function Home() {
+  const BASE_URL = import.meta.env.VITE_API_URL
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/health`)
+  }, [])
+
   return (
     <main data-theme="fantasy">
       <PublicNavbar />
