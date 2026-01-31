@@ -7,7 +7,7 @@ import { useAuthContext } from '../providers/AuthContextProvider'
 
 export default function ClearModal() {
   const { fetchGrids } = useDataContext()
-  const [choice, setChoice] = useState(null)
+  const [choice, setChoice] = useState('')
   const [loading, setLoading] = useState(false)
   const { gridToClear } = useModalContext()
   const { showToast } = useToastContext()
@@ -26,6 +26,7 @@ export default function ClearModal() {
       setLoading(false)
       document.getElementById('clear_modal').close()
       showToast(response.message)
+      setChoice('')
       fetchGrids()
     } catch (error) {
       console.log(error)
@@ -37,7 +38,7 @@ export default function ClearModal() {
   }
 
   const handleClickExit = () => {
-    setChoice(null)
+    setChoice('')
   }
 
   return (
@@ -61,8 +62,8 @@ export default function ClearModal() {
                 type="radio"
                 name="clear-radio-1"
                 className="radio"
-                value="Clear check marks"
-                checked={choice === 'Clear check marks'}
+                value="clear_checks"
+                checked={choice === 'clear_checks'}
                 onChange={handleClickInput}
               />
               Clear check marks
@@ -72,8 +73,8 @@ export default function ClearModal() {
                 type="radio"
                 name="clear-radio-1"
                 className="radio"
-                value="Clear all pillars & actions"
-                checked={choice === 'Clear all pillars & actions'}
+                value="clear_all"
+                checked={choice === 'clear_all'}
                 onChange={handleClickInput}
               />
               Clear all pillars & actions
