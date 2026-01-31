@@ -71,7 +71,6 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
       } else {
         setLoading(false)
         showToast(response.message)
-        setCurrentPillar([])
         document.getElementById('edit_list_modal').close()
         fetchGrids()
       }
