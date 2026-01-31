@@ -9,6 +9,7 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
   const { showToast } = useToastContext()
   const [currentPillar, setCurrentPillar] = useState([])
   const { token } = useAuthContext()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (currentParams) {
@@ -37,6 +38,8 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
   }
 
   const handleClickSave = async () => {
+    setLoading(true)
+
     const newGrid = grids.filter((grid) => grid._id === currentParams)[0].grids
     newGrid[indexOfGrid] = currentPillar
 
@@ -46,6 +49,8 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
         if (i === 4) continue
         newGrid[i][4].text = currentPillar[i].text
       }
+    } else {
+      newGrid[4][indexOfGrid].text = currentPillar[4].text
     }
 
     //Set createdAt to empty string if the text field is also empty
@@ -64,7 +69,10 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
       if (!response.message) {
         console.log('Something went wrong')
       } else {
+        setLoading(false)
         showToast(response.message)
+        setCurrentPillar([])
+        document.getElementById('edit_list_modal').close()
         fetchGrids()
       }
     } catch (error) {
@@ -115,13 +123,19 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
               )
             )}
         </fieldset>
-        <div className="modal-action">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
+
+        <div className="flex justify-end">
+          {/* if there is a button in form, it will close the modal */}
+          {!loading ? (
             <button className="btn btn-success" onClick={handleClickSave}>
-              Save Details
+              Save Actions
             </button>
-          </form>
+          ) : (
+            <button className="btn btn-success ml-3">
+              <span className="loading loading-spinner loading-md"></span>
+              Saving Actions...
+            </button>
+          )}
         </div>
       </div>
     </dialog>

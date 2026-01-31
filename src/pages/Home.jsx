@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 export default function Home() {
   const BASE_URL = import.meta.env.VITE_API_URL
 
+  // Wake up the backend on Render's free tier to reduce cold start delay
   useEffect(() => {
     fetch(`${BASE_URL}/health`)
   }, [])
