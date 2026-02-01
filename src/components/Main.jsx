@@ -19,6 +19,7 @@ export default function Main() {
     fetchGrids,
     grids,
     gridsLoading,
+    newlyCreatedGridId,
   } = useDataContext()
 
   const { isTablet, isDesktop } = useOutletContext()
@@ -26,6 +27,10 @@ export default function Main() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (newlyCreatedGridId) {
+      navigate(`/dashboard/grids`)
+    }
+
     if (!shouldAnimate) return
 
     if (isTablet || isDesktop) {
@@ -36,7 +41,7 @@ export default function Main() {
 
     fetchGrids()
     navigate(`/dashboard/grids/${newAIGeneratedGridId}`)
-  }, [shouldAnimate])
+  }, [shouldAnimate, newlyCreatedGridId])
 
   return !userDataLoading && !gridsLoading ? (
     <section className="flex flex-col gap-5 mt-5 basis-4/5 relative">

@@ -1,12 +1,22 @@
+import { useEffect } from 'react'
 import { formatDate } from '../../utils/helpers'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
 import GridCardDropdown from './GridCardDropdown'
+import { useNavigate } from 'react-router-dom'
 
 export default function Completed() {
-  const { grids, gridsLoading } = useDataContext()
+  const { grids, gridsLoading, newlyCreatedGridId } = useDataContext()
   const { userData, userDataLoading } = useAuthContext()
   const completedGrids = grids.filter((grid) => grid.completedAt)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (newlyCreatedGridId) {
+      navigate(`/dashboard/grids`)
+    }
+  }, [newlyCreatedGridId])
 
   return (
     !gridsLoading &&

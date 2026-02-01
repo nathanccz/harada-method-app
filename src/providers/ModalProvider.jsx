@@ -17,6 +17,7 @@ import CompletionModal from '../components/CompletionModal'
 import TemplateModal from '../components/TemplateModal'
 import TemplateConfirmationModal from '../components/TemplateConfirmationModal'
 import { useAuthContext } from './AuthContextProvider'
+import { useDataContext } from './DataProvider'
 
 export const ModalProviderContext = createContext(null)
 
@@ -34,6 +35,7 @@ export default function ModalProvider({ children }) {
   const [newGridId, setNewGridId] = useState(null)
   const [completedGridId, setCompletedGridId] = useState(null)
   const { token } = useAuthContext()
+  const { newlyCreatedGridId, setNewlyCreatedGridId } = useDataContext()
 
   const openCreateModal = () => {
     document.getElementById('create_modal').showModal()
@@ -98,6 +100,7 @@ export default function ModalProvider({ children }) {
     try {
       const response = await addGrid(newGrid, token)
       showToast(response.message)
+      setNewlyCreatedGridId(response.gridId)
       return response.message
     } catch (error) {
       console.log(error)

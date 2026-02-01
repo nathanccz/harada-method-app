@@ -20,12 +20,22 @@ export default function GridView() {
   const { id } = useParams()
   const { isMobile, isPhone } = useOutletContext()
   const [gridData, setGridData] = useState([])
-  const { templates, grids, shouldAnimate, setShouldAnimate, gridsLoaded } =
-    useDataContext()
+  const {
+    templates,
+    grids,
+    shouldAnimate,
+    setShouldAnimate,
+    gridsLoaded,
+    newlyCreatedGridId,
+  } = useDataContext()
 
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (newlyCreatedGridId) {
+      navigate(`/dashboard/grids`)
+    }
+
     const data =
       grids.filter((grid) => grid._id === id)[0] ||
       templates.filter((template) => template._id === id)[0]

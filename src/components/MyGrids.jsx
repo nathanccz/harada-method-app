@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { formatDate } from '../../utils/helpers'
 import GridCardDropdown from './GridCardDropdown'
@@ -11,12 +11,19 @@ import { useAuthContext } from '../providers/AuthContextProvider'
 export default function MyGrids() {
   const [filterOption, setFilterOption] = useState('All Grids')
   const { userDataLoading } = useAuthContext()
-  const { grids, gridsLoading } = useDataContext()
+  const { grids, gridsLoading, newlyCreatedGridId, setNewlyCreatedGridId } =
+    useDataContext()
   const activeGrids = grids.filter(
     (grid) => !grid.completedAt && !grid.templateCategory
   )
   const ongoingGrids = activeGrids.filter((grid) => grid.gridType === 'ongoing')
   const projectGrids = activeGrids.filter((grid) => grid.gridType === 'project')
+
+  useEffect(() => {
+    if (newlyCreatedGridId) {
+      setNewlyCreatedGridId(null)
+    }
+  }, [])
 
   const renderGrid = (grid) => (
     <div
