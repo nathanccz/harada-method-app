@@ -95,7 +95,6 @@ export default function ModalProvider({ children }) {
     newGrid.description = description
     newGrid.gridType = gridType
     newGrid.templateCategory = templateCategory || ''
-    console.log(newGrid)
 
     try {
       const response = await addGrid(newGrid, token)
@@ -110,7 +109,6 @@ export default function ModalProvider({ children }) {
   const removeGrid = async () => {
     try {
       const response = await deleteGrid(gridToDelete, token)
-      console.log(response)
       setGridToDelete(null)
       showToast('Grid deleted!')
     } catch (error) {

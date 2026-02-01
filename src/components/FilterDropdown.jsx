@@ -21,6 +21,7 @@ export default function FilterDropdown({ filterOption, setFilterOption }) {
                 name="filter-radio-1"
                 className="radio"
                 checked={filterOption === option}
+                readOnly
               />
               {option}
             </a>

@@ -92,7 +92,13 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4 mx-auto mb-5">
           <legend className="fieldset-legend">Grid cells</legend>
 
-          <label className="label">Main Goal</label>
+          <label className="label">
+            {indexOfGrid === 4
+              ? `Main Goal`
+              : indexOfGrid < 4
+                ? `Pillar ${indexOfGrid + 1}`
+                : `Pillar ${indexOfGrid}`}
+          </label>
           <input
             type="text"
             className="input w-full"
@@ -102,7 +108,9 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
             onChange={handleTitleInputChange}
           />
 
-          <label className="label">Actions</label>
+          <label className="label">
+            {indexOfGrid === 4 ? 'Pillars' : 'Actions'}
+          </label>
           {currentPillar &&
             [...currentPillar.slice(0, 4), ...currentPillar.slice(5)].map(
               (cell, ind) => (
@@ -127,12 +135,12 @@ export default function EditListModal({ indexOfGrid, currentParams }) {
           {/* if there is a button in form, it will close the modal */}
           {!loading ? (
             <button className="btn btn-success" onClick={handleClickSave}>
-              Save Actions
+              Save Changes
             </button>
           ) : (
             <button className="btn btn-success ml-3">
               <span className="loading loading-spinner loading-md"></span>
-              Saving Actions...
+              Saving Changes...
             </button>
           )}
         </div>

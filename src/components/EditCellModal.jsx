@@ -61,6 +61,29 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
     }
   }
 
+  const getTitle = (cellToEdit) => {
+    if (!cellToEdit) return ''
+
+    if (cellToEdit === 'main-5') {
+      return 'Edit Main Goal'
+    } else if (cellToEdit.startsWith('main') && cellToEdit !== 'main-5') {
+      const split = cellToEdit.split('-')
+      const position = split[split.length - 1]
+
+      return `Edit Pillar ${position < 5 ? position : position - 1}`
+    } else if (cellToEdit.startsWith('outer')) {
+      const split = cellToEdit.split('-')
+      const gridIndex = Number(split[1])
+      const taskIndex = Number(split[2])
+
+      if (taskIndex === 5) {
+        return `Edit Pillar ${gridIndex + 1}`
+      } else {
+        return 'Edit Action'
+      }
+    }
+  }
+
   return (
     <dialog id="task_modal" className="modal">
       <div className="modal-box p-10">
@@ -73,7 +96,7 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
             ✕
           </button>
         </form>
-        <h3 className="font-bold text-lg mb-3">Edit cell</h3>
+        <h3 className="font-bold text-lg mb-3">{getTitle(cellToEdit)}</h3>
         <input
           type="text"
           placeholder="Type here"
