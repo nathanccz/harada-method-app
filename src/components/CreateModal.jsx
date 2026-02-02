@@ -75,7 +75,7 @@ export default function CreateModal({ createProject }) {
             value={description}
           />
         </fieldset>
-        <fieldset className="fieldset bg-base-100 border-base-300 rounded-box w-full border p-4 mb-3">
+        <fieldset className="fieldset bg-base-100 border-accent/60 rounded-box w-full border p-4 mb-3">
           <legend className="fieldset-legend">Grid type</legend>
           <div className="flex gap-3 justify-center">
             <label className="label">

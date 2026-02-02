@@ -24,6 +24,11 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
   }
 
   const handleClickSave = async () => {
+    if (cellText === '') {
+      alert('Please enter some text.')
+      return
+    }
+
     setLoading(true)
 
     const data = grids.find((grid) => grid._id === gridToEdit)
