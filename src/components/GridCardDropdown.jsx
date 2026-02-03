@@ -42,6 +42,15 @@ export default function GridCardDropdown({ gridId }) {
         className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
       >
         <li>
+          <a onClick={() => openEditDetailsModal(gridId)}>
+            <Icon
+              icon="material-symbols:edit"
+              className="sm:text-sm mg:text-md lg:text-lg"
+            />
+            Edit Details
+          </a>
+        </li>
+        <li>
           {!loading ? (
             <a onClick={handleClickSaveAsCompleted}>
               <Icon icon="fluent-mdl2:completed" className="text-lg" />
@@ -53,15 +62,6 @@ export default function GridCardDropdown({ gridId }) {
               Saving...
             </a>
           )}
-        </li>
-        <li>
-          <a onClick={() => openEditDetailsModal(gridId)}>
-            <Icon
-              icon="material-symbols:edit"
-              className="sm:text-sm mg:text-md lg:text-lg"
-            />
-            Edit Details
-          </a>
         </li>
         <li className="text-red-700">
           <a onClick={() => openDeleteModal(gridId)}>

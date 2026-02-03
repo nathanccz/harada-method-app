@@ -10,7 +10,7 @@ export default function FilterDropdown({ filterOption, setFilterOption }) {
       </div>
       <ul
         tabIndex="-1"
-        className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+        className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
       >
         {filterOptions.map((option, ind) => (
           <li key={`${option}-${(ind + 1).toString()}`}>
