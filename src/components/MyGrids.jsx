@@ -13,7 +13,6 @@ import { useToastContext } from '../providers/ToastProvider'
 
 export default function MyGrids() {
   const [filterOption, setFilterOption] = useState('All Grids')
-  const [isTogglingPinned, setIsTogglingPinned] = useState(false)
   const [gridHovered, setGridHovered] = useState('')
   const { userDataLoading } = useAuthContext()
   const { showToast } = useToastContext()
@@ -25,6 +24,7 @@ export default function MyGrids() {
     setNewlyCreatedGridId,
     token,
   } = useDataContext()
+
   const activeGrids = grids.filter(
     (grid) => !grid.completedAt && !grid.templateCategory
   )
@@ -34,7 +34,12 @@ export default function MyGrids() {
   const projectGrids = activeGrids.filter(
     (grid) => grid.gridType === 'project' && !grid.pinned
   )
-  const pinnedProjects = activeGrids.filter((grid) => grid.pinned)
+  const pinnedProjects = activeGrids.filter(
+    (grid) => grid.gridType === 'project' && grid.pinned
+  )
+  const pinnedOngoing = activeGrids.filter(
+    (grid) => grid.gridType === 'ongoing' && grid.pinned
+  )
 
   useEffect(() => {
     if (newlyCreatedGridId) {
@@ -47,15 +52,11 @@ export default function MyGrids() {
     const newPinnedState = !grid.pinned
 
     try {
-      setIsTogglingPinned(true)
-
       const response = await pinGrid(gridId, newPinnedState, token)
-      console.log(response)
 
       if (!response) {
         console.log('Something went wrong.')
       } else {
-        setIsTogglingPinned(false)
         showToast(response)
         fetchGrids()
       }
@@ -78,11 +79,7 @@ export default function MyGrids() {
       )}
 
       <div className="absolute top-0 right-0">
-        <GridCardDropdown
-          gridId={grid._id}
-          handleClickPinGrid={handleClickPinGrid}
-          isTogglingPinned={isTogglingPinned}
-        />
+        <GridCardDropdown gridId={grid._id} />
       </div>
 
       <div className="card-body mt-4">
@@ -115,7 +112,7 @@ export default function MyGrids() {
   )
 
   return !userDataLoading && !gridsLoading ? (
-    <section className="flex flex-col gap-5 mt-5 basis-4/5 relative ">
+    <section className="flex flex-col gap-5 mt-5 basis-4/5 relative mb-5">
       <h1 className="text-2xl font-bold">My Active Grids</h1>
       <div>
         {activeGrids && activeGrids.length === 0 && (
@@ -136,6 +133,7 @@ export default function MyGrids() {
             <section>
               <h2 className="font-bold mb-3">Pinned Grids</h2>
               <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {pinnedOngoing.map(renderGrid)}
                 {pinnedProjects.map(renderGrid)}
               </div>
             </section>
@@ -148,6 +146,7 @@ export default function MyGrids() {
               <section>
                 <h2 className="font-bold mb-3">Ongoing Grids</h2>
                 <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {pinnedOngoing.map(renderGrid)}
                   {ongoingGrids.map(renderGrid)}
                 </div>
               </section>

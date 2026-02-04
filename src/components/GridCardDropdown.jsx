@@ -5,11 +5,7 @@ import { useDataContext } from '../providers/DataProvider'
 import { useState } from 'react'
 import { useAuthContext } from '../providers/AuthContextProvider'
 
-export default function GridCardDropdown({
-  gridId,
-  handleClickPinGrid,
-  isTogglingPinned,
-}) {
+export default function GridCardDropdown({ gridId }) {
   const [isSavingGridAsCompleted, setIsSavingGridAsCompleted] = useState(false)
   const { openDeleteModal, openEditDetailsModal } = useModalContext()
   const { grids, fetchGrids } = useDataContext()
@@ -43,22 +39,6 @@ export default function GridCardDropdown({
         tabIndex="-1"
         className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
       >
-        <li>
-          {!isTogglingPinned ? (
-            <a onClick={() => handleClickPinGrid(gridId)}>
-              <Icon
-                icon={gridData?.pinned ? 'iconoir:pin-solid' : 'iconoir:pin'}
-                className="text-lg cursor-pointer"
-              />
-              {gridData?.pinned ? 'Unpin Grid' : 'Pin Grid'}
-            </a>
-          ) : (
-            <a>
-              <span className="loading loading-spinner loading-md"></span>
-              Saving...
-            </a>
-          )}
-        </li>
         <li>
           <a onClick={() => openEditDetailsModal(gridId)}>
             <Icon

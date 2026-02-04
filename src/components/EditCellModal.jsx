@@ -24,7 +24,7 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
   }
 
   const handleClickSave = async () => {
-    if (cellText === '') {
+    if (content === '') {
       alert('Please enter some text.')
       return
     }
