@@ -1,7 +1,12 @@
 import { Icon } from '@iconify/react'
 
 export default function FilterDropdown({ filterOption, setFilterOption }) {
-  const filterOptions = ['All Grids', 'Ongoing Grids', 'Project Grids']
+  const filterOptions = [
+    'All Grids',
+    'Ongoing Grids',
+    'Project Grids',
+    'Pinned Grids',
+  ]
 
   return (
     <div className="dropdown dropdown-left">

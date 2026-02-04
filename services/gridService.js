@@ -8,7 +8,7 @@ export const addGrid = async (obj, token) => {
   }
 
   try {
-    const object = { ...obj }
+    const object = structuredClone(obj)
     object.grids[4][4].text = obj.title
 
     const response = await fetch(`${API_BASE_URL}/grids/add`, {
@@ -240,6 +240,32 @@ export const getAIGeneratedGrid = async (message, token) => {
     const data = await response.json()
 
     return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const pinGrid = async (gridId, newPinnedState, token) => {
+  const headers = { 'Content-Type': 'application/json' }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
+  try {
+    const URL = `${API_BASE_URL}/grids/${gridId}/pin`
+    const response = await fetch(URL, {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify({
+        pinned: newPinnedState,
+      }),
+      credentials: 'include',
+    })
+
+    const data = await response.json()
+
+    return data.message
   } catch (error) {
     console.log(error)
   }

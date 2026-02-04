@@ -7,17 +7,34 @@ import OverallProgressCircle from './OverallProgressCircle'
 import FilterDropdown from './FilterDropdown'
 import MyGridsSkeleton from './MyGridsSkeleton'
 import { useAuthContext } from '../providers/AuthContextProvider'
+import { Icon } from '@iconify/react'
+import { pinGrid } from '../../services/gridService'
+import { useToastContext } from '../providers/ToastProvider'
 
 export default function MyGrids() {
   const [filterOption, setFilterOption] = useState('All Grids')
+  const [isTogglingPinned, setIsTogglingPinned] = useState(false)
+  const [gridHovered, setGridHovered] = useState('')
   const { userDataLoading } = useAuthContext()
-  const { grids, gridsLoading, newlyCreatedGridId, setNewlyCreatedGridId } =
-    useDataContext()
+  const { showToast } = useToastContext()
+  const {
+    grids,
+    fetchGrids,
+    gridsLoading,
+    newlyCreatedGridId,
+    setNewlyCreatedGridId,
+    token,
+  } = useDataContext()
   const activeGrids = grids.filter(
     (grid) => !grid.completedAt && !grid.templateCategory
   )
-  const ongoingGrids = activeGrids.filter((grid) => grid.gridType === 'ongoing')
-  const projectGrids = activeGrids.filter((grid) => grid.gridType === 'project')
+  const ongoingGrids = activeGrids.filter(
+    (grid) => grid.gridType === 'ongoing' && !grid.pinned
+  )
+  const projectGrids = activeGrids.filter(
+    (grid) => grid.gridType === 'project' && !grid.pinned
+  )
+  const pinnedProjects = activeGrids.filter((grid) => grid.pinned)
 
   useEffect(() => {
     if (newlyCreatedGridId) {
@@ -25,10 +42,34 @@ export default function MyGrids() {
     }
   }, [])
 
+  const handleClickPinGrid = async (gridId) => {
+    const grid = activeGrids.find((grid) => grid._id === gridId)
+    const newPinnedState = !grid.pinned
+
+    try {
+      setIsTogglingPinned(true)
+
+      const response = await pinGrid(gridId, newPinnedState, token)
+      console.log(response)
+
+      if (!response) {
+        console.log('Something went wrong.')
+      } else {
+        setIsTogglingPinned(false)
+        showToast(response)
+        fetchGrids()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const renderGrid = (grid) => (
     <div
       key={grid._id}
-      className="card card-md shadow-sm border border-primary/60 hover:bg-secondary/60 hover:border-accent ease-in-out duration-100 relative pt-5"
+      onMouseEnter={() => setGridHovered(grid._id)}
+      onMouseLeave={() => setGridHovered('')}
+      className={`card card-md shadow-sm border border-primary/80 hover:bg-secondary/60 hover:border-accent ease-in-out duration-100 relative pt-5`}
     >
       {grid.gridType === 'project' && (
         <div className="absolute top-1 left-1">
@@ -37,7 +78,11 @@ export default function MyGrids() {
       )}
 
       <div className="absolute top-0 right-0">
-        <GridCardDropdown gridId={grid._id} />
+        <GridCardDropdown
+          gridId={grid._id}
+          handleClickPinGrid={handleClickPinGrid}
+          isTogglingPinned={isTogglingPinned}
+        />
       </div>
 
       <div className="card-body mt-4">
@@ -51,6 +96,20 @@ export default function MyGrids() {
             <button className="btn btn-neutral">View Grid</button>
           </NavLink>
         </div>
+        {grid._id === gridHovered && !grid.pinned && (
+          <Icon
+            icon="iconoir:pin"
+            className="text-2xl absolute bottom-5 left-5 cursor-pointer"
+            onClick={() => handleClickPinGrid(grid._id)}
+          />
+        )}
+        {grid.pinned && (
+          <Icon
+            icon="iconoir:pin-solid"
+            className="text-2xl absolute bottom-5 left-5 cursor-pointer"
+            onClick={() => handleClickPinGrid(grid._id)}
+          />
+        )}
       </div>
     </div>
   )
@@ -71,6 +130,16 @@ export default function MyGrids() {
               setFilterOption={setFilterOption}
             />
           </div>
+
+          {/* PINNED GRIDS */}
+          {pinnedProjects.length > 0 && filterOption === 'Pinned Grids' && (
+            <section>
+              <h2 className="font-bold mb-3">Pinned Grids</h2>
+              <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {pinnedProjects.map(renderGrid)}
+              </div>
+            </section>
+          )}
 
           {/* ONGOING GRIDS */}
           {ongoingGrids.length > 0 &&
@@ -96,6 +165,7 @@ export default function MyGrids() {
               <section>
                 <h2 className="font-bold mb-3">Project-based Grids</h2>
                 <div className="grid grids-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {pinnedProjects.map(renderGrid)}
                   {projectGrids.map(renderGrid)}
                 </div>
               </section>

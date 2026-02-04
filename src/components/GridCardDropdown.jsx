@@ -1,18 +1,19 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { useModalContext } from '../providers/ModalProvider'
 import { markGridAsCompleted } from '../../services/gridService'
-import { useToastContext } from '../providers/ToastProvider'
 import { useDataContext } from '../providers/DataProvider'
-import { useAuthContext } from '../providers/AuthContextProvider'
 import { useState } from 'react'
+import { useAuthContext } from '../providers/AuthContextProvider'
 
-export default function GridCardDropdown({ gridId }) {
-  const [loading, setLoading] = useState(false)
+export default function GridCardDropdown({
+  gridId,
+  handleClickPinGrid,
+  isTogglingPinned,
+}) {
+  const [isSavingGridAsCompleted, setIsSavingGridAsCompleted] = useState(false)
   const { openDeleteModal, openEditDetailsModal } = useModalContext()
-  const { showToast } = useToastContext()
   const { grids, fetchGrids } = useDataContext()
   const { token } = useAuthContext()
-
   const gridData = grids.find((grid) => grid._id === gridId)
 
   const handleClickSaveAsCompleted = async () => {
@@ -21,14 +22,15 @@ export default function GridCardDropdown({ gridId }) {
     setLoading(true)
     try {
       const response = await markGridAsCompleted(gridId, token)
-      setLoading(true)
+      setIsSavingGridAsCompleted(true)
       showToast('Grid saved successfully!')
-      setLoading(false)
+      setIsSavingGridAsCompleted(false)
       fetchGrids()
     } catch (error) {
       console.log('Error marking grid as completed:', error)
     }
   }
+
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn m-1">
@@ -42,6 +44,22 @@ export default function GridCardDropdown({ gridId }) {
         className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
       >
         <li>
+          {!isTogglingPinned ? (
+            <a onClick={() => handleClickPinGrid(gridId)}>
+              <Icon
+                icon={gridData?.pinned ? 'iconoir:pin-solid' : 'iconoir:pin'}
+                className="text-lg cursor-pointer"
+              />
+              {gridData?.pinned ? 'Unpin Grid' : 'Pin Grid'}
+            </a>
+          ) : (
+            <a>
+              <span className="loading loading-spinner loading-md"></span>
+              Saving...
+            </a>
+          )}
+        </li>
+        <li>
           <a onClick={() => openEditDetailsModal(gridId)}>
             <Icon
               icon="material-symbols:edit"
@@ -51,13 +69,13 @@ export default function GridCardDropdown({ gridId }) {
           </a>
         </li>
         <li>
-          {!loading ? (
+          {!isSavingGridAsCompleted ? (
             <a onClick={handleClickSaveAsCompleted}>
               <Icon icon="fluent-mdl2:completed" className="text-lg" />
               Save as Completed
             </a>
           ) : (
-            <a onClick={handleClickSaveAsCompleted}>
+            <a>
               <span className="loading loading-spinner loading-md"></span>
               Saving...
             </a>

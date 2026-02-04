@@ -90,8 +90,9 @@ export default function ModalProvider({ children }) {
       alert('Please enter a title.')
       return
     }
-    const newGrid = { ...data }
+    const newGrid = structuredClone(data)
     newGrid.title = title
+    newGrid.pinned = false
     newGrid.description = description
     newGrid.gridType = gridType
     newGrid.templateCategory = templateCategory || ''
