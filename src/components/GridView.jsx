@@ -9,11 +9,13 @@ import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
 import OverallProgressCircle from './OverallProgressCircle'
 import GridCardDropdown from './GridCardDropdown'
+import Drawer from './Drawer'
 
 export default function GridView() {
   const [view, setView] = useState('')
   const [loading, setLoading] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
+  const [currentCell, setCurrentCell] = useState(false)
   const { openClearModal, openUseTemplateModal, newGridId, setNewGridId } =
     useModalContext()
   const { newTemplateCreated, setNewTemplateCreated } = useDataContext()
@@ -170,6 +172,7 @@ export default function GridView() {
               setGridData={setGridData}
               shouldAnimate={shouldAnimate}
               setShouldAnimate={setShouldAnimate}
+              setCurrentCell={setCurrentCell}
             />
           ) : (
             <Overview
@@ -182,6 +185,7 @@ export default function GridView() {
             />
           )}
         </div>
+        <Drawer data={currentCell} />
       </section>
     </>
   )
