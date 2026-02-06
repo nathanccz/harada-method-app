@@ -95,6 +95,7 @@ export default function ModalProvider({ children }) {
     newGrid.pinned = false
     newGrid.description = description
     newGrid.gridType = gridType
+    newGrid.notes = { text: '', lastModified: '' }
     newGrid.templateCategory = templateCategory || ''
 
     try {

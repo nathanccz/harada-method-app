@@ -54,10 +54,16 @@ export default function Grid({
                     task.id.startsWith('main') || task.slot === 'middle-center'
 
                   return (
-                    <label htmlFor="my-drawer-5">
+                    <label
+                      htmlFor={
+                        !gridData.templateCategory && !gridData.completedAt
+                          ? 'my-drawer-5'
+                          : ''
+                      }
+                    >
                       <div
                         key={task.id}
-                        className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[95px] w-[95px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hyphens-auto 
+                        className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[95px] w-[95px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hyphens-auto cursor-pointer
                       ${
                         isMainCenter
                           ? 'bg-yellow-200 font-bold hover:bg-yellow-100'

@@ -60,3 +60,26 @@ export function toLocalDateString(date) {
   const day = String(date.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
+
+export function getTitle(cellId) {
+  if (!cellId) return ''
+
+  if (cellId === 'main-5') {
+    return 'Main Goal'
+  } else if (cellId.startsWith('main') && cellId !== 'main-5') {
+    const split = cellId.split('-')
+    const position = split[split.length - 1]
+
+    return `Pillar ${position < 5 ? position : position - 1}`
+  } else if (cellId.startsWith('outer')) {
+    const split = cellId.split('-')
+    const gridIndex = Number(split[1])
+    const taskIndex = Number(split[2])
+
+    if (taskIndex === 5) {
+      return `Pillar ${gridIndex + 1}`
+    } else {
+      return 'Action'
+    }
+  }
+}
