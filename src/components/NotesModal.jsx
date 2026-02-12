@@ -1,4 +1,11 @@
-export default function NotesModal({ text }) {
+import { Icon } from '@iconify/react'
+
+export default function NotesModal({
+  text,
+  saving,
+  setNotes,
+  handleClickSaveNotes,
+}) {
   return (
     <dialog id="notes_modal" className="modal">
       <div className="modal-box">
@@ -13,7 +20,21 @@ export default function NotesModal({ text }) {
           className="textarea w-full h-[30vh]"
           placeholder="Start typing here..."
           value={text}
+          onChange={(e) => setNotes(e.target.value)}
         ></textarea>
+        <div className="mt-3 flex justify-end">
+          {!saving ? (
+            <button className="btn btn-success" onClick={handleClickSaveNotes}>
+              <Icon icon="material-symbols:save" className="text-lg" /> Save
+              Notes
+            </button>
+          ) : (
+            <button className="btn btn-success">
+              <span className="loading loading-spinner loading-md"></span>{' '}
+              Saving...
+            </button>
+          )}
+        </div>
       </div>
     </dialog>
   )

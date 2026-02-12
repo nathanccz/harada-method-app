@@ -82,9 +82,9 @@ export default function Grid({
                           )}
                           {task?.status && (
                             <Icon
-                              icon={getStatusIcon(task?.status).icon}
+                              icon={getStatusIcon(task?.status)?.icon}
                               className={
-                                'text-sm ' + getStatusIcon(task?.status).class
+                                'text-sm ' + getStatusIcon(task?.status)?.class
                               }
                             />
                           )}

@@ -9,9 +9,7 @@ import { useModalContext } from '../providers/ModalProvider'
 import { useDataContext } from '../providers/DataProvider'
 import OverallProgressCircle from './OverallProgressCircle'
 import GridCardDropdown from './GridCardDropdown'
-import DeleteCellModal from './DeleteCellModal'
 import Drawer from './Drawer'
-import NotesModal from './NotesModal'
 
 export default function GridView() {
   const [view, setView] = useState('')
@@ -188,7 +186,6 @@ export default function GridView() {
           )}
         </div>
         <Drawer cellData={currentCell} gridData={gridData} />
-        <DeleteCellModal gridData={gridData} />
       </section>
     </>
   )

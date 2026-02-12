@@ -136,7 +136,7 @@ export function getStatusIcon(status) {
       class: 'text-green-500',
     },
   }
-  console.log(icons[status])
+
   return icons[status]
 }
 

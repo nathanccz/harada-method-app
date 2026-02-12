@@ -14,6 +14,7 @@ import { useToastContext } from '../providers/ToastProvider'
 import { useDataContext } from '../providers/DataProvider'
 import { useModalContext } from '../providers/ModalProvider'
 import NotesModal from './NotesModal'
+import DeleteCellModal from './DeleteCellModal'
 
 export default function Drawer({ gridData, cellData }) {
   const [saving, setSaving] = useState(false)
@@ -102,6 +103,12 @@ export default function Drawer({ gridData, cellData }) {
       newCell.status = status
     }
 
+    if (str === 'clear' && status === 'complete') {
+      newCell.completedAt = ''
+    } else if (str !== 'clear' && status === 'complete') {
+      newCell.completedAt = new Date().toISOString()
+    }
+
     gridArray[targetPillar][targetCell] = newCell
 
     try {
@@ -159,11 +166,11 @@ export default function Drawer({ gridData, cellData }) {
                     <div className="mb-5 flex gap-2 items-center">
                       <Icon
                         icon={
-                          getStatusIcon(cellData.status).icon ||
-                          getStatusIcon('complete').icon
+                          getStatusIcon(cellData.status)?.icon ||
+                          getStatusIcon('complete')?.icon
                         }
                         className={
-                          'text-lg ' + getStatusIcon(cellData.status).class
+                          'text-lg ' + getStatusIcon(cellData.status)?.class
                         }
                       />
                       {cellData.completedAt ? (
@@ -193,27 +200,40 @@ export default function Drawer({ gridData, cellData }) {
                     </select>
                   )}
                   <div className="flex gap-3 justify-end">
-                    {cellData.status && (
+                    {cellData.status && !clearingStatus && (
                       <button
                         className="flex-1 btn btn-neutral"
                         onClick={() => handleClickSetStatus('clear')}
                       >
-                        <Icon icon="carbon:view-filled" className="text-lg" />{' '}
-                        Clear status
+                        <Icon icon="pajamas:clear" className="text-lg" /> Clear
+                        status
                       </button>
                     )}
-                    {!savingStatus ? (
+                    {clearingStatus && (
+                      <button className="flex-1 btn btn-neutral">
+                        <span className="loading loading-spinner loading-md"></span>{' '}
+                        Clearing...
+                      </button>
+                    )}
+                    {!savingStatus && !cellData.status ? (
                       <button
-                        className="btn btn-primary"
+                        className="flex-1 btn btn-primary"
                         onClick={handleClickSetStatus}
                       >
-                        {cellData.status ? 'Change' : 'Save'} status
+                        <Icon
+                          icon="fluent:status-12-filled"
+                          className="text-lg"
+                        />{' '}
+                        Save status
                       </button>
                     ) : (
-                      <button className="btn btn-success">
-                        <span className="loading loading-spinner loading-md"></span>{' '}
-                        Saving status...
-                      </button>
+                      savingStatus &&
+                      !cellData.status && (
+                        <button className="flex-1 btn btn-success">
+                          <span className="loading loading-spinner loading-md"></span>{' '}
+                          Saving status...
+                        </button>
+                      )
                     )}
                   </div>
                 </div>
@@ -265,7 +285,13 @@ export default function Drawer({ gridData, cellData }) {
           </ul>
         </div>
       </div>
-      <NotesModal text={notes} />
+      <NotesModal
+        text={notes}
+        saving={saving}
+        setNotes={setNotes}
+        handleClickSaveNotes={handleClickSaveNotes}
+      />
+      <DeleteCellModal gridData={gridData} cellData={cellData} />
     </>
   )
 }
