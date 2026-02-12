@@ -118,7 +118,7 @@ export default function ProgressBar() {
       ) : (
         grids.length > 0 &&
         completedTasks.length === 0 && (
-          <div className="p-20 flex justify-center items-center border rounded bg-secondary text-white">
+          <div className="px-20 py-40 flex justify-center items-center border rounded bg-secondary text-white">
             <div className="text-center">
               <h2 className="mb-3 font-bold text-xl">
                 You haven't completed any actions, yet!

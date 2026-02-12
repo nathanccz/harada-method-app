@@ -11,6 +11,7 @@ import OverallProgressCircle from './OverallProgressCircle'
 import GridCardDropdown from './GridCardDropdown'
 import DeleteCellModal from './DeleteCellModal'
 import Drawer from './Drawer'
+import NotesModal from './NotesModal'
 
 export default function GridView() {
   const [view, setView] = useState('')
@@ -22,7 +23,7 @@ export default function GridView() {
   const { newTemplateCreated, setNewTemplateCreated } = useDataContext()
   const { id } = useParams()
   const { isMobile, isPhone } = useOutletContext()
-  const [gridData, setGridData] = useState([])
+  const [gridData, setGridData] = useState({})
   const {
     templates,
     grids,

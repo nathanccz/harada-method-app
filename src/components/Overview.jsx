@@ -62,8 +62,10 @@ export default function Overview({
     if (!isCompleted) {
       updatedGrid.grids[gridIndex][taskIndex].completedAt =
         new Date().toISOString()
+      updatedGrid.grids[gridIndex][taskIndex].status = 'complete'
     } else {
       updatedGrid.grids[gridIndex][taskIndex].completedAt = ''
+      updatedGrid.grids[gridIndex][taskIndex].status = ''
     }
 
     // If an item is checked off in the MAIN GOAL panel, mark off all the corresponding pillar's tasks as complete
@@ -73,8 +75,10 @@ export default function Overview({
 
         if (!taskCompleted && !isCompleted) {
           updatedGrid.grids[taskIndex][i].completedAt = new Date().toISOString()
+          updatedGrid.grids[taskIndex][i].status = 'complete'
         } else if (isCompleted) {
           updatedGrid.grids[taskIndex][i].completedAt = ''
+          updatedGrid.grids[taskIndex][i].status = ''
         }
       }
     }
@@ -85,10 +89,14 @@ export default function Overview({
         .every((cell) => cell.completedAt)
     ) {
       updatedGrid.grids[gridIndex][4].completedAt = new Date().toISOString()
+      updatedGrid.grids[gridIndex][4].status = 'complete'
       updatedGrid.grids[4][gridIndex].completedAt = new Date().toISOString()
+      updatedGrid.grids[4][gridIndex].status = 'complete'
     } else {
       updatedGrid.grids[gridIndex][4].completedAt = ''
+      updatedGrid.grids[gridIndex][4].status = ''
       updatedGrid.grids[4][gridIndex].completedAt = ''
+      updatedGrid.grids[4][gridIndex].status = ''
     }
 
     if (
@@ -97,6 +105,7 @@ export default function Overview({
         .every((cell) => cell.completedAt)
     ) {
       updatedGrid.grids[4][4].completedAt = new Date().toISOString()
+      updatedGrid.grids[4][4].status = 'complete'
     }
 
     setGridData(updatedGrid)
