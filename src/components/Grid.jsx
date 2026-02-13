@@ -1,22 +1,20 @@
-import { useEffect, useState } from 'react'
-import { Icon } from '@iconify/react/dist/iconify.js'
-import { useModalContext } from '../providers/ModalProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { useDataContext } from '../providers/DataProvider'
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { Icon } from '@iconify/react'
+import { getStatusIcon } from '../../utils/helpers'
 
 export default function Grid({
   gridData,
   setGridData,
   shouldAnimate,
   setShouldAnimate,
+  setCurrentCell,
 }) {
-  const [hovered, setHovered] = useState(null)
   const { userDataLoading } = useAuthContext()
   const { gridsLoading } = useDataContext()
-  const { openEditCellModal } = useModalContext()
 
   const container = useRef()
 
@@ -37,6 +35,10 @@ export default function Grid({
     { dependencies: [shouldAnimate, gridData] } // <- triggers animation when 'results' changes
   )
 
+  const handleClickGridCell = (cell) => {
+    setCurrentCell(cell)
+  }
+
   return (
     <>
       {/* MAIN GRID WRAPPER */}
@@ -53,9 +55,16 @@ export default function Grid({
                     task.id.startsWith('main') || task.slot === 'middle-center'
 
                   return (
-                    <div
-                      key={task.id}
-                      className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[95px] w-[95px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hyphens-auto 
+                    <label
+                      htmlFor={
+                        !gridData.templateCategory && !gridData.completedAt
+                          ? 'my-drawer-5'
+                          : ''
+                      }
+                    >
+                      <div
+                        key={task.id}
+                        className={`hover:bg-gray-200 ease-in-out flex justify-center items-center p-1 relative h-[95px] w-[95px] bg-slate-300 rounded shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 hyphens-auto cursor-pointer
                       ${
                         isMainCenter
                           ? 'bg-yellow-200 font-bold hover:bg-yellow-100'
@@ -63,26 +72,24 @@ export default function Grid({
                             ? 'bg-slate-400 font-bold'
                             : ''
                       }`}
-                      onMouseEnter={() => setHovered(task.id)}
-                      onMouseLeave={() => setHovered(null)}
-                    >
-                      {hovered === task.id &&
-                        !gridData.completedAt &&
-                        !gridData.templateCategory && (
-                          <Icon
-                            icon="material-symbols:edit-outline"
-                            className="text-2xl cursor-pointer absolute top-0 right-0"
-                            onClick={() =>
-                              openEditCellModal(
-                                gridData._id,
-                                task.id,
-                                task.text
-                              )
-                            }
-                          />
-                        )}
-                      <span className="text-xs">{task.text}</span>
-                    </div>
+                        onClick={() => handleClickGridCell(task)}
+                      >
+                        <span className="text-xs">{task.text}</span>
+                        <div className="absolute top-0.5 right-0.5 flex flex-row-reverse gap-1">
+                          {task?.notes?.text && (
+                            <Icon icon="gg:notes" className="text-sm" />
+                          )}
+                          {task?.status && (
+                            <Icon
+                              icon={getStatusIcon(task?.status)?.icon}
+                              className={
+                                'text-sm ' + getStatusIcon(task?.status)?.class
+                              }
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </label>
                   )
                 })}
               </div>

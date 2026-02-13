@@ -8,12 +8,14 @@ import { useDataContext } from '../providers/DataProvider'
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { getStatusIcon } from '../../utils/helpers'
 
 export default function Overview({
   gridData,
   setGridData,
   shouldAnimate,
   setShouldAnimate,
+  setCurrentCell,
 }) {
   const [hovered, setHovered] = useState(null)
   const { id } = useParams()
@@ -62,8 +64,10 @@ export default function Overview({
     if (!isCompleted) {
       updatedGrid.grids[gridIndex][taskIndex].completedAt =
         new Date().toISOString()
+      updatedGrid.grids[gridIndex][taskIndex].status = 'complete'
     } else {
       updatedGrid.grids[gridIndex][taskIndex].completedAt = ''
+      updatedGrid.grids[gridIndex][taskIndex].status = ''
     }
 
     // If an item is checked off in the MAIN GOAL panel, mark off all the corresponding pillar's tasks as complete
@@ -73,8 +77,10 @@ export default function Overview({
 
         if (!taskCompleted && !isCompleted) {
           updatedGrid.grids[taskIndex][i].completedAt = new Date().toISOString()
+          updatedGrid.grids[taskIndex][i].status = 'complete'
         } else if (isCompleted) {
           updatedGrid.grids[taskIndex][i].completedAt = ''
+          updatedGrid.grids[taskIndex][i].status = ''
         }
       }
     }
@@ -85,10 +91,14 @@ export default function Overview({
         .every((cell) => cell.completedAt)
     ) {
       updatedGrid.grids[gridIndex][4].completedAt = new Date().toISOString()
+      updatedGrid.grids[gridIndex][4].status = 'complete'
       updatedGrid.grids[4][gridIndex].completedAt = new Date().toISOString()
+      updatedGrid.grids[4][gridIndex].status = 'complete'
     } else {
       updatedGrid.grids[gridIndex][4].completedAt = ''
+      updatedGrid.grids[gridIndex][4].status = ''
       updatedGrid.grids[4][gridIndex].completedAt = ''
+      updatedGrid.grids[4][gridIndex].status = ''
     }
 
     if (
@@ -97,6 +107,7 @@ export default function Overview({
         .every((cell) => cell.completedAt)
     ) {
       updatedGrid.grids[4][4].completedAt = new Date().toISOString()
+      updatedGrid.grids[4][4].status = 'complete'
     }
 
     setGridData(updatedGrid)
@@ -202,17 +213,41 @@ export default function Overview({
                     cell.id.startsWith('main') && 'font-bold'
                   }`}
                 >
-                  <div
-                    className={cell.completedAt && 'text-gray-500 line-through'}
+                  <label
+                    htmlFor={
+                      !gridData.templateCategory && !gridData.completedAt
+                        ? 'my-drawer-5'
+                        : ''
+                    }
                   >
-                    {cell.text}
-                  </div>
+                    <div className="flex gap-1 items-center">
+                      <div
+                        className={`cursor-pointer hover:bg-accent/20 hover:underline ease-in-out duration-100 p-1 border border-transparent rounded ${cell.completedAt && 'text-gray-500 line-through'}`}
+                        onClick={() => setCurrentCell(cell)}
+                      >
+                        {cell.text}
+                      </div>
+                    </div>
+                  </label>
                 </div>
                 {gridData.gridType === 'project' &&
                   cell.text &&
                   !gridData.completedAt &&
                   !gridData.templateCategory && (
-                    <div className="flex justify-center items-center">
+                    <div className="flex gap-2 justify-center items-center">
+                      <span className="inline-flex gap-1 ml-1">
+                        {cell?.notes?.text && (
+                          <Icon icon="gg:notes" className="text-sm" />
+                        )}
+                        {cell?.status && cell?.status !== 'complete' && (
+                          <Icon
+                            icon={getStatusIcon(cell?.status)?.icon}
+                            className={
+                              'text-sm ' + getStatusIcon(cell?.status)?.class
+                            }
+                          />
+                        )}
+                      </span>
                       <input
                         type="checkbox"
                         checked={cell.completedAt ?? false}

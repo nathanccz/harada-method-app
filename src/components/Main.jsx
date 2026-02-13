@@ -8,7 +8,6 @@ import { useDataContext } from '../providers/DataProvider'
 import { useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import ProgressBar from './ProgressBar'
-import RecentlyCompletedTable from './RecentlyCompletedTable'
 
 export default function Main() {
   const { openCreateModal } = useModalContext()

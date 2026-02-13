@@ -50,12 +50,7 @@ export default function ModalProvider({ children }) {
     setGridToEdit(gridId)
     document.getElementById('edit_details_modal').showModal()
   }
-  const openEditCellModal = (gridId, cellId, text) => {
-    setGridToEdit(gridId)
-    setCellToEdit(cellId)
-    setCellText(text)
-    document.getElementById('task_modal').showModal()
-  }
+
   const openEditListModal = (index) => {
     setIndexOfGrid(index)
     document.getElementById('edit_list_modal').showModal()
@@ -95,6 +90,7 @@ export default function ModalProvider({ children }) {
     newGrid.pinned = false
     newGrid.description = description
     newGrid.gridType = gridType
+    newGrid.notes = { text: '', lastModified: '' }
     newGrid.templateCategory = templateCategory || ''
 
     try {
@@ -137,7 +133,6 @@ export default function ModalProvider({ children }) {
     <ModalProviderContext.Provider
       value={{
         openCreateModal,
-        openEditCellModal,
         openDeleteModal,
         openEditDetailsModal,
         openEditListModal,
