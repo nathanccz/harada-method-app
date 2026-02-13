@@ -15,7 +15,7 @@ export default function GridView() {
   const [view, setView] = useState('')
   const [loading, setLoading] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [currentCell, setCurrentCell] = useState(false)
+  const [currentCell, setCurrentCell] = useState({})
   const { openClearModal, openUseTemplateModal, newGridId, setNewGridId } =
     useModalContext()
   const { newTemplateCreated, setNewTemplateCreated } = useDataContext()
@@ -182,10 +182,15 @@ export default function GridView() {
               loading={loading}
               shouldAnimate={shouldAnimate}
               setShouldAnimate={setShouldAnimate}
+              setCurrentCell={setCurrentCell}
             />
           )}
         </div>
-        <Drawer cellData={currentCell} gridData={gridData} />
+        <Drawer
+          cellData={currentCell}
+          gridData={gridData}
+          setCurrentCell={setCurrentCell}
+        />
       </section>
     </>
   )

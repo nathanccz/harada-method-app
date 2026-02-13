@@ -8,12 +8,14 @@ import { useDataContext } from '../providers/DataProvider'
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { getStatusIcon } from '../../utils/helpers'
 
 export default function Overview({
   gridData,
   setGridData,
   shouldAnimate,
   setShouldAnimate,
+  setCurrentCell,
 }) {
   const [hovered, setHovered] = useState(null)
   const { id } = useParams()
@@ -211,17 +213,41 @@ export default function Overview({
                     cell.id.startsWith('main') && 'font-bold'
                   }`}
                 >
-                  <div
-                    className={cell.completedAt && 'text-gray-500 line-through'}
+                  <label
+                    htmlFor={
+                      !gridData.templateCategory && !gridData.completedAt
+                        ? 'my-drawer-5'
+                        : ''
+                    }
                   >
-                    {cell.text}
-                  </div>
+                    <div className="flex gap-1 items-center">
+                      <div
+                        className={`cursor-pointer ${cell.completedAt && 'text-gray-500 line-through'}`}
+                        onClick={() => setCurrentCell(cell)}
+                      >
+                        {cell.text}
+                      </div>
+                    </div>
+                  </label>
                 </div>
                 {gridData.gridType === 'project' &&
                   cell.text &&
                   !gridData.completedAt &&
                   !gridData.templateCategory && (
-                    <div className="flex justify-center items-center">
+                    <div className="flex gap-2 justify-center items-center">
+                      <span className="inline-flex gap-1 ml-1">
+                        {cell?.notes?.text && (
+                          <Icon icon="gg:notes" className="text-sm" />
+                        )}
+                        {cell?.status && cell?.status !== 'complete' && (
+                          <Icon
+                            icon={getStatusIcon(cell?.status)?.icon}
+                            className={
+                              'text-sm ' + getStatusIcon(cell?.status)?.class
+                            }
+                          />
+                        )}
+                      </span>
                       <input
                         type="checkbox"
                         checked={cell.completedAt ?? false}

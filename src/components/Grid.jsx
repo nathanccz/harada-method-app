@@ -36,7 +36,6 @@ export default function Grid({
   )
 
   const handleClickGridCell = (cell) => {
-    localStorage.setItem('current_cell', cell.id)
     setCurrentCell(cell)
   }
 

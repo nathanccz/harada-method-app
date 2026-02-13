@@ -16,7 +16,7 @@ import { useModalContext } from '../providers/ModalProvider'
 import NotesModal from './NotesModal'
 import DeleteCellModal from './DeleteCellModal'
 
-export default function Drawer({ gridData, cellData }) {
+export default function Drawer({ gridData, cellData, setCurrentCell }) {
   const [saving, setSaving] = useState(false)
   const [savingStatus, setSavingStatus] = useState(false)
   const [clearingStatus, setClearingStatus] = useState(false)
@@ -67,6 +67,7 @@ export default function Drawer({ gridData, cellData }) {
         console.log('Something went wrong!')
       } else {
         setSaving(false)
+        setCurrentCell(newCell)
         showToast('Note saved!')
         fetchGrids()
       }
@@ -119,6 +120,7 @@ export default function Drawer({ gridData, cellData }) {
       } else {
         setSavingStatus(false)
         setClearingStatus(false)
+        setCurrentCell(newCell)
         showToast(`Status ${str === 'clear' ? 'cleared!' : 'saved!'}`)
         fetchGrids()
       }
