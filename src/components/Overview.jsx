@@ -222,7 +222,7 @@ export default function Overview({
                   >
                     <div className="flex gap-1 items-center">
                       <div
-                        className={`cursor-pointer ${cell.completedAt && 'text-gray-500 line-through'}`}
+                        className={`cursor-pointer hover:bg-accent/20 hover:underline ease-in-out duration-100 p-1 border border-transparent rounded ${cell.completedAt && 'text-gray-500 line-through'}`}
                         onClick={() => setCurrentCell(cell)}
                       >
                         {cell.text}

@@ -15,6 +15,7 @@ import { useDataContext } from '../providers/DataProvider'
 import { useModalContext } from '../providers/ModalProvider'
 import NotesModal from './NotesModal'
 import DeleteCellModal from './DeleteCellModal'
+import EditCellModal from './EditCellModal'
 
 export default function Drawer({ gridData, cellData, setCurrentCell }) {
   const [saving, setSaving] = useState(false)
@@ -25,7 +26,6 @@ export default function Drawer({ gridData, cellData, setCurrentCell }) {
   const { token } = useAuthContext()
   const { showToast } = useToastContext()
   const { fetchGrids } = useDataContext()
-  const { openEditCellModal } = useModalContext()
 
   useEffect(() => {
     setNotes(cellData?.notes?.text || '')
@@ -129,6 +129,10 @@ export default function Drawer({ gridData, cellData, setCurrentCell }) {
     }
   }
 
+  const handleClickEditCell = () => {
+    document.getElementById('task_modal').showModal()
+  }
+
   return (
     <>
       <div className="drawer drawer-end z-9999">
@@ -143,9 +147,7 @@ export default function Drawer({ gridData, cellData, setCurrentCell }) {
           <ul className="menu bg-base-200 min-h-full w-80 p-4 flex flex-col justify-between">
             <div
               className="flex justify-end items-center gap-1 cursor-pointer border rounded-2xl border-transparent hover:bg-accent ease-in-out duration-100 w-fit absolute top-3 right-3 p-1"
-              onClick={() =>
-                openEditCellModal(gridData._id, cellData.id, cellData.text)
-              }
+              onClick={handleClickEditCell}
             >
               {' '}
               Edit {getTitle(cellData.id)}
@@ -248,7 +250,7 @@ export default function Drawer({ gridData, cellData, setCurrentCell }) {
                   onChange={(e) => setNotes(e.target.value)}
                   value={notes}
                 ></textarea>
-                {cellData?.notes?.lastModified && (
+                {cellData?.notes?.text && (
                   <span className="italic">
                     Last updated: {formatDate(cellData.notes.lastModified)}
                   </span>
@@ -294,6 +296,12 @@ export default function Drawer({ gridData, cellData, setCurrentCell }) {
         handleClickSaveNotes={handleClickSaveNotes}
       />
       <DeleteCellModal gridData={gridData} cellData={cellData} />
+      <EditCellModal
+        gridToEdit={gridData}
+        cellToEdit={cellData.id}
+        cellText={cellData.text}
+        setCurrentCell={setCurrentCell}
+      />
     </>
   )
 }

@@ -5,8 +5,13 @@ import { useToastContext } from '../providers/ToastProvider'
 import { useAuthContext } from '../providers/AuthContextProvider'
 import { getTitle } from '../../utils/helpers'
 
-export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
-  const [content, setContent] = useState('')
+export default function EditCellModal({
+  gridToEdit,
+  cellToEdit,
+  cellText,
+  setCurrentCell,
+}) {
+  const [content, setContent] = useState(cellText)
   const [loading, setLoading] = useState(false)
   const { grids, fetchGrids } = useDataContext()
   const { showToast } = useToastContext()
@@ -32,7 +37,7 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
 
     setLoading(true)
 
-    const data = grids.find((grid) => grid._id === gridToEdit)
+    const data = structuredClone(gridToEdit)
 
     const gridIndex = data.grids.findIndex((grid) =>
       grid.some((cell) => cell.id === cellToEdit)
@@ -42,24 +47,24 @@ export default function EditCellModal({ gridToEdit, cellToEdit, cellText }) {
       (cell) => cell.id === cellToEdit
     )
 
-    const copy = structuredClone(data)
-    copy.grids[gridIndex][taskIndex].text = content
+    data.grids[gridIndex][taskIndex].text = content
 
     if (gridIndex === 4 && cellToEdit !== 'main-5') {
-      copy.grids[taskIndex][4].text = content
+      data.grids[taskIndex][4].text = content
     }
 
     if (cellToEdit.endsWith('-5') && !cellToEdit.startsWith('main')) {
-      copy.grids[4][gridIndex].text = content
+      data.grids[4][gridIndex].text = content
     }
 
-    const response = await editGridCell(data._id, copy.grids, token)
+    const response = await editGridCell(data._id, data.grids, token)
 
     if (!response) {
       console.log('Something went wrong')
       return
     } else {
       setLoading(false)
+      setCurrentCell(data.grids[gridIndex][taskIndex])
       fetchGrids()
       showToast(response.message)
       setContent('')
