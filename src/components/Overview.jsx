@@ -27,7 +27,8 @@ export default function Overview({
 
   useGSAP(
     () => {
-      if (!shouldAnimate || !gridData || gridData.length === 0) return
+      if (!shouldAnimate || !gridData || Object.keys(gridData).length === 0)
+        return
 
       gsap.from('.subGoal > *', {
         opacity: 0,

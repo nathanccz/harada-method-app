@@ -20,7 +20,8 @@ export default function Grid({
 
   useGSAP(
     () => {
-      if (!shouldAnimate || !gridData || gridData.length === 0) return
+      if (!shouldAnimate || !gridData || Object.keys(gridData).length === 0)
+        return
 
       gsap.from('.subGrid > *', {
         opacity: 0,
@@ -42,7 +43,10 @@ export default function Grid({
   return (
     <>
       {/* MAIN GRID WRAPPER */}
-      <div className="max-h-[950px] max-w-[950px] mx-auto text-center text-black mb-10">
+      <div
+        className="max-h-[950px] max-w-[950px] mx-auto text-center text-black mb-10"
+        ref={container}
+      >
         {/* GRID OR SKELETON */}
         {!gridsLoading && !userDataLoading ? (
           <div className="grid grid-cols-3 mx-auto gap-4 subGrid">
