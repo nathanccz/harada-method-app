@@ -18,6 +18,10 @@ dialog .file-input {
   scrollbar-gutter: unset;
 }
 
+body.modal-open {
+  overflow: auto;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
