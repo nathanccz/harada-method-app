@@ -1,4 +1,3 @@
-import { createPortal } from 'react-dom'
 import { useEffect, useState } from 'react'
 import { editGridCell } from '../../services/gridService'
 import { useDataContext } from '../providers/DataProvider'
@@ -73,7 +72,7 @@ export default function EditCellModal({
     }
   }
 
-  return createPortal(
+  return (
     <dialog id="task_modal" className="modal">
       <div className="modal-box p-10">
         <form method="dialog">
@@ -105,7 +104,6 @@ export default function EditCellModal({
           </button>
         )}
       </div>
-    </dialog>,
-    document.body
+    </dialog>
   )
 }
